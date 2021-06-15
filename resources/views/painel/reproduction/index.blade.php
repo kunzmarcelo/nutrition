@@ -68,9 +68,7 @@
 
 
                                     @foreach($results as $result)
-
                                     <tr>
-
                                         <td>{{$result->animals->name }}</td>
                                         <td>{{Carbon::parse($result->delivery_date)->format('d/m/Y') }}</td>
                                         <td>{{Carbon::parse($result->coverage_date)->format('d/m/Y') }}</td>
