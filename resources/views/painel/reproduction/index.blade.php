@@ -72,11 +72,11 @@
                                     <tr>
 
                                         <td>{{$result->animals->name }}</td>
-                                        <td>{{$result->delivery_date }}</td>
-                                        <td>{{$result->coverage_date }}</td>
-                                        <td>{{$result->expected_delivery_date }}</td>
-                                        <td>{{$result->dry_date }}</td>
-                                        <td>{{$result->pre_delivery_date}}</td>
+                                        <td>{{Carbon::parse($result->delivery_date)->format('d/m/Y') }}</td>
+                                        <td>{{Carbon::parse($result->coverage_date)->format('d/m/Y') }}</td>
+                                        <td>{{Carbon::parse($result->expected_delivery_date)->format('d/m/Y') }}</td>
+                                        <td>{{Carbon::parse($result->dry_date)->format('d/m/Y') }}</td>
+                                        <td>{{Carbon::parse($result->pre_delivery_date)->format('d/m/Y')}}</td>
                                         <td>{{$result->del }}</td>
                                         <td>{{$result->situation }}</td>
                                         <td>{{$result->observation1 }}</td>
