@@ -24,6 +24,11 @@ class CreateMedicinesTable extends Migration
             $table->string('unit_of_measurement',30)->nullable();//unidade de medida
             $table->string('mode_of_use',254)->nullable();//modo de uso
             $table->timestamps();
+            $table->bigInteger('user_id')->unsigned()->index(); // this is working
+            $table->foreign('user_id')
+                              ->references('id')
+                              ->on('users')
+                              ->onDelete('cascade');
         });
 
         Schema::create('animal_medicine', function (Blueprint $table) {
@@ -32,6 +37,11 @@ class CreateMedicinesTable extends Migration
             $table->integer('medicine_id')->unsigned()->index();
             $table->date('application_date')->nullable(); //data de aplicação
             $table->date('next_application')->nullable(); //data de aplicação
+            $table->bigInteger('user_id')->unsigned()->index(); // this is working
+            $table->foreign('user_id')
+                              ->references('id')
+                              ->on('users')
+                              ->onDelete('cascade');
             $table->timestamps();
             $table->foreign('animal_id')
                     ->references('id')

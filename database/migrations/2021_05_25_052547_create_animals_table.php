@@ -34,6 +34,11 @@ class CreateAnimalsTable extends Migration
             $table->string('active',10)->nullable(); // ativo / sim ou não
             $table->string('comments')->nullable(); //
             $table->string('to_discard',10)->nullable(); // para descarte? sim ou nao
+            $table->bigInteger('user_id')->unsigned()->index(); // this is working
+            $table->foreign('user_id')
+                              ->references('id')
+                              ->on('users')
+                              ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -19,6 +19,11 @@ class CreateLotsTable extends Migration
             $table->string('phase',191)->nullable();//fase
             $table->string('description',191)->nullable();
             $table->string('color',191)->nullable();//cor do lote
+            $table->bigInteger('user_id')->unsigned()->index(); // this is working
+            $table->foreign('user_id')
+                              ->references('id')
+                              ->on('users')
+                              ->onDelete('cascade');
             $table->timestamps();
         });
     }

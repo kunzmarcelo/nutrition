@@ -22,6 +22,11 @@ class CreateProductionsTable extends Migration
             $table->string('second_milking',20)->nullable();//segunda ordenha
             $table->string('third_milking',20)->nullable();//terceira ordenha
             $table->string('total_milking',20)->nullable();//total de ordenha
+            $table->bigInteger('user_id')->unsigned()->index(); // this is working
+            $table->foreign('user_id')
+                              ->references('id')
+                              ->on('users')
+                              ->onDelete('cascade');
             $table->timestamps();
         });
     }
