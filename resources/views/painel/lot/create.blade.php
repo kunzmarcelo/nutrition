@@ -1,115 +1,53 @@
 @extends('adminlte::page')
-@section('title', 'Novo Lote | GPR Nutrition')
+@section('title', 'Nutrition')
+
+
 @section('css')
-    @toastr_css
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-<style>
-    .label-float {
-        position: relative;
-        padding-top: 13px;
-    }
-
-    .label-float input {
-        border: 1px solid lightgrey;
-        border-radius: 5px;
-        outline: none;
-        min-width: 250px;
-        padding: 15px 20px;
-        font-size: 16px;
-        transition: all .1s linear;
-        -webkit-transition: all .1s linear;
-        -moz-transition: all .1s linear;
-        -webkit-appearance: none;
-    }
-
-    .label-float input:focus {
-        border: 2px solid #084969;
-    }
-
-    .label-float input::placeholder {
-        color: transparent;
-    }
-
-    .label-float label {
-        pointer-events: none;
-        position: absolute;
-        top: calc(50% - 8px);
-        left: 15px;
-        transition: all .1s linear;
-        -webkit-transition: all .1s linear;
-        -moz-transition: all .1s linear;
-        background-color: white;
-        padding: 5px;
-        box-sizing: border-box;
-    }
-
-    .label-float input:required:invalid+label {
-        color: red;
-    }
-
-    .label-float input:focus:required:invalid {
-        border: 2px solid red;
-    }
-
-    .label-float input:required:invalid+label:before {
-        content: '*';
-    }
-
-    .label-float input:focus+label,
-    .label-float input:not(:placeholder-shown)+label {
-        font-size: 13px;
-        top: 0;
-        color: #084969;
-    }
-</style>
 @stop
+
 @section('content')
-  <section class="content-header">
-      <div class="container-fluid">
-          <div class="row mb-2">
-              <div class="col-sm-6">
-                  <h1>Cadatro</h1>
-              </div>
-              <div class="col-sm-6">
-                  <ol class="breadcrumb float-sm-right">
-                      <li class="breadcrumb-item"><a href="{{url('painel/home')}}">Home</a></li>
-                      <li class="breadcrumb-item active">Novo Lote</li>
-                  </ol>
-              </div>
-          </div>
-      </div><!-- /.container-fluid -->
-  </section>
+<section class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1>Cadastro</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="{{url('painel/home')}}">Home</a></li>
+                    <li class="breadcrumb-item active">Novo Lote</li>
+                </ol>
+            </div>
+        </div>
+    </div><!-- /.container-fluid -->
+</section>
 
 <section class="content">
-
     <div class="container-fluid">
+        <div class="row">
 
+            <div class="col-md-12">
+                <div class="card card-info">
+                    <div class="card-body">
 
-        <div class="card o-hidden border-0 shadow-lg">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
+                        <form class="forms-sample" action="{{route('lote.store')}}" method="POST" enctype="multipart/form-data">
 
-                    <div class="col-lg-12">
-                        <div class="p-5">
-                            <div class="text-center">
-                                <h1 class="h4 text-gray-900 mb-4">Novo Lote</h1>
-                            </div>
-
-                            <form class="forms-sample" action="{{route('lote.store')}}" method="POST" enctype="multipart/form-data">
-
-                                {{csrf_field()}}
-
-
-                                <div class="form-group row">
-
-                                    <div class="col-md-4">
+                            {{csrf_field()}}
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label for="name">Nome do Lote*</label>
                                         <input class="{{ $errors->has('name') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('name')}}" name="name" id="name" type="text" placeholder="Nome do Lote*">
                                         <span>
-                                            {{-- <label for="name">Nome do Lote*</label> --}}
+
                                         </span>
                                     </div>
-                                    <div class="col-md-4">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="name">Fase do Lote*</label>
                                         <select class="{{ $errors->has('phase') ? 'form-control is-invalid' : 'form-control' }} " name="phase">
                                             <option value='Vacas em Lactação'>Vacas em Lactação</option>
                                             <option value='Bezerros(as) até 6 meses'>Bezerros(as) até 6 meses</option>
@@ -125,68 +63,45 @@
 
 
                                     </div>
-
-
                                 </div>
-                                <div class="form-group row">
-                                    <div class="col-md-8">
+
+
+                            </div>
+                            <div class=" row">
+                                <div class="col-md-8">
+                                    <div class="form-group">
+                                        <label for="name">Descrição do Lote</label>
                                         <input class="{{ $errors->has('description') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('description')}}" name="description" id="description" type="text" placeholder="Descrição">
                                         <span>
-                                            {{-- <label for="name">Nome do Lote*</label> --}}
+
                                         </span>
                                     </div>
-                                    <div class="col-md-4">
-                                        <input type="color" id="color" name="color" value="#FFFFFF" class="{{ $errors->has('color') ? 'form-control is-invalid' : 'form-control' }} ">
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
                                         <label for="head">Cor do lote</label>
+                                        <input type="color" id="color" name="color" value="#FFFFFF" class="{{ $errors->has('color') ? 'form-control is-invalid' : 'form-control' }} ">
+
 
 
                                     </div>
-
-
                                 </div>
 
 
+                            </div>
+                            <div class="card-footer ">
+                                <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
+                                <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Limpar</button>
 
-
-                                <div class="form-group row">
-                                    <div class="col-md-8"></div>
-                                    <div class="col-md-2">
-                                        <button type="submit" name="button" class="btn btn-block btn-outline-danger btn-lg">
-                                            {{-- <span class="icon text-white-50">
-                            <i class="fa fa-arrow-right"></i>
-                          </span> --}}
-                                            <span class="text">Voltar</span>
-
-                                        </button>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="submit" name="button" class="btn btn-block btn-outline-info btn-lg">
-                                            {{-- <span class="icon text-white-50">
-                            <i class="fa fa-arrow-right"></i>
-                          </span> --}}
-                                            <span class="text">Enviar</span>
-
-                                        </button>
-                                    </div>
-
-
-                                </div>
-                            </form>
-
-
-
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
 
+
     </div><!-- /.container-fluid -->
 </section>
-@section('js')
-@jquery
-@toastr_js
-@toastr_render
-@stop
-
+@include('sweet::alert')
 @endsection

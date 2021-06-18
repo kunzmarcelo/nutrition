@@ -95,15 +95,12 @@ class AnimalController extends Controller
        }
 
 
-      if ($insert) {
-                 toastr()->success('Registro inserido com sucesso!');
-
-                 return redirect()->back();
-             }
-
-             toastr()->error('Ocorreu um erro por favor tente novamente mais tarde.');
-
-             return back();
+       if ($insert) {
+         alert()->success('Registro inserido!','Sucesso')->persistent('Fechar')->autoclose(1800);
+                  return redirect()->back();
+              }
+              alert()->error('Ocorreu um erro por favor tente novamente mais tarde!','Woops')->persistent('Fechar')->autoclose(1800);
+              return back();
     }
 
     /**

@@ -1,5 +1,12 @@
 @extends('adminlte::page')
-@section('title', 'Aplicação de Medicamentos | GPR Nutrition')
+@section('title', 'Nutrition')
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+
+@stop
+@include('sweet::alert')
 @section('content')
 
 <section class="content-header">
@@ -51,11 +58,12 @@
                             <table class="table table-hover data-table" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                      <th>#</th>
-                                      <th>Animal</th>
-                                      <th>Medicamento</th>
-                                      <th>Data aplicação</th>
-                                      <th>Próxima aplicação</th>
+                                        <th>#</th>
+                                        <th>Animal</th>
+                                        <th>Medicamento</th>
+                                        <th>Data aplicação</th>
+                                        <th>Próxima aplicação</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
 
@@ -69,40 +77,34 @@
                                         <td>{{$result->id }}</td>
                                         <td>{{$result->animals->earring.' / '. $result->animals->name }}</td>
                                         <td>{{$result->medicines->description }}</td>
-                                        @if($result->application_date <= Carbon::now())
-                                          <td>{{Carbon::parse($result->application_date)->format('d/m/Y')}}</td>
-                                        @endif
+                                        @if($result->application_date <= Carbon::now()) <td>{{Carbon::parse($result->application_date)->format('d/m/Y')}}
+                                                </td>
+                                                @endif
+                                                <td>
+                                                    @if($result->next_application <= Carbon::now()) <span class="badge bg-success">
+                                                            {{Carbon::parse($result->next_application)->format('d/m/Y')}}
+                                                            </span>
+                                                            @else
+                                                            <span class="badge bg-warning">
+                                                                {{Carbon::parse($result->next_application)->format('d/m/Y')}}
+                                                            </span>
+                                                            @endif
+                                                </td>
 
+                                                <td>
 
-                                        <td>
-                                          @if($result->next_application <= Carbon::now())
-                                            <span class="badge bg-success">
-                                              {{Carbon::parse($result->next_application)->format('d/m/Y')}}
-                                            </span>
-                                        @else
-                                          <span class="badge bg-warning">
-                                            {{Carbon::parse($result->next_application)->format('d/m/Y')}}
-                                          </span>
-                                            @endif
-                                        </td>
+                                                    <button class="btn btn-danger btn-sm" data-id="{{ $result->id }}" data-action="{{ route('aplicacoes.destroy',$result->id) }}" onclick="deleteConfirmation({{$result->id}})"><i
+                                                          class="fas fa-trash"></i></button>
 
-
-                                        {{-- <td>
-                                            <a href='{{route('works.show',$result->id)}}' align="right" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i> View</a>
-                                        </td>
-                                        <td>
-                                            <a href='{{route('works.edit',$result->id)}}' align="right" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Edit</a>
-                                        </td>
-                                        <td>
-                                            <form action="{{route('works.destroy', $result->id)}}" method="post">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                                <button type="submit" align="right" class="btn btn-danger btn-sm" onclick="return confirm('Você tem certeza?');"><i class="fas fa-trash"></i> Deletar</button>
-                                            </form>
+                                                    {{-- <form action="{{route('aplicacoes.destroy', $result->id)}}" method="post">
+                                                    {{ csrf_field() }}
+                                                    {{ method_field('DELETE') }}
+                                                    <button type="submit" align="right" class="btn btn-danger btn-sm" onClick="enviaDivida(event)"><i class="fas fa-trash"></i> </button>
+                                                    </form> --}}
 
 
 
-                                        </td> --}}
+                                                </td>
                                     </tr>
 
 
@@ -124,20 +126,44 @@
 
 @section('js')
 
+<script type="text/javascript">
+    function deleteConfirmation(id) {
+        swal({
+            title: "Woops!",
+            text: "Deseja realmente excluir esse registro?",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não",
+            reverseButtons: !0
+        }).then(function(e) {
+            var token = $("meta[name='csrf-token']").attr("content");
+            $.ajax({
+                url: "aplicacoes/" + id,
+                type: 'DELETE',
+                data: {
+                    "id": id,
+                    "_token": token,
+                },
+                success: function() {
+                    swal({
+                        title: "Sucesso!",
+                        text: "Registro deletado com sucesso",
+                        type: "success",
+                        timer: 1500,
+                    });
+                    document.location.reload(true);
+                }
+            });
 
-<script>
+        })
+    }
+
     $(document).ready(function() {
         $('.data-table').dataTable();
     });
 </script>
 {{-- <script src="{{asset('vendor/jquery/jquery.js')}}"></script> --}}
 @stop
-@section('js')
-@jquery
-@toastr_js
-@toastr_render
-@stop
-@section('css')
-@toastr_css
-@stop
+
 @endsection

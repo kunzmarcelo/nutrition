@@ -46,13 +46,10 @@ class LotController extends Controller
       $insert = $this->lot->create($all);
 
       if ($insert) {
-                 toastr()->success('Registro inserido com sucesso!');
-
+        alert()->success('Registro inserido!','Sucesso')->persistent('Fechar')->autoclose(1800);
                  return redirect()->back();
              }
-
-             toastr()->error('Ocorreu um erro por favor tente novamente mais tarde.');
-
+             alert()->error('Ocorreu um erro por favor tente novamente mais tarde!','Woops')->persistent('Fechar')->autoclose(1800);
              return back();
 
     }

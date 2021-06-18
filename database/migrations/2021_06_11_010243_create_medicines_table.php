@@ -21,8 +21,8 @@ class CreateMedicinesTable extends Migration
             $table->increments('id');
             $table->string('description',191)->nullable();//descrição
             $table->string('grace_days',5)->nullable();//dias de carência
-            $table->string('unit_of_measurement',100)->nullable();//unidade de medida
-            $table->string('mode_of_use')->nullable();//modo de uso
+            $table->string('unit_of_measurement',30)->nullable();//unidade de medida
+            $table->string('mode_of_use',254)->nullable();//modo de uso
             $table->timestamps();
         });
 

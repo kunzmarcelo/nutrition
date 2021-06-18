@@ -19,7 +19,7 @@ class CreateReproductionsTable extends Migration
             $table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned()->index(); // this is working
 
-
+            $table->date('created')->nullable(); //data de lançamento
             $table->date('delivery_date')->nullable(); //data do parto
             $table->date('coverage_date')->nullable(); //data cobertura
             $table->date('expected_delivery_date')->nullable(); //data previsão de parto

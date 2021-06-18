@@ -6,6 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Medicine extends Model
 {
+
+  protected $fillable = [
+    'description',
+'grace_days',
+'unit_of_measurement',
+'mode_of_use',
+];
     //
     public function animals()
     {

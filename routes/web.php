@@ -29,6 +29,12 @@ Route::group(['prefix'=>'painel','middleware' => 'auth'], function() {
   Route::resource('aplicacoes', 'Painel\AnimalMedicineController');
   Route::resource('entrega', 'Painel\DeliveryController');
   Route::resource('reproducao', 'Painel\ReproductionController');
+  Route::resource('medicamento', 'Painel\MedicineController');
+
+
+
+
+
 
 
 });

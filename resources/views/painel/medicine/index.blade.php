@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{url('painel/home')}}">Home</a></li>
-                    <li class="breadcrumb-item active">Animal</li>
+                    <li class="breadcrumb-item active">Medicamentos</li>
                 </ol>
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <div class="col-md-8"></div>
 
                     <div class="col-md-4">
-                        <a href="{{url('painel/animais/create')}}" class="btn btn-outline-info btn-block btn-lg"><b>Cadastrar</b></a>
+                        <a href="{{url('painel/medicamento/create')}}" class="btn btn-outline-info btn-block btn-lg"><b>Cadastrar</b></a>
 
                     </div>
 
@@ -51,13 +51,11 @@
                             <table class="table table-hover data-table" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Brinco</th>
-                                        <th>Nome</th>
-                                        <th>Sexo</th>
-                                        <th>Lote</th>
-                                        <th>Ativo</th>
-
+                                        <th>Cod</th>
+                                        <th>Descrição</th>
+                                        <th>Ação/Carencia</th>
+                                        <th>Medida</th>
+                                        <th>Uso</th>
                                     </tr>
                                 </thead>
 
@@ -68,18 +66,10 @@
 
                                     <tr>
                                         <td>{{$result->id}}</td>
-                                        <td>{{$result->earring}}</td>
-                                        <td>{{$result->name }}</td>
-                                        <td>{{$result->sex }}</td>
-                                        <td>{{$result->lot->name }}</td>
-                                        <td>
-                                          @if($result->active == 'Sim')
-                                          <span class="badge bg-success">{{$result->active }}</span>
-                                        @else
-                                            <span class="badge bg-danger">{{$result->active }}</span>
-                                          @endif
-                                        </td>
-
+                                        <td>{{$result->description }}</td>
+                                        <td>{{$result->grace_days }}</td>
+                                        <td>{{$result->unit_of_measurement }}</td>
+                                        <td>{{$result->mode_of_use }}</td>
                                         {{-- <td>
                                             <a href='{{route('works.show',$result->id)}}' align="right" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i> View</a>
                                         </td>
@@ -124,6 +114,6 @@
     });
 </script>
 {{-- <script src="{{asset('vendor/jquery/jquery.js')}}"></script> --}}
+<script src="{{asset('vendor/jquery/toastr.min.js')}}"></script>
 @stop
-
 @endsection

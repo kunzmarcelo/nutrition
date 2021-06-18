@@ -254,6 +254,11 @@ return [
             'icon'    => 'fas fa-object-ungroup',
         ],
         [
+          'text'    => 'Medicamentos',
+          'url'     => 'painel/medicamento',
+          'icon'    => 'fas fa-syringe',
+        ],
+        [
           'text'    => 'Animais',
           'url'     => 'painel/animais',
           'icon'    => 'fas fa-horse-head',
@@ -278,99 +283,14 @@ return [
           'url'     => 'painel/reproducao',
           'icon'    => 'fas fa-syringe',
         ],
+        ['header' => 'RELATÓRIOS'],
+        [
+          'text'    => 'Reprodução',
+          'url'     => 'painel/fechar_dia',
+          'icon'    => 'fas fa-syringe',
+        ],
 
 
-        // [
-        //     'text'    => 'Cadastros',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'Lote',
-        //             'url'  => 'painel/lote',
-        //         ],
-        //         [
-        //           'text'    => 'Animais',
-        //           'url'     => 'painel/animais',
-        //         ],
-        //         [
-        //           'text'    => 'Produção',
-        //           'url'     => 'painel/producao',
-        //         ],
-        //         [
-        //           'text'    => 'Medicamentos',
-        //           'url'     => 'painel/aplicacoes/create',
-        //         ],
-        //
-        //
-        //     ],
-        // ],
-
-
-        // ['header' => 'account_settings'],
-        // [
-        //     'text' => 'profile',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-user',
-        // ],
-        // [
-        //     'text' => 'change_password',
-        //     'url'  => 'admin/settings',
-        //     'icon' => 'fas fa-fw fa-lock',
-        // ],
-        // [
-        //     'text'    => 'multilevel',
-        //     'icon'    => 'fas fa-fw fa-share',
-        //     'submenu' => [
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //         [
-        //             'text'    => 'level_one',
-        //             'url'     => '#',
-        //             'submenu' => [
-        //                 [
-        //                     'text' => 'level_two',
-        //                     'url'  => '#',
-        //                 ],
-        //                 [
-        //                     'text'    => 'level_two',
-        //                     'url'     => '#',
-        //                     'submenu' => [
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                         [
-        //                             'text' => 'level_three',
-        //                             'url'  => '#',
-        //                         ],
-        //                     ],
-        //                 ],
-        //             ],
-        //         ],
-        //         [
-        //             'text' => 'level_one',
-        //             'url'  => '#',
-        //         ],
-        //     ],
-        // ],
-        // ['header' => 'labels'],
-        // [
-        //     'text'       => 'important',
-        //     'icon_color' => 'red',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'warning',
-        //     'icon_color' => 'yellow',
-        //     'url'        => '#',
-        // ],
-        // [
-        //     'text'       => 'information',
-        //     'icon_color' => 'cyan',
-        //     'url'        => '#',
-        // ],
     ],
 
     /*

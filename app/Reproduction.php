@@ -11,6 +11,7 @@ class Reproduction extends Model
     protected $fillable=[
         'animal_id',
         'user_id',
+        'created',
         'delivery_date',
         'coverage_date',
         'expected_delivery_date',

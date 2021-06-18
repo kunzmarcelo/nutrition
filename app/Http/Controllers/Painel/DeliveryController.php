@@ -20,8 +20,8 @@ class DeliveryController extends Controller
 
       $now = Carbon::now()->format('m');
 
-      // /$results = $this->delivery->whereMonth('collection_date', '=', $now)->get();
-      $results = $this->delivery->whereMonth('collection_date', '=', 5)->get();
+      $results = $this->delivery->whereMonth('collection_date', '=', $now)->get();
+      //$results = $this->delivery->whereMonth('collection_date', '=', 5)->get();
 
         return view('painel.delivery.index', compact('results'));
     }

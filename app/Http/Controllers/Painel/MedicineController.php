@@ -3,22 +3,20 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
-use App\Reproduction;
-use App\Animal;
+use App\Medicine;
 use Illuminate\Http\Request;
 
-class ReproductionController extends Controller
+class MedicineController extends Controller
 {
-  private $reproduction;
-  public function __construct(Reproduction $reproduction){
-    $this->reproduction = $reproduction;
+  private $medicine;
+  public function __construct(Medicine $medicine){
+    $this->medicine = $medicine;
       $this->middleware('auth');
   }
     public function index()
     {
-      $results = $this->reproduction->all();
-      //dd($results);
-        return view('painel.reproduction.index', compact('results'));
+        $results = $this->medicine->all();
+        return view('painel.medicine.index', compact('results'));
     }
 
     /**
@@ -28,9 +26,7 @@ class ReproductionController extends Controller
      */
     public function create()
     {
-      $animals = Animal::all();
-             // alert()->error('Ocorreu um erro por favor tente novamente mais tarde!','Woops')->persistent('Fechar')->autoclose(1800);
-        return view('painel.reproduction.create', compact('animals'));
+      return view('painel.medicine.create');
     }
 
     /**
@@ -41,33 +37,17 @@ class ReproductionController extends Controller
      */
     public function store(Request $request)
     {
-
-
       $all = $request->all();
-      // dd($all);
+       //dd($all);
 
-      $insert = $this->reproduction->create([
-        'animal_id'=>$request->input('animal_id'),
-        'user_id'=>auth()->user()->id,
-        'created'=>$request->input('created'),
-        'delivery_date'=>$request->input('delivery_date'),
-        'coverage_date'=>$request->input('coverage_date'),
-        'expected_delivery_date'=>$request->input('expected_delivery_date'),
-        'dry_date'=>$request->input('dry_date'),
-        'pre_delivery_date'=>$request->input('pre_delivery_date'),
-        'del'=>$request->input('del'),
-        'situation'=>$request->input('situation'),
-        'observation1'=>$request->input('observation1'),
-        'observation2'=>$request->input('observation2'),
-      ]);
+      $insert = $this->medicine->create($all);
+
       if ($insert) {
-          alert()->success('Registro inserido!','Sucesso')->persistent('Fechar')->autoclose(1800);
+        alert()->success('Registro inserido!','Sucesso')->persistent('Fechar')->autoclose(1800);
                  return redirect()->back();
              }
              alert()->error('Ocorreu um erro por favor tente novamente mais tarde!','Woops')->persistent('Fechar')->autoclose(1800);
              return back();
-
-
     }
 
     /**
@@ -78,8 +58,7 @@ class ReproductionController extends Controller
      */
     public function show($id)
     {
-
-        return view('painel.reproduction.closeday');
+        //
     }
 
     /**
@@ -115,5 +94,4 @@ class ReproductionController extends Controller
     {
         //
     }
-
 }

@@ -1,130 +1,118 @@
 @extends('adminlte::page')
-@section('title', 'Nova entrega de leite | GPR Nutrition')
+@section('title', 'Nutrition')
 
 @section('css')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @stop
 @section('content')
-@include('sweet::alert')
+
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Cadatro</h1>
+                <h1>Cadastro</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{url('painel/home')}}">Home</a></li>
-                    <li class="breadcrumb-item active">Nova entrega de leite</li>
+                    <li class="breadcrumb-item active">Nova entrega</li>
                 </ol>
             </div>
         </div>
     </div><!-- /.container-fluid -->
 </section>
 <section class="content">
-
     <div class="container-fluid">
-
-
-        <div class="card o-hidden border-0 shadow-lg">
-            <div class="card-body p-0">
-                <!-- Nested Row within Card Body -->
-                <div class="row">
-
-                    <div class="col-lg-12">
-                        <div class="p-5">
-
-
+        <div class="row">
+            <div class="col-md-12">
+              <div class="card card-info">
+                      <div class="card-body">
                             <form class="forms-sample form-signin" action="{{route('entrega.store')}}" method="POST" enctype="multipart/form-data">
 
                                 {{csrf_field()}}
-
-
-
-                                <div class="form-group row">
-
-                                    <div class="col-md-4 floating-label">
-                                        {{-- <span class="has-float-label"> --}}
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                          <label for="collection_date">Data da Coleta</label>
                                         <input class="{{ $errors->has('collection_date') ? 'form-control is-invalid' : 'form-control' }} " value="<?php echo date('Y-m-d'); ?>" name="collection_date" id="collection_date" type="date"
                                           placeholder="Data da Coleta">
-                                        <label for="collection_date">Data da Coleta</label>
-                                        {{-- </span> --}}
+
                                     </div>
-                                    <div class="col-md-4 floating-label">
-                                        {{-- <span class="has-float-label"> --}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                          <label for="liters_delivered">Litros Entregues</label>
                                         <input class="{{ $errors->has('liters_delivered') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('liters_delivered')}}" name="liters_delivered" id="liters_delivered" type="text"
                                           placeholder="Litros Entregues">
-                                        <label for="liters_delivered">Litros Entregues</label>
+
                                         {{-- </span> --}}
                                     </div>
-                                    <div class="col-md-4 floating-label">
-                                        {{-- <span class="has-float-label"> --}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                          <label for="liters_consumption">Litros Consumidos Bezerros(as)</label>
                                         <input class="{{ $errors->has('liters_consumption') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('liters_consumption')}}" name="liters_consumption" id="liters_consumption" type="text"
                                           placeholder="Litros Consumidos Bezerros(as)">
-                                        <label for="liters_consumption">Litros Consumidos Bezerros(as)</label>
+
                                         {{-- </span> --}}
                                     </div>
+                                    </div>
                                 </div>
-                                <div class="form-group row">
-
-                                    <div class="col-md-4 floating-label">
-                                        {{-- <span class="has-float-label"> --}}
+                                <div class="row">
+                                  <div class="col-sm-4">
+                                      <!-- text input -->
+                                      <div class="form-group">
+                                        <label for="liters_internal_consumption">Litros Consumidos Interno</label>
                                         <input class="{{ $errors->has('liters_internal_consumption') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('liters_internal_consumption')}}" name="liters_internal_consumption"
                                           id="liters_internal_consumption" type="text" placeholder="Litros Consumidos Interno">
-                                        <label for="liters_internal_consumption">Litros Consumidos Interno</label>
+
                                         {{-- </span> --}}
                                     </div>
-                                    <div class="col-md-4 floating-label">
-                                        {{-- <span class="has-float-label"> --}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                          <label for="discarded_liters">Litros Descartados</label>
                                         <input class="{{ $errors->has('discarded_liters') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('discarded_liters')}}" name="discarded_liters" id="discarded_liters" type="text"
                                           placeholder="Litros Descartados">
-                                        <label for="discarded_liters">Litros Descartados</label>
+
                                         {{-- </span> --}}
                                     </div>
-                                    <div class="col-md-4 floating-label">
-                                        {{-- <span class="has-float-label"> --}}
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <!-- text input -->
+                                        <div class="form-group">
+                                          <label for="total_liters_produced">Total Litros Produzidos</label>
                                         <input readonly="readonly" class="{{ $errors->has('total_liters_produced') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('total_liters_produced')}}" name="total_liters_produced"
                                           id="total_liters_produced" type="text" placeholder="Total Litros Produzidos">
-                                        <label for="total_liters_produced">Total Litros Produzidos</label>
+
                                         {{-- </span> --}}
                                     </div>
+                                    </div>
                                 </div>
-                                <div class="form-group row">
-
-                                    <div class="col-md-4 floating-label">
-                                        {{-- <span class="has-float-label"> --}}
+                                <div class="row">
+                                <div class="col-sm-4">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                      <label for="milk_price">Preço do Leite</label>
                                         <input class="{{ $errors->has('milk_price') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('milk_price')}}" name="milk_price" id="milk_price" type="text" placeholder="Preço do Leite" onkeyup="formatarMoeda(this);">
-                                        <label for="milk_price">Preço do Leite</label>
+
                                         {{-- </span> --}}
                                     </div>
 
                                 </div>
+                                </div>
 
 
 
-                                <div class="form-group row">
-                                    <div class="col-md-8"></div>
-                                    <div class="col-md-2">
-                                        <button type="submit" name="button" class="btn btn-block btn-outline-danger btn-lg" onClick="history.go(-1)">
-                                            {{-- <span class="icon text-white-50">
-                            <i class="fa fa-arrow-right"></i>
-                          </span> --}}
-                                            <span class="text">Voltar</span>
 
-                                        </button>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button type="submit" name="button" class="btn btn-block btn-outline-info btn-lg">
-                                            {{-- <span class="icon text-white-50">
-                            <i class="fa fa-arrow-right"></i>
-                          </span> --}}
-                                            <span class="text">Enviar</span>
-
-                                        </button>
-                                    </div>
-
-
+                                <div class="card-footer ">
+                                    <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
+                                    <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Limpar</button>
                                 </div>
                             </form>
 
@@ -197,5 +185,5 @@
 </script>
 
 @stop
-
+@include('sweet::alert')
 @endsection

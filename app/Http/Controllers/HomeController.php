@@ -26,13 +26,12 @@ class HomeController extends Controller
     {
       $now = Carbon::now()->format('m');
 
-
       // /$results = $this->delivery->whereMonth('collection_date', '=', $now)->get();
-      $results = $this->delivery->whereMonth('collection_date', '=', 5)->get();
+      $results = $this->delivery->whereMonth('collection_date', '=', $now)->get();
 
       $animalsActive = Animal::where('active','=','sim')->count();
       $animalsTotal = Animal::count();
-      $productionTotal = Delivery::whereMonth('collection_date', '=', 5)->sum('total_liters_produced');
+      $productionTotal = Delivery::whereMonth('collection_date', '=', $now)->sum('total_liters_produced');
       //dd($animalsActive);
         return view('home',compact('results','animalsActive','animalsTotal','productionTotal'));
     }

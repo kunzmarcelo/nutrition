@@ -32,7 +32,7 @@ class AnimalMedicineController extends Controller
      */
     public function create()
     {
-      $animals = Animal::all();
+      $animals = Animal::where('active','=','Sim')->get();
       $medicines = Medicine::all();
       return view('painel.animalMedicine.create', compact('animals','medicines'));
     }
@@ -113,6 +113,21 @@ class AnimalMedicineController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $dado = $this->medicine->find($id);
+
+        $detele = $dado->delete();
+
+
+      if ($detele){
+        return response()->json([
+                'success' => 'Registro deletado com sucesso!'
+            ]);
+          }else{
+            return response()->json([
+                    'success' => 'Ocorreu um erro por favor tente novamente mais tarde!'
+                ]);
+          }
+
+
     }
 }
