@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Nutrition')
+@section('title', 'Farms Nutrition')
 
 @section('css')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -26,103 +26,105 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-              <div class="card card-info">
-                      <div class="card-body">
-                            <form class="forms-sample form-signin" action="{{route('entrega.store')}}" method="POST" enctype="multipart/form-data">
+                <div class="card card-info">
+                    <div class="card-body">
+                        <form class="forms-sample form-signin" action="{{route('entrega.store')}}" method="POST" enctype="multipart/form-data">
 
-                                {{csrf_field()}}
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                          <label for="collection_date">Data da Coleta</label>
+                            {{csrf_field()}}
+                            <input name="user_id" type="hidden" value="{{Auth::user()->id}}">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label for="collection_date">Data da Coleta</label>
                                         <input class="{{ $errors->has('collection_date') ? 'form-control is-invalid' : 'form-control' }} " value="<?php echo date('Y-m-d'); ?>" name="collection_date" id="collection_date" type="date"
                                           placeholder="Data da Coleta">
 
                                     </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                          <label for="liters_delivered">Litros Entregues</label>
-                                        <input class="{{ $errors->has('liters_delivered') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('liters_delivered')}}" name="liters_delivered" id="liters_delivered" type="text"
+                                </div>
+                                <div class="col-sm-4">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label for="liters_delivered">Litros Entregues</label>
+                                        <input class="{{ $errors->has('liters_delivered') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('liters_delivered')}}" name="liters_delivered" id="liters_delivered" type="number"
                                           placeholder="Litros Entregues">
 
                                         {{-- </span> --}}
                                     </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                          <label for="liters_consumption">Litros Consumidos Bezerros(as)</label>
-                                        <input class="{{ $errors->has('liters_consumption') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('liters_consumption')}}" name="liters_consumption" id="liters_consumption" type="text"
+                                </div>
+                                <div class="col-sm-4">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label for="liters_consumption">Litros Consumidos Bezerros(as)</label>
+                                        <input class="{{ $errors->has('liters_consumption') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('liters_consumption')}}" name="liters_consumption" id="liters_consumption" type="number"
                                           placeholder="Litros Consumidos Bezerros(as)">
 
                                         {{-- </span> --}}
                                     </div>
-                                    </div>
                                 </div>
-                                <div class="row">
-                                  <div class="col-sm-4">
-                                      <!-- text input -->
-                                      <div class="form-group">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <!-- text input -->
+                                    <div class="form-group">
                                         <label for="liters_internal_consumption">Litros Consumidos Interno</label>
                                         <input class="{{ $errors->has('liters_internal_consumption') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('liters_internal_consumption')}}" name="liters_internal_consumption"
-                                          id="liters_internal_consumption" type="text" placeholder="Litros Consumidos Interno">
+                                          id="liters_internal_consumption" type="number" placeholder="Litros Consumidos Interno">
 
                                         {{-- </span> --}}
                                     </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                          <label for="discarded_liters">Litros Descartados</label>
-                                        <input class="{{ $errors->has('discarded_liters') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('discarded_liters')}}" name="discarded_liters" id="discarded_liters" type="text"
+                                </div>
+                                <div class="col-sm-4">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label for="discarded_liters">Litros Descartados</label>
+                                        <input class="{{ $errors->has('discarded_liters') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('discarded_liters')}}" name="discarded_liters" id="discarded_liters" type="number"
                                           placeholder="Litros Descartados">
 
                                         {{-- </span> --}}
                                     </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                          <label for="total_liters_produced">Total Litros Produzidos</label>
-                                        <input readonly="readonly" class="{{ $errors->has('total_liters_produced') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('total_liters_produced')}}" name="total_liters_produced"
-                                          id="total_liters_produced" type="text" placeholder="Total Litros Produzidos">
-
-                                        {{-- </span> --}}
-                                    </div>
-                                    </div>
                                 </div>
-                                <div class="row">
                                 <div class="col-sm-4">
                                     <!-- text input -->
                                     <div class="form-group">
-                                      <label for="milk_price">Preço do Leite</label>
-                                        <input class="{{ $errors->has('milk_price') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('milk_price')}}" name="milk_price" id="milk_price" type="text" placeholder="Preço do Leite" onkeyup="formatarMoeda(this);">
+                                        <label for="total_liters_produced">Total Litros Produzidos</label>
+                                        <input readonly="readonly" class="{{ $errors->has('total_liters_produced') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('total_liters_produced')}}" name="total_liters_produced"
+                                          id="total_liters_produced" type="number" placeholder="Total Litros Produzidos">
+
+                                        {{-- </span> --}}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label for="milk_price">Preço do Leite</label>
+                                        <input class="{{ $errors->has('milk_price') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('milk_price')}}" name="milk_price" id="milk_price" type="text" placeholder="Preço do Leite"
+                                          onkeyup="formatarMoeda(this);">
 
                                         {{-- </span> --}}
                                     </div>
 
                                 </div>
-                                </div>
+                            </div>
 
 
 
 
-                                <div class="card-footer ">
-                                    <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
-                                    <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Limpar</button>
-                                </div>
-                            </form>
+                            <div class="card-footer ">
+                                <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
+                                <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Limpar</button>
+                            </div>
+                        </form>
 
 
 
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
     </div><!-- /.container-fluid -->
 </section>
@@ -173,15 +175,15 @@
 
 
     onInput();
-    function formatarMoeda(i) {
-    	var v = i.value.replace(/\D/g,'');
-    	v = (v/100).toFixed(2) + '';
-    	v = v.replace(".", ",");
-    	v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
-    	v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
-    	i.value = v;
-    }
 
+    function formatarMoeda(i) {
+        var v = i.value.replace(/\D/g, '');
+        v = (v / 100).toFixed(2) + '';
+        v = v.replace(".", ",");
+        v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+        v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
+        i.value = v;
+    }
 </script>
 
 @stop

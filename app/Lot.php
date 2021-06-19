@@ -11,6 +11,7 @@ class Lot extends Model
       'name',
       'phase',
       'description',
-      'color'
+      'color',
+      'user_id'
     ];
 }

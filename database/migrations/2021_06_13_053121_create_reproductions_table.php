@@ -14,7 +14,7 @@ class CreateReproductionsTable extends Migration
     public function up()
     {
         Schema::create('reproductions', function (Blueprint $table) {
-            // $table->increments('id');
+             $table->increments('id');
             $table->unsignedInteger('animal_id');
             $table->foreign('animal_id')->references('id')->on('animals')->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned()->index(); // this is working

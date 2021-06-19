@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Listagem | GPR Nutrition')
+@section('title', 'Farms Nutrition')
 @section('css')
 <script src="https://code.highcharts.com/highcharts.js"></script>
 @stop
@@ -47,18 +47,6 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
-              {{-- <div class="card">
-
-                <div id="container"></div>
-
-
-                <hr />
-
-
-
-                </div> --}}
-
-
                 <div class="card">
 
                     <!-- /.card-header -->
@@ -128,70 +116,10 @@
 
 
 <script>
-
-
-    Highcharts.chart('container', {
-        title: {
-            text: 'Total por Entregas'
-        },
-        subtitle: {
-                    text: 'Quantidade do mês atual'
-                },
-         xAxis: {
-            categories: [
-              @foreach ($results as $value)
-              '{{Carbon::parse($value->collection_date)->format("d/m/Y")}}',
-              @endforeach
-          ]
-        },
-        yAxis: {
-            title: {
-                text: 'Litros por entrega'
-            }
-        },
-        legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle'
-        },
-        plotOptions: {
-            series: {
-                allowPointSelect: true
-            }
-        },
-        series: [{
-            name: 'Litros',
-            data: [
-              @foreach ($results as $value)
-                  {{$value->total_liters_produced.','}}
-                  @endforeach
-                ],
-                pointStart: 0
-        }],
-        responsive: {
-            rules: [{
-                condition: {
-                    maxWidth: 500
-                },
-                chartOptions: {
-                    legend: {
-                        layout: 'horizontal',
-                        align: 'center',
-                        verticalAlign: 'bottom'
-                    }
-                }
-            }]
-        }
+$(document).ready(function() {
+    $('.data-table').dataTable();
 });
-
-
-
-
-
-
-    $(document).ready(function() {
-        $('.data-table').dataTable();
-    });
+    
 </script>
 {{-- <script src="{{asset('vendor/jquery/jquery.js')}}"></script> --}}
 @stop

@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Produção Cadastradas | GPR Nutrition')
+@section('title', 'Farms Nutrition')
 @section('content')
 
 <section class="content-header">
@@ -122,12 +122,5 @@
 </script>
 {{-- <script src="{{asset('vendor/jquery/jquery.js')}}"></script> --}}
 @stop
-@section('js')
-@jquery
-@toastr_js
-@toastr_render
-@stop
-@section('css')
-@toastr_css
-@stop
+
 @endsection

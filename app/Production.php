@@ -13,6 +13,7 @@ class Production extends Model
       'second_milking',
       'third_milking',
       'total_milking',
+      'user_id',
       ];
       public function animal(){
         return $this->belongsTo(Animal::class);

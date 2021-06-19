@@ -12,6 +12,7 @@ class Medicine extends Model
 'grace_days',
 'unit_of_measurement',
 'mode_of_use',
+'user_id',
 ];
     //
     public function animals()

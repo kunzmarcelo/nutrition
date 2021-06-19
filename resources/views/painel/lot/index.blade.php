@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Lotes Cadastrados | GPR Nutrition')
+@section('title', 'Farms Nutrition')
 @section('content')
 
 <section class="content-header">
@@ -112,7 +112,6 @@
         $('.data-table').dataTable();
     });
 </script>
-{{-- <script src="{{asset('vendor/jquery/jquery.js')}}"></script> --}}
-<script src="{{asset('vendor/jquery/toastr.min.js')}}"></script>
+
 @stop
 @endsection

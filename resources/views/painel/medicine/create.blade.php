@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Nutrition')
+@section('title', 'Farms Nutrition')
 
 
 @section('css')
@@ -35,14 +35,14 @@
                         <form class="forms-sample" action="{{route('medicamento.store')}}" method="POST" enctype="multipart/form-data">
 
                             {{csrf_field()}}
+                            <input name="user_id" type="hidden" value="{{Auth::user()->id}}">
+
                             <div class="row">
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label for="description">Descrição*</label>
                                         <input class="{{ $errors->has('description') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('description')}}" name="description" id="description" type="text" placeholder="Descrição*">
-                                        <span>
 
-                                        </span>
                                     </div>
                                 </div>
                                 <div class="col-sm-4">

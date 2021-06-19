@@ -26,7 +26,7 @@ class CreateAnimalsTable extends Migration
             $table->string('sex')->nullable(); // sexo
             $table->string('origin')->nullable(); // origem
             $table->date('date_of_last_delivery')->nullable(); // data do ultimo parto
-            $table->integer('value')->nullable(); // valor
+            $table->string('value',20)->nullable(); // valor
             $table->date('weaning_date')->nullable(); // data do desmame
             $table->string('mother_on_the_property')->nullable(); // mãe na propriedade
             $table->string('father_on_the_property')->nullable(); // pai na propriedade

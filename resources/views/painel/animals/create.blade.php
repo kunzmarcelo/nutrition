@@ -1,68 +1,10 @@
 @extends('adminlte::page')
-@section('title', 'Nutrition')
+@section('title', 'Farms Nutrition')
 
 
 @section('css')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-<style>
-    .label-float {
-        position: relative;
-        padding-top: 13px;
-    }
 
-    .label-float input {
-        border: 1px solid lightgrey;
-        border-radius: 5px;
-        outline: none;
-        min-width: 250px;
-        padding: 15px 20px;
-        font-size: 16px;
-        transition: all .1s linear;
-        -webkit-transition: all .1s linear;
-        -moz-transition: all .1s linear;
-        -webkit-appearance: none;
-    }
-
-    .label-float input:focus {
-        border: 2px solid #084969;
-    }
-
-    .label-float input::placeholder {
-        color: transparent;
-    }
-
-    .label-float label {
-        pointer-events: none;
-        position: absolute;
-        top: calc(50% - 8px);
-        left: 15px;
-        transition: all .1s linear;
-        -webkit-transition: all .1s linear;
-        -moz-transition: all .1s linear;
-        background-color: white;
-        padding: 5px;
-        box-sizing: border-box;
-    }
-
-    .label-float input:required:invalid+label {
-        color: red;
-    }
-
-    .label-float input:focus:required:invalid {
-        border: 2px solid red;
-    }
-
-    .label-float input:required:invalid+label:before {
-        content: '*';
-    }
-
-    .label-float input:focus+label,
-    .label-float input:not(:placeholder-shown)+label {
-        font-size: 13px;
-        top: 0;
-        color: #084969;
-    }
-</style>
 @stop
 @section('content')
 
@@ -70,7 +12,7 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>Cadatro</h1>
+                <h1>Cadastro</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
@@ -85,58 +27,60 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-              <div class="col-md-12">
-                    <div class="card card-info">
-                        <div class="card-body">
-                            <form class="forms-sample" action="{{route('animais.store')}}" method="POST" enctype="multipart/form-data">
-                                {{csrf_field()}}
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Numero do Brinco*</label>
-                                            <input class="{{ $errors->has('earring') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('earring')}}" name="earring" id="earring" type="text" placeholder="Numero do Brinco*">
-                                        </div>
-                                      </div>
-
-                                      <div class="col-sm-3">
-                                            <!-- text input -->
-                                            <div class="form-group">
-                                                <label>Numero do registro</label>
-                                                <input class="{{ $errors->has('record') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('record')}}" name="record" id="record" type="text" placeholder="Numero de registro">
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-3">
-                                        <!-- text input -->
-                                            <div class="form-group">
-                                                <label>Nome do Animal*</label>
-                                                <input class="{{ $errors->has('name') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('name')}}" name="name" id="name" type="text" placeholder="Nome do Animal*">
-                                              </div>
-                                        </div>
-                                    <div class="col-sm-3">
-                                      <div class="form-group">
-                                          <label>Lote do Animal*</label>
-                                          <select name="lot_id" id="lot_id" class=" {{ $errors->has('lot_id') ? 'form-control is-invalid' : 'form-control' }}">
-                                              @foreach ($lots as $value)
-                                              <option value="{{$value->id}}" {{old('type') == '{$value}' ? 'selected' : '' }}>{{$value->name}}</option>
-                                              @endforeach
-                                            </select>
-                                          </div>
+            <div class="col-md-12">
+                <div class="card card-info">
+                    <div class="card-body">
+                        <form class="forms-sample" action="{{route('animais.store')}}" method="POST" enctype="multipart/form-data">
+                            {{csrf_field()}}
+                            <input name="user_id" type="hidden" value="{{Auth::user()->id}}">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label>Número do Brinco*</label>
+                                        <input class="{{ $errors->has('earring') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('earring')}}" name="earring" id="earring" type="text" placeholder="Número do Brinco*">
                                     </div>
                                 </div>
 
-                              <div class="row">
+                                <div class="col-sm-3">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label>Nome do Animal*</label>
+                                        <input class="{{ $errors->has('name') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('name')}}" name="name" id="name" type="text" placeholder="Nome do Animal*">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label>Número do registro</label>
+                                        <input class="{{ $errors->has('record') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('record')}}" name="record" id="record" type="text" placeholder="Número de registro">
+                                    </div>
+                                </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                      <label>Data de Nascimento</label>
+                                        <label>Lote do Animal*</label>
+                                        <select name="lot_id" id="lot_id" class=" {{ $errors->has('lot_id') ? 'form-control is-invalid' : 'form-control' }}">
+                                            @foreach ($lots as $value)
+                                            <option value="{{$value->id}}" {{old('type') == '{$value}' ? 'selected' : '' }}>{{$value->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Data de Nascimento</label>
                                         <input class="{{ $errors->has('birth_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('birth_date')}}" name="birth_date" id="birth_date" type="date" placeholder="data nascimento">
                                     </div>
-                                  </div>
+                                </div>
 
-                                    <div class="col-sm-3">
-                                      <div class="form-group">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
                                         <label>Raça</label>
                                         <select class="{{ $errors->has('breed') ? 'form-control is-invalid' : 'form-control' }} " name="breed" id="breed">
+                                            <option value="Desconhecido">Desconhecido</option>
                                             <option value="Holandês preto e branco">Holandes preto e branco</option>
                                             <option value="Girolando">Girolando</option>
                                             <option value="Gir leiteiro">Gir leiteiro</option>
@@ -194,9 +138,9 @@
                                         </select>
 
                                     </div>
-                                  </div>
-                                  <div class="col-sm-3">
-                                      <div class="form-group">
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
                                         <label>Grau Sangue</label>
                                         <select class="{{ $errors->has('blood_grade') ? 'form-control is-invalid' : 'form-control' }} " name="blood_grade" id="blood_grade">
                                             <option value="Desconhecido">Desconhecido</option>
@@ -252,126 +196,141 @@
                                         </select>
 
                                     </div>
-                                  </div>
-                                  <div class="col-sm-3">
-                                      <div class="form-group">
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
                                         <label>Sexo</label>
                                         <select class="{{ $errors->has('sex') ? 'form-control is-invalid' : 'form-control' }} " name="sex">
                                             <option value="Femea">Femea</option>
                                             <option value="Macho">Macho</option>
                                         </select>
 
-                                      </div>
-                                      </div>
-                                  </div>
+                                    </div>
+                                </div>
+                            </div>
 
-                                <div class="row">
-                                  <div class="col-sm-3">
-                                      <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
                                         <label>Origem</label>
                                         <select class="{{ $errors->has('origin') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('origin')}}" name="origin" id="origin">
+                                            <option value="Desconhecido">Desconhecido</option>
                                             <option value="Nascimento">Nascimento</option>
                                             <option value="Compra">Compra</option>
                                         </select>
 
                                     </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                          <label>Data do Ultimo parto</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Data do Ultimo parto</label>
                                         <input class="{{ $errors->has('date_of_last_delivery') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('date_of_last_delivery')}}" name="date_of_last_delivery" id="date_of_last_delivery"
                                           type="date" placeholder="Data do Ultimo parto">
                                     </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Valor</label>
+                                        <input class="{{ $errors->has('value') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('value')}}" name="value" id="value" type="text" placeholder="Valor" onkeyup="formatarMoeda(this);">
                                     </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                          <label>Valor</label>
-                                        <input class="{{ $errors->has('value') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('value')}}" name="value" id="value" type="text" placeholder="Valor">
-                                    </div>
-                                    </div>
+                                </div>
 
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                          <label>Data do desmame</label>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Data do desmame</label>
                                         <input class="{{ $errors->has('weaning_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('weaning_date')}}" name="weaning_date" id="weaning_date" type="date" placeholder="data do demame">
                                     </div>
                                 </div>
-                              </div> {{-- row--}}
+                            </div> {{-- row--}}
 
-                                <div class="row">
-                                  <div class="col-sm-3">
-                                      <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
                                         <label>Mãe da propriedade</label>
                                         <select class="{{ $errors->has('mother_on_the_property') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('mother_on_the_property')}}" name="mother_on_the_property" id="mother_on_the_property">
+                                            <option value="Desconhecido">Desconhecido</option>
+
                                             <option value="Sim">Sim</option>
                                             <option value="Não">Não</option>
                                         </select>
                                     </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                          <label>Pai da propriedade</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Pai da propriedade</label>
                                         <select class="{{ $errors->has('father_on_the_property') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('father_on_the_property')}}" name="father_on_the_property" id="father_on_the_property">
+                                            <option value="Desconhecido">Desconhecido</option>
+
                                             <option value="Sim">Sim</option>
                                             <option value="Não">Não</option>
                                         </select>
 
                                     </div>
-                                    </div>
+                                </div>
 
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                          <label>Imagem</label>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Imagem</label>
                                         <input class="{{ $errors->has('image') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('image')}}" name="image" id="image" type="file" placeholder="imagem">
                                     </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                          <label>Ativo</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Ativo</label>
                                         <select class="{{ $errors->has('active') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('active')}}" name="active" id="active">
                                             <option value="Sim">Sim</option>
                                             <option value="Não">Não</option>
                                         </select>
 
                                     </div>
-                                    </div>
                                 </div>
-                                <div class="row">
-                                  <div class="col-sm-8">
-                                      <div class="form-group">
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
                                         <label>Observações</label>
                                         <textarea placeholder="Observações" class="{{ $errors->has('comments') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('comments')}}" name="comments" id="comments" rows="4"
                                           cols="80">{{old('comments')}}</textarea>
 
                                     </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                          <label>Para descarte?</label>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Para descarte?</label>
                                         <select class="{{ $errors->has('to_discard') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('to_discard')}}" name="to_discard" id="to_discard">
                                             <option value="Não">Não</option>
                                             <option value="Sim">Sim</option>
                                         </select>
 
                                     </div>
-                                    </div>
                                 </div>
+                            </div>
 
-                                <div class="card-footer ">
-                                    <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
-                                    <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Voltar</button>
-                                </div>
-                            </form>
+                            <div class="card-footer ">
+                                <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
+                                <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Voltar</button>
+                            </div>
+                        </form>
 
 
 
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div><!-- /.container-fluid -->
 </section>
+@section('js')
+<script>
+    function formatarMoeda(i) {
+        var v = i.value.replace(/\D/g, '');
+        v = (v / 100).toFixed(2) + '';
+        v = v.replace(".", ",");
+        v = v.replace(/(\d)(\d{3})(\d{3}),/g, "$1.$2.$3,");
+        v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
+        i.value = v;
+    }
+</script>
+@stop
 @include('sweet::alert')
 @endsection

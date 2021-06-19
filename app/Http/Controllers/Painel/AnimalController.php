@@ -87,6 +87,7 @@ class AnimalController extends Controller
             'active' => $request->input('active'),
             'comments' => $request->input('comments'),
             'to_discard' => $request->input('to_discard'),
+            'user_id' => $request->input('user_id'),
           ]);
           Storage::disk('uploads')->put($nameFile, file_get_contents($file));
         }

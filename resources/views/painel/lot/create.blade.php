@@ -1,12 +1,11 @@
 @extends('adminlte::page')
-@section('title', 'Nutrition')
+@section('title', 'Farms Nutrition')
 
 
 @section('css')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 @stop
-
 @section('content')
 <section class="content-header">
     <div class="container-fluid">
@@ -35,6 +34,8 @@
                         <form class="forms-sample" action="{{route('lote.store')}}" method="POST" enctype="multipart/form-data">
 
                             {{csrf_field()}}
+                            <input name="user_id" type="hidden" value="{{Auth::user()->id}}">
+
                             <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group">
@@ -104,4 +105,5 @@
     </div><!-- /.container-fluid -->
 </section>
 @include('sweet::alert')
+
 @endsection

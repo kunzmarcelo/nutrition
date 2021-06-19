@@ -13,7 +13,8 @@ class AnimalMedicine extends Model
       'animal_id',
       'medicine_id',
       'application_date',
-      'next_application'
+      'next_application',
+      'user_id',
     ];
 
 

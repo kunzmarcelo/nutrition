@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Nutrition')
+@section('title', 'Farms Nutrition')
 
 @section('css')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -36,6 +36,8 @@
                         <div class="card-body">
                             <form class="forms-sample" action="{{route('reproducao.store')}}" method="POST" enctype="multipart/form-data">
                               {{csrf_field()}}
+
+
                                 <div class="row">
                                   <div class="col-sm-3">
                                       <div class="form-group">
@@ -127,7 +129,7 @@
                                 </div>
                                 <div class="card-footer ">
                                     <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
-                                    <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Limpar</button>
+                                    <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Voltar</button>
                                 </div>
                             </form>
                         </div>

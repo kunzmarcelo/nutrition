@@ -29,6 +29,7 @@ class Animal extends Model
       'active',
       'comments',
       'to_discard',
+      'user_id',
     ];
     public function lot(){
       return $this->belongsTo(Lot::class);

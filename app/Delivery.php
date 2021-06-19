@@ -14,5 +14,6 @@ class Delivery extends Model
       'discarded_liters',
       'total_liters_produced',
       'milk_price',
+      'user_id',
     ];
 }

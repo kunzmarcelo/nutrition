@@ -53,6 +53,7 @@ class AnimalMedicineController extends Controller
                 $medicine_id=  $request->input('medicine_id');
                 $application_date=  $request->input('application_date');
                 $next_application=  $request->input('next_application');
+                $user_id=  $request->input('user_id');
 
 
                 $insert = $this->medicine->create([
@@ -60,6 +61,7 @@ class AnimalMedicineController extends Controller
                     'medicine_id' => $medicine_id,
                     'application_date' => $application_date,
                     'next_application' => $next_application,
+                    'user_id' => $user_id,
                   ]);
               }
               if ($insert) {

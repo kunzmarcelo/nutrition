@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Nutrition')
+@section('title', 'Farms Nutrition')
 
 @section('css')
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
@@ -34,37 +34,25 @@
 
                             {{csrf_field()}}
 
+                            <input name="user_id" type="hidden" value="{{Auth::user()->id}}">
 
 
                             <div class="row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <!-- text input -->
                                     <div class="form-group">
                                         <label>Selecione a Medição</label>
                                         <select name="medicine_id" id="medicine_id" class=" {{ $errors->has('medicine_id') ? 'form-control custom-select is-invalid' : 'form-control custom-select' }}">
-                                            {{-- <option value="">Selecione a Medição</option> --}}
+                                            <option value="">Selecione a Medição</option>
                                             @foreach ($medicines as $value)
-                                            <option value="{{$value->id}}" {{old('type') == '{$value}' ? 'selected' : '' }}>{{$value->description}}</option>
+                                            <option data-valor="{{$value->grace_days}}" value="{{$value->id}}" {{old('type') == '{$value}' ? 'selected' : '' }}>{{$value->description}}</option>
                                             @endforeach
                                         </select>
 
                                         </span>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="grace_days">Dias de ação/carência*</label>
-                                        <select id="grace_days" class="{{ $errors->has('grace_days') ? 'form-control is-invalid' : 'form-control' }} " name="grace_days">
-                                            @for ($i=0; $i < 30; $i++) <option value="{{$i}}">{{$i}}</option>
-                                                @endfor
-                                        </select>
-                                        {{-- <input class="{{ $errors->has('grace_days') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('grace_days')}}" name="grace_days" id="grace_days" type="text" placeholder="Dias de
-                                        ação/carência*"> --}}
-
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <!-- text input -->
                                     <div class="form-group">
                                         <label for="application_date">Data de aplicação</label>
@@ -74,7 +62,8 @@
                                         {{-- </span> --}}
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+
+                                <div class="col-sm-4">
                                     <!-- text input -->
                                     <div class="form-group">
                                         <label for="next_application">Próxima aplicação</label>
@@ -117,23 +106,35 @@
                 </div>
             </div>
         </div>
-    </div>
+
 
     </div><!-- /.container-fluid -->
 </section>
 @section('js')
 
 <script>
-    $('#application_date')[0].valueAsDate = new Date();
+// -----------> esse aqui funcina ----------
+$('#application_date')[0].valueAsDate = new Date();
   //var tempo = $("#grace_days option:selected").val();
-
     $('#application_date').change(function() {
         var date = this.valueAsDate;
         date.setDate(date.getDate() + 12);
         $('#next_application')[0].valueAsDate = date;
     });
-
     $('#application_date').change();
+    
+
+// aqui não está funcionando ---------->
+    $('#application_date')[0].valueAsDate = new Date();
+      var tempo = $('#medicine_id option:selected').attr('data-valor');
+      var tempo2 = (parseInt(tempo)); //
+
+      $('#application_date').change(function() {
+          var date = this.valueAsDate;
+          date.setDate(date.getDate() + tempo2);
+          $('#next_application')[0].valueAsDate = date;
+      });
+      $('#application_date').change();
 </script>
 
 @stop

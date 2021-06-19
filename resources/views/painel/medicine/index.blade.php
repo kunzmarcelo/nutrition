@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Lotes Cadastrados | GPR Nutrition')
+@section('title', 'Farms Nutrition')
 @section('content')
 
 <section class="content-header">
