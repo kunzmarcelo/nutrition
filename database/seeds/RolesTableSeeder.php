@@ -14,11 +14,34 @@ class RolesTableSeeder extends Seeder
       $now = date("Y-m-d H:i:s");
 
       DB::table("roles")->insert([
-              "id"         => 99,
+        [
+              "id"         => 90,
               "name"       => "admin",
               "label"      => "Admin",
               "created_at" => $now,
               "updated_at" => $now,
-          ]);
+          ],
+        [
+              "id"         => 91,
+              "name"       => "produtor",
+              "label"      => "Produtor",
+              "created_at" => $now,
+              "updated_at" => $now,
+          ],
+        [
+              "id"         => 92,
+              "name"       => "gerente",
+              "label"      => "Gerente",
+              "created_at" => $now,
+              "updated_at" => $now,
+          ],
+        [
+              "id"         => 93,
+              "name"       => "curioso",
+              "label"      => "Curioso",
+              "created_at" => $now,
+              "updated_at" => $now,
+          ],
+        ]);
     }
 }

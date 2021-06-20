@@ -20,7 +20,8 @@ class AnimalMedicineController extends Controller
     {
         $now = Carbon::now()->format('y-m-d');
 
-      $results= $this->medicine->where('next_application','>=',$now)->get();
+      //$results= $this->medicine->where('next_application','>=',$now)->get();
+      $results= $this->medicine->where('user_id','=',auth()->user()->id)->get();
       //dd($results);
         return view('painel.animalMedicine.index', compact('results'));
     }
@@ -32,8 +33,8 @@ class AnimalMedicineController extends Controller
      */
     public function create()
     {
-      $animals = Animal::where('active','=','Sim')->get();
-      $medicines = Medicine::all();
+      $animals = Animal::where('active','=','Sim')->where('user_id','=',auth()->user()->id)->get();
+      $medicines = Medicine::where('user_id','=',auth()->user()->id)->get();
       return view('painel.animalMedicine.create', compact('animals','medicines'));
     }
 

@@ -17,7 +17,7 @@ class LotController extends Controller
   }
     public function index()
     {
-      $results = $this->lot->all();
+      $results = $this->lot->where('user_id','=',auth()->user()->id)->get();
       return view('painel.lot.index', compact('results'));
 
     }

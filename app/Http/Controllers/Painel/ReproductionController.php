@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Reproduction;
 use App\Animal;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use PDF;
 
 class ReproductionController extends Controller
 {
@@ -16,7 +18,8 @@ class ReproductionController extends Controller
   }
     public function index()
     {
-      $results = $this->reproduction->all();
+      $results = $this->reproduction->where('user_id','=',auth()->user()->id)->get();
+      //$results = $this->reproduction->all();
       //dd($results);
         return view('painel.reproduction.index', compact('results'));
     }
@@ -28,7 +31,7 @@ class ReproductionController extends Controller
      */
     public function create()
     {
-      $animals = Animal::all();
+      $animals = Animal::where('user_id','=',auth()->user()->id)->get();
              // alert()->error('Ocorreu um erro por favor tente novamente mais tarde!','Woops')->persistent('Fechar')->autoclose(1800);
         return view('painel.reproduction.create', compact('animals'));
     }
@@ -70,24 +73,47 @@ class ReproductionController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
 
-        return view('painel.reproduction.closeday');
+    public function closeDay()
+    {
+      $results = Reproduction::where('user_id','=',auth()->user()->id)
+              ->orderBy('created')
+              ->get()
+              ->groupBy(function ($val) {
+                  return Carbon::parse($val->created)->format('d-m-Y');
+              });
+
+        return view('painel.reproduction.indexgroup', compact('results'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
+    public function show($date)
+    {
+// dd($date);
+  $date = $date;
+      $iterable = $this->reproduction
+                          ->where('created','=',Carbon::parse($date)->format('Y-m-d'))
+                          ->where('user_id','=',auth()->user()->id)->get();
+// dd($iterable);
+        return view('painel.reproduction.closeday', compact('iterable','date'));
+    }
+
+    public function downloadPDF($date){
+      $iterable = $this->reproduction
+                          ->where('created','=',Carbon::parse($date)->format('Y-m-d'))
+                          ->where('user_id','=',auth()->user()->id)->get();
+
+
+
+                                  $pdf = \PDF::loadView('painel.reproduction.downloadPDF', compact('iterable'));
+                                   return $pdf->download("relatorio.pdf");
+          // return \PDF::loadView('painel.reproduction.downloadPDF', compact('iterable'))
+          //            ->setPaper('a4', 'landscape')
+          //             ->download("relatorio.pdf");
+
+  //return view('management.proposition.downloadPDF', compact('proposition'));
+
+    }
     public function edit($id)
     {
         //

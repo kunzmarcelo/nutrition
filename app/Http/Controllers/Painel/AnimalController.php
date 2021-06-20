@@ -18,7 +18,7 @@ class AnimalController extends Controller
   }
     public function index()
     {
-      $results = $this->animal->orderBy('id','ASC')->get();
+      $results = $this->animal->orderBy('id','ASC')->where('user_id','=',auth()->user()->id)->get();
         return view('painel.animals.index', compact('results'));
     }
 
@@ -29,16 +29,8 @@ class AnimalController extends Controller
      */
     public function create()
     {
-      $lots = Lot::all();
-      //       if ($lots) {
-      //         $notification = array(
-      //                       'message' => 'Operação realizada com sucesso',
-      //                       'alert-type' => 'success'
-      //                     );
-      //           return redirect()->route('painel.animals.create', compact('lots'))->with($notification);
-      // }
-
-      //dd($lots->id);
+      $lots = Lot::where('user_id','=',auth()->user()->id)->get();
+    
         return view('painel.animals.create', compact('lots'));
     }
 

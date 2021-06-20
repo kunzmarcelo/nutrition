@@ -29,12 +29,27 @@ Route::group(['prefix'=>'painel','middleware' => 'auth'], function() {
   Route::resource('aplicacoes', 'Painel\AnimalMedicineController');
   Route::resource('entrega', 'Painel\DeliveryController');
   Route::resource('reproducao', 'Painel\ReproductionController');
+
   Route::resource('medicamento', 'Painel\MedicineController');
 
+  Route::get('fechamento_dia', 'Painel\ReproductionController@closeDay');
+  Route::get('fechamento_dia/{date?}', 'Painel\ReproductionController@show');
+  Route::get('fechamento_dia/pdf/{date}', 'Painel\ReproductionController@downloadPDF');
 
 
 
 
+
+
+
+  Route::resource('permissions', 'Painel\PermissionController');
+  Route::get('permission/{id}/roles', 'Painel\PermissionController@roles');
+
+  Route::resource('roles', 'Painel\RoleController');
+  Route::get('role/{id}/permissions', 'Painel\RoleController@permissions');
+
+  Route::resource('users', 'Painel\UserController');
+  Route::get('user/{id}/roles', 'Painel\UserController@roles');
 
 
 });

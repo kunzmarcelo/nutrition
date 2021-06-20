@@ -101,6 +101,10 @@
                         </form>
 
 
+                        {{-- <input name="dPrev" type="date" class="form-control" id="dPrev" value=""  placeholder="DD/MM/YYYY" required >
+
+
+                            <button type="submit" id="button" name="button" class="btn btn-success pull-right"></i> Salvar</button> --}}
 
                     </div>
                 </div>
@@ -113,28 +117,47 @@
 @section('js')
 
 <script>
-// -----------> esse aqui funcina ----------
+// // -----------> esse aqui funcina ----------
 $('#application_date')[0].valueAsDate = new Date();
   //var tempo = $("#grace_days option:selected").val();
+  var tempo = $('#medicine_id option:selected').attr('data-valor');
+  var tempo2 = (parseInt(tempo));
     $('#application_date').change(function() {
         var date = this.valueAsDate;
         date.setDate(date.getDate() + 12);
         $('#next_application')[0].valueAsDate = date;
     });
     $('#application_date').change();
-    
+
+// $('#application_date')[0].valueAsDate = new Date();
+//       $('#application_date').change(function() {
+//
+//         var tempo = $('#medicine_id option:selected').attr('data-valor');
+//         var tempo2 = (parseInt(tempo)); //
+//
+//             var dias = tempo2;
+//             var dataAtual = this.valueAsDate;
+//             var previsao = new Date();
+//
+//             previsao.setDate(dataAtual.getDate() + dias);
+//             n = previsao.getDate()  +"/" + (previsao.getMonth() + 1)+ "/" + previsao.getFullYear();
+//     		      $("#next_application").val(n);
+//
+//     });
+
+
 
 // aqui não está funcionando ---------->
-    $('#application_date')[0].valueAsDate = new Date();
-      var tempo = $('#medicine_id option:selected').attr('data-valor');
-      var tempo2 = (parseInt(tempo)); //
-
-      $('#application_date').change(function() {
-          var date = this.valueAsDate;
-          date.setDate(date.getDate() + tempo2);
-          $('#next_application')[0].valueAsDate = date;
-      });
-      $('#application_date').change();
+    // $('#application_date')[0].valueAsDate = new Date();
+    //   var tempo = $('#medicine_id option:selected').attr('data-valor');
+    //   var tempo2 = (parseInt(tempo)); //
+    //
+    //   $('#application_date').change(function() {
+    //       var date = this.valueAsDate;
+    //       date.setDate(date.getDate() + tempo2);
+    //       $('#next_application')[0].valueAsDate = date;
+    //   });
+    //   $('#application_date').change();
 </script>
 
 @stop

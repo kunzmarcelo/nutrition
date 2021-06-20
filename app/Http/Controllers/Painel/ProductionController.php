@@ -17,7 +17,7 @@ class ProductionController extends Controller
   }
     public function index()
     {
-      $results = $this->production->all();
+      $results = $this->production->where('user_id','=',auth()->user()->id)->get();
         return view('painel.production.index', compact('results'));
     }
 
@@ -28,7 +28,7 @@ class ProductionController extends Controller
      */
     public function create()
     {
-      $animals = Animal::all();
+      $animals = Animal::where('user_id','=',auth()->user()->id)->get();
              // alert()->error('Ocorreu um erro por favor tente novamente mais tarde!','Woops')->persistent('Fechar')->autoclose(1800);
         return view('painel.production.create', compact('animals'));
     }

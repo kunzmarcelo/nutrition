@@ -175,8 +175,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-        Yoeunes\Toastr\ToastrServiceProvider::class
-
+        Yoeunes\Toastr\ToastrServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class
     ],
 
     /*
@@ -228,8 +228,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
-        'Carbon' => 'Carbon\Carbon'
-
+        'Carbon' => 'Carbon\Carbon',
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ],
 
 ];

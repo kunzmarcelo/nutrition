@@ -51,6 +51,7 @@
                             <table class="table table-hover data-table" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                        <th>Data</th>
                                         <th>Animal</th>
                                         <th>Data do Parto</th>
                                         <th>Prev. Cobertura</th>
@@ -69,12 +70,29 @@
 
                                     @foreach($results as $result)
                                     <tr>
+                                        <td>{{Carbon::parse($result->created)->format('d/m/Y')}}</td>
                                         <td>{{$result->animals->name }}</td>
                                         <td>{{Carbon::parse($result->delivery_date)->format('d/m/Y') }}</td>
-                                        <td>{{Carbon::parse($result->coverage_date)->format('d/m/Y') }}</td>
-                                        <td>{{Carbon::parse($result->expected_delivery_date)->format('d/m/Y') }}</td>
-                                        <td>{{Carbon::parse($result->dry_date)->format('d/m/Y') }}</td>
-                                        <td>{{Carbon::parse($result->pre_delivery_date)->format('d/m/Y')}}</td>
+                                        <td>
+                                            @empty (!$result->coverage_date)
+                                            {{Carbon::parse($result->coverage_date)->format('d/m/Y') }}
+                                            @endempty
+                                        </td>
+                                        <td>
+                                            @empty (!$result->expected_delivery_date)
+                                            {{Carbon::parse($result->expected_delivery_date)->format('d/m/Y') }}
+                                            @endempty
+                                        </td>
+                                        <td>
+                                            @empty (!$result->dry_date)
+                                            {{Carbon::parse($result->dry_date)->format('d/m/Y') }}
+                                            @endempty
+                                        </td>
+                                        <td>
+                                            @empty (!$result->pre_delivery_date)
+                                            {{Carbon::parse($result->pre_delivery_date)->format('d/m/Y')}}
+                                            @endempty
+                                        </td>
                                         <td>{{$result->del }}</td>
                                         <td>{{$result->situation }}</td>
                                         <td>{{$result->observation1 }}</td>

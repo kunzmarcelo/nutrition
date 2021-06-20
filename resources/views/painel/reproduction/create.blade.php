@@ -41,9 +41,9 @@
                                 <div class="row">
                                   <div class="col-sm-3">
                                       <div class="form-group">
-                                          <label>Data</label>
+                                          <label>Data de realização</label>
                                           <input class="{{ $errors->has('created') ? 'form-control is-invalid' : 'form-control' }} "  value="<?php echo date('Y-m-d'); ?>"  name="created" id="created" type="date"
-                                            placeholder="Data">
+                                            placeholder="Data de realização">
                                       </div>
                                   </div>
                                     <div class="col-sm-3">

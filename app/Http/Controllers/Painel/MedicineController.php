@@ -15,7 +15,7 @@ class MedicineController extends Controller
   }
     public function index()
     {
-        $results = $this->medicine->all();
+        $results = $this->medicine->where('user_id','=',auth()->user()->id)->get();
         return view('painel.medicine.index', compact('results'));
     }
 

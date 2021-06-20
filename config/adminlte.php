@@ -15,7 +15,7 @@ return [
     */
 
     'title' => 'Farms Nutrition',
-    'title_prefix' => '',
+    'title_prefix' => 'Nutrição de Fazendas | ',
     'title_postfix' => '',
 
     /*
@@ -30,8 +30,8 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => false,
+    'use_ico_only' => true,
+    'use_full_favicon' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -65,8 +65,8 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
+    'usermenu_header' => true,
+    'usermenu_header_class' => 'bg-info',
     'usermenu_image' => false,
     'usermenu_desc' => false,
     'usermenu_profile_url' => false,
@@ -86,7 +86,7 @@ return [
     'layout_topnav' => null,
     'layout_boxed' => null,
     'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_navbar' => true,
     'layout_fixed_footer' => true,
     'layout_dark_mode' => null,
 
@@ -237,19 +237,11 @@ return [
         ],
 
         // Sidebar items:
-        [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
+
 
         ['header' => 'Cadastros'],
         [
-            'text' => 'Lote',
+            'text' => 'Lotes',
             'url'  => 'painel/lote',
             'icon'    => 'fas fa-object-ungroup',
         ],
@@ -286,8 +278,30 @@ return [
         ['header' => 'RELATÓRIOS'],
         [
           'text'    => 'Reprodução',
-          'url'     => 'painel/fechar_dia',
+          'url'     => 'painel/fechamento_dia',
           'icon'    => 'fas fa-syringe',
+        ],
+        [
+          'header' => 'Configurações de Usuários',
+          'can' => 'admin',
+        ],
+        [
+            'text' => 'Usuários',
+            'url'  => 'painel/users',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'admin',
+        ],
+        [
+            'text' => 'Roles',
+            'url'  => 'painel/roles',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'admin',
+        ],
+        [
+            'text' => 'Permissions',
+            'url'  => 'painel/permissions',
+            'icon' => 'fas fa-fw fa-user',
+            'can' => 'admin',
         ],
 
 
