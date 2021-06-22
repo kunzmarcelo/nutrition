@@ -65,6 +65,7 @@
 
 
                                     @foreach($results as $result)
+                                    @can('view', $result)
 
                                     <tr>
                                         <td>{{$result->id}}</td>
@@ -73,11 +74,11 @@
                                         <td>{{$result->sex }}</td>
                                         <td>{{$result->lot->name }}</td>
                                         <td>
-                                          @if($result->active == 'Sim')
-                                          <span class="badge bg-success">{{$result->active }}</span>
-                                        @else
-                                            <span class="badge bg-danger">{{$result->active }}</span>
-                                          @endif
+                                            @if($result->active == 'Sim')
+                                                <span class="badge bg-success">{{$result->active }}</span>
+                                                @else
+                                                <span class="badge bg-danger">{{$result->active }}</span>
+                                                @endif
                                         </td>
 
                                         {{-- <td>
@@ -98,7 +99,7 @@
                                         </td> --}}
                                     </tr>
 
-
+                                    @endcan
                                     @endforeach
 
                                 </tbody>

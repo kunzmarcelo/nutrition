@@ -18,7 +18,8 @@ class AnimalController extends Controller
   }
     public function index()
     {
-      $results = $this->animal->orderBy('id','ASC')->where('user_id','=',auth()->user()->id)->get();
+      $results = $this->animal->orderBy('id','ASC')->get();
+      //$this->authorize('view', $results);
         return view('painel.animals.index', compact('results'));
     }
 
@@ -30,7 +31,7 @@ class AnimalController extends Controller
     public function create()
     {
       $lots = Lot::where('user_id','=',auth()->user()->id)->get();
-    
+
         return view('painel.animals.create', compact('lots'));
     }
 

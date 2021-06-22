@@ -104,12 +104,13 @@ class ReproductionController extends Controller
                           ->where('user_id','=',auth()->user()->id)->get();
 
 
-
-                                  $pdf = \PDF::loadView('painel.reproduction.downloadPDF', compact('iterable'));
-                                   return $pdf->download("relatorio.pdf");
-          // return \PDF::loadView('painel.reproduction.downloadPDF', compact('iterable'))
-          //            ->setPaper('a4', 'landscape')
-          //             ->download("relatorio.pdf");
+//dd($iterable);
+                                //  $pdf = \PDF::loadView('painel.reproduction.downloadPDF', compact('iterable'));
+                                //   return $pdf->download("relatorio.pdf");
+           return \PDF::loadView('painel.reproduction.downloadPDF', compact('iterable'))
+                      
+                      ->setPaper('a4', 'landscape')
+                       ->download("relatorio.pdf");
 
   //return view('management.proposition.downloadPDF', compact('proposition'));
 

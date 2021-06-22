@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Animal;
 use App\Delivery;
 use App\Production;
@@ -24,15 +25,32 @@ class HomeController extends Controller
      */
     public function index()
     {
-      $now = Carbon::now()->format('m');
 
-      // /$results = $this->delivery->whereMonth('collection_date', '=', $now)->get();
-      $results = $this->delivery->where('user_id','=',auth()->user()->id)->whereMonth('collection_date', '=', $now)->get();
+          //dd('pagina do admin');
+          $now = Carbon::now()->format('m');
 
-      $animalsActive = Animal::where('active','=','sim')->where('user_id','=',auth()->user()->id)->count();
-      $animalsTotal = Animal::where('user_id','=',auth()->user()->id)->count();
-      $productionTotal = Delivery::whereMonth('collection_date', '=', $now)->where('user_id','=',auth()->user()->id)->sum('total_liters_produced');
-      
-        return view('home',compact('results','animalsActive','animalsTotal','productionTotal'));
+          // /$results = $this->delivery->whereMonth('collection_date', '=', $now)->get();
+          $results = Delivery::whereMonth('collection_date', '=', $now)->get();
+
+          $animalsActive = Animal::where('active','=','sim')->count();
+          $animalsTotal = Animal::count();
+          $productionTotal = Delivery::whereMonth('collection_date', '=', $now)->sum('total_liters_produced');
+
+            return view('home',compact('results','animalsActive','animalsTotal','productionTotal'));
+
+        
+        // if(Gate::denies('produtor')){
+        //
+        //     $now = Carbon::now()->format('m');
+        //
+        //     // /$results = $this->delivery->whereMonth('collection_date', '=', $now)->get();
+        //     $results = $this->delivery->where('user_id','=',auth()->user()->id)->whereMonth('collection_date', '=', $now)->get();
+        //
+        //     $animalsActive = Animal::where('active','=','sim')->where('user_id','=',auth()->user()->id)->count();
+        //     $animalsTotal = Animal::where('user_id','=',auth()->user()->id)->count();
+        //     $productionTotal = Delivery::whereMonth('collection_date', '=', $now)->where('user_id','=',auth()->user()->id)->sum('total_liters_produced');
+        //
+        //       return view('home',compact('results','animalsActive','animalsTotal','productionTotal'));
+        //     }
     }
 }

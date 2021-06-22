@@ -35,10 +35,7 @@ Route::group(['prefix'=>'painel','middleware' => 'auth'], function() {
   Route::get('fechamento_dia', 'Painel\ReproductionController@closeDay');
   Route::get('fechamento_dia/{date?}', 'Painel\ReproductionController@show');
   Route::get('fechamento_dia/pdf/{date}', 'Painel\ReproductionController@downloadPDF');
-
-
-
-
+  Route::get('fechamento_animais', 'Painel\AnimalController@downloadPDF');
 
 
 

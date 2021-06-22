@@ -282,6 +282,11 @@ return [
           'icon'    => 'fas fa-syringe',
         ],
         [
+          'text'    => 'Animais',
+          'url'     => 'painel/fechamento_animais',
+          'icon'    => 'fas fa-syringe',
+        ],
+        [
           'header' => 'Configurações de Usuários',
           'can' => 'admin',
         ],

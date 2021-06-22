@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Lot;
+use App\User;
 use App\Medicine;
 use App\Reproduction;
 use App\AnimalMedicine;
@@ -33,6 +34,9 @@ class Animal extends Model
     ];
     public function lot(){
       return $this->belongsTo(Lot::class);
+    }
+    public function user(){
+      return $this->belongsTo(User::class);
     }
 
     public function opcionais(){

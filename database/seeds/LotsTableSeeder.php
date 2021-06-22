@@ -21,7 +21,7 @@ class LotsTableSeeder extends Seeder
           "phase"       => "Vacas em Lactação",
           "description"       => "NULL",
           "color"       => "NULL",
-           "user_id" => 1,
+           "user_id" => 4,
                "created_at" => $now,
                "updated_at" => $now
              ],
@@ -31,7 +31,7 @@ class LotsTableSeeder extends Seeder
           "phase"       => "Bezerros(as) até 6 meses",
           "description"       => "NULL",
           "color"       => "NULL",
-          "user_id" => 1,
+          "user_id" => 4,
                "created_at" => $now,
                "updated_at" => $now
              ],
@@ -41,7 +41,7 @@ class LotsTableSeeder extends Seeder
           "phase"       => "Bezerros(as) de 7 até meses",
           "description"       => "NULL",
           "color"       => "NULL",
-          "user_id" => 1,
+          "user_id" => 4,
                "created_at" => $now,
                "updated_at" => $now
              ],
@@ -51,7 +51,7 @@ class LotsTableSeeder extends Seeder
           "phase"       => "Novilhos(as) acima de 12 meses",
           "description"       => "NULL",
           "color"       => "NULL",
-           "user_id" => 1,
+           "user_id" => 5,
                "created_at" => $now,
                "updated_at" => $now
              ],
@@ -61,7 +61,7 @@ class LotsTableSeeder extends Seeder
           "phase"       => "Novilhas prenhas",
           "description"       => "NULL",
           "color"       => "NULL",
-          "user_id" => 1,
+          "user_id" => 5,
                "created_at" => $now,
                "updated_at" => $now
              ],
@@ -71,7 +71,7 @@ class LotsTableSeeder extends Seeder
           "phase"       => "Vacas Seca",
           "description"       => "NULL",
           "color"       => "NULL",
-          "user_id" => 1,
+          "user_id" => 5,
                "created_at" => $now,
                "updated_at" => $now
              ],
@@ -81,7 +81,7 @@ class LotsTableSeeder extends Seeder
           "phase"       => "Enfermaria",
           "description"       => "NULL",
           "color"       => "NULL",
-          "user_id" => 1,
+          "user_id" => 4,
                "created_at" => $now,
                "updated_at" => $now
              ],
@@ -91,7 +91,7 @@ class LotsTableSeeder extends Seeder
           "phase"       => "Touros",
           "description"       => "NULL",
           "color"       => "NULL",
-          "user_id" => 1,
+          "user_id" => 5,
                "created_at" => $now,
                "updated_at" => $now
              ],
@@ -101,7 +101,7 @@ class LotsTableSeeder extends Seeder
           "phase"       => "Engorda",
           "description"       => "NULL",
           "color"       => "NULL",
-          "user_id" => 1,
+          "user_id" => 4,
                "created_at" => $now,
                "updated_at" => $now
              ],
@@ -111,7 +111,7 @@ class LotsTableSeeder extends Seeder
           "phase"       => "Pré-Parto",
           "description"       => "NULL",
           "color"       => "NULL",
-          "user_id" => 1,
+          "user_id" => 5,
                "created_at" => $now,
                "updated_at" => $now
              ],

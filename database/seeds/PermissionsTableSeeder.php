@@ -36,7 +36,7 @@ class PermissionsTableSeeder extends Seeder
           ],
         [
           "id"         => 13,
-          "name"       => "elete",
+          "name"       => "delete",
           "label"      => "Delete",
           "created_at" => $now,
           "updated_at" => $now,
