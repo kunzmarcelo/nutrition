@@ -275,6 +275,11 @@ return [
           'url'     => 'painel/reproducao',
           'icon'    => 'fas fa-syringe',
         ],
+        [
+          'text'    => 'Desafio de Prod',
+          'url'     => 'painel/desafio',
+          'icon'    => 'fas fa-syringe',
+        ],
         ['header' => 'RELATÓRIOS'],
         [
           'text'    => 'Reprodução',
