@@ -1,5 +1,12 @@
 @extends('adminlte::page')
 @section('title', 'Nutrition')
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+
+@stop
+@include('sweet::alert')
 @section('content')
 
 <section class="content-header">
@@ -62,6 +69,7 @@
                                         <th>Situação</th>
                                         <th>1° Observação</th>
                                         <th>2° Observação</th>
+                                        <th>#</th>
                                     </tr>
                                 </thead>
 
@@ -71,8 +79,14 @@
                                     @foreach($results as $result)
                                     <tr>
                                         <td>{{Carbon::parse($result->created)->format('d/m/Y')}}</td>
-                                        <td>{{$result->animals->name }}</td>
-                                        <td>{{Carbon::parse($result->delivery_date)->format('d/m/Y') }}</td>
+                                        <td>{{$result->animals->earring.' / '.$result->animals->name }}</td>
+
+                                        <td>
+                                            @empty (!$result->delivery_date)
+                                            {{Carbon::parse($result->delivery_date)->format('d/m/Y') }}
+                                            @endempty
+                                        </td>
+
                                         <td>
                                             @empty (!$result->coverage_date)
                                             {{Carbon::parse($result->coverage_date)->format('d/m/Y') }}
@@ -100,10 +114,11 @@
 
 
 
-                                        {{-- <td>
-                                            <a href='{{route('works.show',$result->id)}}' align="right" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i> View</a>
-                                        </td>
                                         <td>
+                                            <button class="btn btn-danger btn-sm" data-id="{{ $result->id }}" data-action="{{ route('reproducao.destroy',$result->id) }}" onclick="deleteConfirmation({{$result->id}})"><i
+                                                  class="fas fa-trash"></i></button>
+                                        </td>
+                                        {{--<td>
                                             <a href='{{route('works.edit',$result->id)}}' align="right" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Edit</a>
                                         </td>
                                         <td>
@@ -143,7 +158,54 @@
         $('.data-table').dataTable();
     });
 </script>
-{{-- <script src="{{asset('vendor/jquery/jquery.js')}}"></script> --}}
-@stop
 
+<script type="text/javascript">
+    function deleteConfirmation(id) {
+        swal({
+            title: "Woops!",
+            text: "Deseja realmente excluir esse registro?",
+            type: "warning",
+            showCancelButton: !0,
+            confirmButtonText: "Sim",
+            cancelButtonText: "Não",
+            reverseButtons: !0
+        }).then(function(e) {
+
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    url: "reproducao/" + id,
+                    type: 'DELETE',
+                    data: {
+                        "id": id,
+                        "_token": CSRF_TOKEN,
+                    },
+                    success: function() {
+                        swal({
+                            title: "Sucesso!",
+                            text: "Registro deletado com sucesso",
+                            type: "success",
+                            timer: 1500,
+                        });
+                        document.location.reload(true);
+                    }
+                });
+
+            } else {
+                e.dismiss;
+            }
+
+        }, function(dismiss) {
+            return false;
+        })
+    }
+
+    $(document).ready(function() {
+        $('.data-table').dataTable();
+    });
+</script>
+{{-- <script src="{{asset('vendor/jquery/jquery.js')}}"></script> --}}
+
+@stop
 @endsection

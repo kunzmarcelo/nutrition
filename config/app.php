@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'name' => 'Nutrition | GPR Nutrição Animal',
+    'name' => 'Farms Nutrition',
 
     /*
     |--------------------------------------------------------------------------

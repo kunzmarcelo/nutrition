@@ -47,22 +47,25 @@ class ReproductionController extends Controller
 
 
       $all = $request->all();
-      // dd($all);
 
-      $insert = $this->reproduction->create([
-        'animal_id'=>$request->input('animal_id'),
-        'user_id'=>auth()->user()->id,
-        'created'=>$request->input('created'),
-        'delivery_date'=>$request->input('delivery_date'),
-        'coverage_date'=>$request->input('coverage_date'),
-        'expected_delivery_date'=>$request->input('expected_delivery_date'),
-        'dry_date'=>$request->input('dry_date'),
-        'pre_delivery_date'=>$request->input('pre_delivery_date'),
-        'del'=>$request->input('del'),
-        'situation'=>$request->input('situation'),
-        'observation1'=>$request->input('observation1'),
-        'observation2'=>$request->input('observation2'),
-      ]);
+        dd($all);
+
+      $insert = $this->reproduction->create($all);
+
+      // $insert = $this->reproduction->create([
+      //   'animal_id'=>$request->input('animal_id'),
+      //   'user_id'=>auth()->user()->id,
+      //   'created'=>$request->input('created'),
+      //   'delivery_date'=>$request->input('delivery_date'),
+      //   'coverage_date'=>$request->input('coverage_date'),
+      //   'expected_delivery_date'=>$request->input('expected_delivery_date'),
+      //   'dry_date'=>$request->input('dry_date'),
+      //   'pre_delivery_date'=>$request->input('pre_delivery_date'),
+      //   'del'=>$request->input('del'),
+      //   'situation'=>$request->input('situation'),
+      //   'observation1'=>$request->input('observation1'),
+      //   'observation2'=>$request->input('observation2'),
+      // ]);
       if ($insert) {
           alert()->success('Registro inserido!','Sucesso')->persistent('Fechar')->autoclose(1800);
                  return redirect()->back();
@@ -83,6 +86,7 @@ class ReproductionController extends Controller
                   return Carbon::parse($val->created)->format('d-m-Y');
               });
 
+
         return view('painel.reproduction.indexgroup', compact('results'));
     }
 
@@ -99,6 +103,7 @@ class ReproductionController extends Controller
     }
 
     public function downloadPDF($date){
+      $date = $date;
       $iterable = $this->reproduction
                           ->where('created','=',Carbon::parse($date)->format('Y-m-d'))
                           ->where('user_id','=',auth()->user()->id)->get();
@@ -107,8 +112,8 @@ class ReproductionController extends Controller
 //dd($iterable);
                                 //  $pdf = \PDF::loadView('painel.reproduction.downloadPDF', compact('iterable'));
                                 //   return $pdf->download("relatorio.pdf");
-           return \PDF::loadView('painel.reproduction.downloadPDF', compact('iterable'))
-                      
+           return \PDF::loadView('painel.reproduction.downloadPDF', compact('iterable','date'))
+
                       ->setPaper('a4', 'landscape')
                        ->download("relatorio.pdf");
 
@@ -140,7 +145,20 @@ class ReproductionController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $dado = $this->reproduction->find($id);
+
+        $detele = $dado->delete();
+
+
+      if ($detele){
+        return response()->json([
+                'success' => 'Registro deletado com sucesso!'
+            ]);
+          }else{
+            return response()->json([
+                    'success' => 'Ocorreu um erro por favor tente novamente mais tarde!'
+                ]);
+          }
     }
 
 }

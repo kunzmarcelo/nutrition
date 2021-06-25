@@ -127,6 +127,8 @@
 @section('js')
 
 <script type="text/javascript">
+    
+
     function deleteConfirmation(id) {
         swal({
             title: "Woops!",
@@ -137,31 +139,43 @@
             cancelButtonText: "Não",
             reverseButtons: !0
         }).then(function(e) {
-            var token = $("meta[name='csrf-token']").attr("content");
-            $.ajax({
-                url: "aplicacoes/" + id,
-                type: 'DELETE',
-                data: {
-                    "id": id,
-                    "_token": token,
-                },
-                success: function() {
-                    swal({
-                        title: "Sucesso!",
-                        text: "Registro deletado com sucesso",
-                        type: "success",
-                        timer: 1500,
-                    });
-                    document.location.reload(true);
-                }
-            });
 
+            if (e.value === true) {
+                var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                $.ajax({
+                    url: "aplicacoes/" + id,
+                    type: 'DELETE',
+                    data: {
+                        "id": id,
+                        "_token": CSRF_TOKEN,
+                    },
+                    success: function() {
+                        swal({
+                            title: "Sucesso!",
+                            text: "Registro deletado com sucesso",
+                            type: "success",
+                            timer: 1500,
+                        });
+                        document.location.reload(true);
+                    }
+                });
+
+            } else {
+                e.dismiss;
+            }
+
+        }, function(dismiss) {
+            return false;
         })
     }
 
     $(document).ready(function() {
         $('.data-table').dataTable();
     });
+
+
+
 </script>
 {{-- <script src="{{asset('vendor/jquery/jquery.js')}}"></script> --}}
 @stop

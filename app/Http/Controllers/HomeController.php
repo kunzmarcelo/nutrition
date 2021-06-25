@@ -7,13 +7,14 @@ use Illuminate\Support\Facades\Gate;
 use App\Animal;
 use App\Delivery;
 use App\Production;
+use App\Reproduction;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
 use Carbon\Carbon;
 class HomeController extends Controller
 {
-  private $delivery;
-  public function __construct(Delivery $delivery){
-    $this->delivery = $delivery;
+
+  public function __construct(){
+
       $this->middleware('auth');
   }
 
@@ -30,15 +31,16 @@ class HomeController extends Controller
           $now = Carbon::now()->format('m');
 
           // /$results = $this->delivery->whereMonth('collection_date', '=', $now)->get();
-          $results = Delivery::whereMonth('collection_date', '=', $now)->get();
+          $results = Delivery::whereMonth('collection_date', '=', $now)->where('user_id','=',auth()->user()->id)->get();
 
-          $animalsActive = Animal::where('active','=','sim')->count();
-          $animalsTotal = Animal::count();
-          $productionTotal = Delivery::whereMonth('collection_date', '=', $now)->sum('total_liters_produced');
+          $animalsActive = Animal::where('active','=','sim')->where('user_id','=',auth()->user()->id)->count();
+          $animalsTotal = Animal::where('user_id','=',auth()->user()->id)->count();
+          $productionTotal = Delivery::whereMonth('collection_date', '=', $now)->where('user_id','=',auth()->user()->id)->sum('total_liters_produced');
+          $mediaDel = Reproduction::where('user_id','=',auth()->user()->id)->avg('del');
 
-            return view('home',compact('results','animalsActive','animalsTotal','productionTotal'));
+            return view('home',compact('results','animalsActive','animalsTotal','productionTotal','mediaDel'));
 
-        
+
         // if(Gate::denies('produtor')){
         //
         //     $now = Carbon::now()->format('m');

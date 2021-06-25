@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
+use App\Stock;
 use App\Animal;
 use App\Challenge;
 use Illuminate\Http\Request;
@@ -29,7 +30,8 @@ class ChallengeController extends Controller
     public function create()
     {
         $animals = Animal::where('user_id','=',auth()->user()->id)->get();
-        return view('painel.challenge.create', compact('animals','results'));
+        $stocks = Stock::where('user_id','=',auth()->user()->id)->get();
+        return view('painel.challenge.create', compact('animals','stocks'));
     }
 
     /**
@@ -95,6 +97,20 @@ class ChallengeController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $dado = $this->challenge->find($id);
+
+        $detele = $dado->delete();
+
+
+      if ($detele){
+        return response()->json([
+                'success' => 'Registro deletado com sucesso!'
+            ]);
+          }else{
+            return response()->json([
+                    'success' => 'Ocorreu um erro por favor tente novamente mais tarde!'
+                ]);
+          }
     }
+
 }

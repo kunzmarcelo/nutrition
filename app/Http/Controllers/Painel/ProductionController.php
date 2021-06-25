@@ -96,6 +96,19 @@ class ProductionController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $dado = $this->production->find($id);
+
+        $detele = $dado->delete();
+
+
+      if ($detele){
+        return response()->json([
+                'success' => 'Registro deletado com sucesso!'
+            ]);
+          }else{
+            return response()->json([
+                    'success' => 'Ocorreu um erro por favor tente novamente mais tarde!'
+                ]);
+          }
     }
 }

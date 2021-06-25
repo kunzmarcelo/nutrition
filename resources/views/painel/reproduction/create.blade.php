@@ -33,107 +33,104 @@
             <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="card card-info">
-                        <div class="card-body">
-                            <form class="forms-sample" action="{{route('reproducao.store')}}" method="POST" enctype="multipart/form-data">
-                              {{csrf_field()}}
+                    <div class="card-body">
+                        <form class="forms-sample" action="{{route('reproducao.store')}}" method="POST" enctype="multipart/form-data">
+                            {{csrf_field()}}
 
-
-                                <div class="row">
-                                  <div class="col-sm-3">
-                                      <div class="form-group">
-                                          <label>Data de realização</label>
-                                          <input class="{{ $errors->has('created') ? 'form-control is-invalid' : 'form-control' }} "  value="<?php echo date('Y-m-d'); ?>"  name="created" id="created" type="date"
-                                            placeholder="Data de realização">
-                                      </div>
-                                  </div>
-                                    <div class="col-sm-3">
-                                        <!-- text input -->
-                                        <div class="form-group">
-                                            <label>Selecione o animal</label>
-                                            <select name="animal_id" id="animal_id" class=" {{ $errors->has('animal_id') ? 'form-control is-invalid' : 'form-control' }}">
-                                                <option value="">Selecione o animal</option>
-                                                @foreach ($animals as $value)
-                                                <option value="{{$value->id}}" {{old('type') == '{$value}' ? 'selected' : '' }}>{{$value->earring.' / '.$value->name}}</option>
-
-                                                @endforeach
-
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>Data do Parto</label>
-                                            <input class="{{ $errors->has('delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('delivery_date')}}" name="delivery_date" id="delivery_date" type="date"
-                                              placeholder="Data do Parto">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>Previsão de Cobertura</label>
-                                            <input class="{{ $errors->has('coverage_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('coverage_date')}}" name="coverage_date" id="coverage_date" type="date"
-                                              placeholder="Previsão de Cobertura">
-                                        </div>
+                            <input name="user_id" type="hidden" value="{{Auth::user()->id}}">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Data de realização</label>
+                                        <input class="{{ $errors->has('created') ? 'form-control is-invalid' : 'form-control' }} " value="<?php echo date('Y-m-d'); ?>" name="created" id="created" type="date" placeholder="Data de realização">
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>Data Previsão de Parto</label>
-                                            <input class="{{ $errors->has('expected_delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('expected_delivery_date')}}" name="expected_delivery_date" id="expected_delivery_date"
-                                              type="date" readonly placeholder="Data Previsão de Parto">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>Data Previsão de Secar</label>
-                                            <input class="{{ $errors->has('dry_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('dry_date')}}" name="dry_date" id="dry_date" type="date" placeholder="Data Previsão de Secar"
-                                              readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>Data previsão de pré parto</label>
-                                            <input class="{{ $errors->has('pre_delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('pre_delivery_date')}}" name="pre_delivery_date" id="pre_delivery_date" type="date"
-                                              placeholder="Data previsão de pré parto" readonly>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <label>Dias em Lactação (DEL)</label>
-                                            <input class="{{ $errors->has('del') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('del')}}" name="del" id="del" type="text" placeholder="Dias em Lactação (DEL)" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
+                                <div class="col-sm-3">
+                                    <!-- text input -->
+                                    <div class="form-group">
+                                        <label>Selecione o animal</label>
+                                        <select name="animal_id" id="animal_id" class=" {{ $errors->has('animal_id') ? 'form-control is-invalid' : 'form-control' }}">
+                                            <option value="">Selecione o animal</option>
+                                            @foreach ($animals as $value)
+                                            <option value="{{$value->id}}" {{old('type') == '{$value}' ? 'selected' : '' }}>{{$value->earring.' / '.$value->name}}</option>
 
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>Situação</label>
-                                            <input class="{{ $errors->has('situation') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('situation')}}" name="situation" id="situation" type="text" placeholder="Situação">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>1° observação</label>
-                                            <input class="{{ $errors->has('observation1') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('observation1')}}" name="observation1" id="observation1" type="text" placeholder="1° observação">
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="form-group">
-                                            <label>2° observação</label>
-                                            <input class="{{ $errors->has('observation2') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('observation2')}}" name="observation2" id="observation2" type="text" placeholder="2° observação">
-                                        </div>
+                                            @endforeach
+
+
+                                        </select>
                                     </div>
                                 </div>
-                                <div class="card-footer ">
-                                    <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
-                                    <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Voltar</button>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Data do Parto</label>
+                                        <input class="{{ $errors->has('delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('delivery_date')}}" name="delivery_date" id="delivery_date" type="date" placeholder="Data do Parto">
+                                    </div>
                                 </div>
-                            </form>
-                        </div>
-                        <!-- /.card-body -->
+
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Previsão de Cobertura</label>
+                                        <input class="{{ $errors->has('coverage_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('coverage_date')}}" name="coverage_date" id="coverage_date" type="date"
+                                          placeholder="Previsão de Cobertura">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Data Previsão de Parto</label>
+                                        <input class="{{ $errors->has('expected_delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('expected_delivery_date')}}" name="expected_delivery_date" id="expected_delivery_date"
+                                          type="date" readonly placeholder="Data Previsão de Parto">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Data Previsão de Secar</label>
+                                        <input class="{{ $errors->has('dry_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('dry_date')}}" name="dry_date" id="dry_date" type="date" placeholder="Data Previsão de Secar" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Data previsão de pré parto</label>
+                                        <input class="{{ $errors->has('pre_delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('pre_delivery_date')}}" name="pre_delivery_date" id="pre_delivery_date" type="date"
+                                          placeholder="Data previsão de pré parto" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Dias em Lactação (DEL)</label>
+                                        <input class="{{ $errors->has('del') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('del')}}" name="del" id="del" type="text" placeholder="Dias em Lactação (DEL)" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>Situação</label>
+                                        <input class="{{ $errors->has('situation') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('situation')}}" name="situation" id="situation" type="text" placeholder="Situação">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>1° observação</label>
+                                        <input class="{{ $errors->has('observation1') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('observation1')}}" name="observation1" id="observation1" type="text" placeholder="1° observação">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <label>2° observação</label>
+                                        <input class="{{ $errors->has('observation2') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('observation2')}}" name="observation2" id="observation2" type="text" placeholder="2° observação">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-footer ">
+                                <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
+                                <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Voltar</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card-body -->
 
                 </div>
 
@@ -157,14 +154,14 @@
                 $('#expected_delivery_date')[0].valueAsDate = date;
                 //$("#expected_delivery_date").val(date.toInputFormat());
             } else {
-              sweetAlert({
-                title: 'Woops!',
+                sweetAlert({
+                    title: 'Woops!',
                     text: 'Informe a data de previsão de cobertura corretamente!',
                     icon: 'error',
                     showCancelButton: true,
                     cancelButtonText: 'Fechar',
                     autoclose: 1800,
-              });
+                });
                 $("#coverage_date").focus();
             }
         });
@@ -188,14 +185,14 @@
                 $('#dry_date')[0].valueAsDate = date;
                 //$("#expected_delivery_date").val(date.toInputFormat());
             } else {
-              sweetAlert({
-                title: 'Woops!',
+                sweetAlert({
+                    title: 'Woops!',
                     text: 'Informe a data de previsão de cobertura corretamente!',
                     icon: 'error',
                     showCancelButton: true,
                     cancelButtonText: 'Fechar',
                     autoclose: 1800,
-              });
+                });
                 $("#coverage_date").focus();
             }
         });
@@ -218,14 +215,14 @@
                 $('#pre_delivery_date')[0].valueAsDate = date;
                 //$("#expected_delivery_date").val(date.toInputFormat());
             } else {
-              sweetAlert({
-                title: 'Woops!',
+                sweetAlert({
+                    title: 'Woops!',
                     text: 'Informe a data de previsão de cobertura corretamente!',
                     icon: 'error',
                     showCancelButton: true,
                     cancelButtonText: 'Fechar',
                     autoclose: 1800,
-              });
+                });
                 $("#coverage_date").focus();
             }
         });
@@ -240,11 +237,18 @@
 
 
     $(document).ready(function() {
+
+
         $("#delivery_date").on("change", function() {
-            data1 = new Date($("#delivery_date").val());
-            data2 = new Date();
-            var resultado = (data2 - data1) / (1000 * 3600 * 24);
-            document.getElementById('del').value = eval(resultado.toFixed(0));
+
+            if ($('#delivery_date[document_type]').val() != '') {
+                data1 = new Date($("#delivery_date").val());
+                data2 = new Date();
+                var resultado = (data2 - data1) / (1000 * 3600 * 24);
+                document.getElementById('del').value = eval(resultado.toFixed(0));
+            }
+
+
 
         });
     });

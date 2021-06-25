@@ -1,5 +1,12 @@
 @extends('adminlte::page')
 @section('title', 'Farms Nutrition')
+@section('css')
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
+
+
+@stop
+@include('sweet::alert')
 @section('content')
 
 <section class="content-header">
@@ -57,6 +64,7 @@
                                         <th>2° Ordenha</th>
                                         <th>3° Ordenha</th>
                                         <th>Total Litros</th>
+                                        <th>Ações</th>
                                     </tr>
                                 </thead>
 
@@ -77,22 +85,10 @@
 
 
 
-                                        {{-- <td>
-                                            <a href='{{route('works.show',$result->id)}}' align="right" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i> View</a>
-                                        </td>
                                         <td>
-                                            <a href='{{route('works.edit',$result->id)}}' align="right" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Edit</a>
+                                            <button class="btn btn-danger btn-sm" data-id="{{ $result->id }}" data-action="{{ route('producao.destroy',$result->id) }}" onclick="deleteConfirmation({{$result->id}})"><i class="fas fa-trash"></i></button>
                                         </td>
-                                        <td>
-                                            <form action="{{route('works.destroy', $result->id)}}" method="post">
-                                                {{ csrf_field() }}
-                                                {{ method_field('DELETE') }}
-                                                <button type="submit" align="right" class="btn btn-danger btn-sm" onclick="return confirm('Você tem certeza?');"><i class="fas fa-trash"></i> Deletar</button>
-                                            </form>
 
-
-
-                                        </td> --}}
                                     </tr>
 
 
@@ -115,10 +111,52 @@
 @section('js')
 
 
-<script>
-    $(document).ready(function() {
-        $('.data-table').dataTable();
-    });
+  <script type="text/javascript">
+      function deleteConfirmation(id) {
+          swal({
+              title: "Woops!",
+              text: "Deseja realmente excluir esse registro?",
+              type: "warning",
+              showCancelButton: !0,
+              confirmButtonText: "Sim",
+              cancelButtonText: "Não",
+              reverseButtons: !0
+          }).then(function(e) {
+
+              if (e.value === true) {
+                  var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+
+                  $.ajax({
+                      url: "producao/" + id,
+                      type: 'DELETE',
+                      data: {
+                          "id": id,
+                          "_token": CSRF_TOKEN,
+                      },
+                      success: function() {
+                          swal({
+                              title: "Sucesso!",
+                              text: "Registro deletado com sucesso",
+                              type: "success",
+                              timer: 1500,
+                          });
+                          document.location.reload(true);
+                      }
+                  });
+
+              } else {
+                  e.dismiss;
+              }
+
+          }, function(dismiss) {
+              return false;
+          })
+      }
+
+      $(document).ready(function() {
+          $('.data-table').dataTable();
+      });
+
 </script>
 {{-- <script src="{{asset('vendor/jquery/jquery.js')}}"></script> --}}
 @stop

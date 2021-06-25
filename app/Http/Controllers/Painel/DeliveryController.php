@@ -101,6 +101,19 @@ class DeliveryController extends Controller
      */
     public function destroy($id)
     {
-        //
+      $dado = $this->delivery->find($id);
+
+        $detele = $dado->delete();
+
+
+      if ($detele){
+        return response()->json([
+                'success' => 'Registro deletado com sucesso!'
+            ]);
+          }else{
+            return response()->json([
+                    'success' => 'Ocorreu um erro por favor tente novamente mais tarde!'
+                ]);
+          }
     }
 }

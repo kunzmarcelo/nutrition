@@ -18,7 +18,7 @@ class AnimalController extends Controller
   }
     public function index()
     {
-      $results = $this->animal->orderBy('id','ASC')->get();
+      $results = $this->animal->orderBy('id','ASC')->where('user_id','=',auth()->user()->id)->get();
       //$this->authorize('view', $results);
         return view('painel.animals.index', compact('results'));
     }
@@ -140,5 +140,20 @@ class AnimalController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function downloadPDF(){
+
+      $iterable = $this->animal
+                          ->where('user_id','=',auth()->user()->id)->get();
+
+           return \PDF::loadView('painel.animals.downloadPDF', compact('iterable'))
+
+                      ->setPaper('a4', 'landscape')
+                       ->download("relatorio.pdf");
+
+  //return view('management.proposition.downloadPDF', compact('proposition'));
+
     }
 }

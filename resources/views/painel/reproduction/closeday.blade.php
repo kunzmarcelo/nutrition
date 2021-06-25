@@ -34,7 +34,7 @@
                             <h4>
                                 <img src="{{url('vendor/adminlte/dist/img/farms_nutrition.png')}}" style="height:70px; width: 70px">
                                 Farms Nutrition
-                                <small class="float-right">Date: {{Carbon::now()->format('d/m/Y H:m:s')}}</small>
+                                <small class="float-right">Realizado em: {{Carbon::parse($date)->format('d/m/Y')}}</small>
                             </h4>
                         </div>
                         <!-- /.col -->
@@ -82,7 +82,6 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th>Data</th>
                                         <th>Animal</th>
                                         <th>Data do Parto</th>
                                         <th>Prev. Cobertura</th>
@@ -99,9 +98,7 @@
 
                                     @foreach ($iterable as $result)
                                     <tr>
-                                        <td>{{Carbon::parse($result->created)->format('d/m/Y')}}</td>
-
-                                        <td>{{$result->animals->name }}</td>
+                                        <td>{{$result->animals->earring.' / '.$result->animals->name }}</td>
 
                                         <td>{{Carbon::parse($result->delivery_date)->format('d/m/Y') }}</td>
 

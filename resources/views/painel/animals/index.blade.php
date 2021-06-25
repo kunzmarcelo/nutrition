@@ -65,7 +65,7 @@
 
 
                                     @foreach($results as $result)
-                                    @can('view', $result)
+                                    {{-- @can('view', $result) --}}
 
                                     <tr>
                                         <td>{{$result->id}}</td>
@@ -99,7 +99,7 @@
                                         </td> --}}
                                     </tr>
 
-                                    @endcan
+                                    {{-- @endcan --}}
                                     @endforeach
 
                                 </tbody>
