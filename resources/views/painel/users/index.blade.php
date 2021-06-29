@@ -51,7 +51,10 @@
                                     <tr>
                                         <th>Nome</th>
                                         <th>E-mail</th>
-                                        <th class="project-actions text-right">Ver regras</th>
+                                        <th>Level</th>
+                                        <th>Status</th>
+                                        <th class="project-actions text-right">Ações</th>
+                                        {{-- <th class="project-actions text-right">Ver regras</th> --}}
                                     </tr>
                                 </thead>
 
@@ -59,21 +62,43 @@
 
 
                                     @foreach($results as $result)
-
+                                    @can('admin', $result)
                                     <tr>
 
                                         <td>{{$result->name}}</td>
                                         <td>{{$result->email}}</td>
+                                        <td>
+                                            @if($result->level == 'admin')
+                                                <span class="badge bg-success">{{$result->level}}</span>
+                                              @else
+                                                <span class="badge bg-info">{{$result->level}}</span>
+                                              @endif
+                                        </td>
+                                        <td>
+                                            @if($result->status == 'sim')
+                                                <span class="badge bg-primary">{{$result->status}}</span>
+                                              @else
+                                                <span class="badge bg-danger">{{$result->status}}</span>
+                                              @endif
+                                        </td>
+
                                         <td class="project-actions text-right">
-                                            <a class="btn btn-primary btn-sm" href="{{url("/painel/user/$result->id/roles")}}">
+                                            <a class="btn btn-info btn-sm" href="{{route('users.show',$result->id)}}">
+                                                <i class="fas fa-pencil-alt">
+                                                </i>
+                                                Perfil
+                                            </a>
+
+
+                                            {{-- <a class="btn btn-primary btn-sm" href="{{url("/painel/user/$result->id/roles")}}">
                                                 <i class="fas fa-folder">
                                                 </i>
                                                 Regras
-                                            </a>
+                                            </a> --}}
 
                                         </td>
 
-
+                                        @endcan
                                         @endforeach
 
                                 </tbody>

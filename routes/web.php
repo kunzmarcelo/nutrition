@@ -33,6 +33,7 @@ Route::group(['prefix'=>'painel','middleware' => 'auth'], function() {
   Route::resource('entrega', 'Painel\DeliveryController');
   Route::resource('reproducao', 'Painel\ReproductionController');
   Route::resource('desafio', 'Painel\ChallengeController');
+  Route::resource('estoque', 'Painel\StockController');
 
   Route::resource('medicamento', 'Painel\MedicineController');
 
@@ -53,4 +54,6 @@ Route::group(['prefix'=>'painel','middleware' => 'auth'], function() {
   Route::get('user/{id}/roles', 'Painel\UserController@roles');
 
 
+Route::get('changeStatus', 'Painel\UserController@changeStatus');
+Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 });

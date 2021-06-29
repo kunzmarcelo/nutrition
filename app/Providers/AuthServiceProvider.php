@@ -34,8 +34,12 @@ class AuthServiceProvider extends ServiceProvider
         //   return $user->id == $animal->user_id;
         // });
 
+
+
+
+
         $permissions = Permission::with('roles')->get(); //recupera todas as permissoes e objetos com as permissoes e funçoes especifica dessa permissao
-        //dd($permissions);
+      //  dd($permissions);
         foreach ($permissions as $permission) {
           // print_r($permission->name);
           Gate::define($permission->name, function(User $user) use ($permission){

@@ -15,7 +15,7 @@ return [
     */
 
     'title' => 'Farms Nutrition',
-    'title_prefix' => 'Nutrição de Fazendas | ',
+    'title_prefix' => '',
     'title_postfix' => '',
 
     /*
@@ -280,6 +280,11 @@ return [
           'url'     => 'painel/desafio',
           'icon'    => 'fas fa-syringe',
         ],
+        [
+          'text'    => 'Estoque',
+          'url'     => 'painel/estoque',
+          'icon'    => 'fas fa-syringe',
+        ],
         ['header' => 'RELATÓRIOS'],
         [
           'text'    => 'Reprodução',
@@ -291,6 +296,7 @@ return [
           'url'     => 'painel/fechamento_animais',
           'icon'    => 'fas fa-syringe',
         ],
+
         [
           'header' => 'Configurações de Usuários',
           'can' => 'admin',

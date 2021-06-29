@@ -5,11 +5,15 @@ namespace App\Http\Controllers\Painel;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\UserFormRequest;
+use App\Delivery;
+use App\Reproduction;
+use App\Animal;
 use App\User;
 use App\Role;
 use App\Permission;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Carbon\Carbon;
 
 
 class UserController extends Controller
@@ -46,15 +50,24 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+      $now = Carbon::now()->format('m');
+      $iterable = $this->user->find($id);
+      $animalsTotal = Animal::where('user_id',$id)->count();
+      $mediaDel = Reproduction::where('user_id',$id)->avg('del');
+      $productionTotal = Delivery::where('user_id',$id)->whereMonth('collection_date', '=', $now)->sum('total_liters_produced');
+        return view('painel.users.show',compact('iterable','animalsTotal','mediaDel','productionTotal'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function changeStatus(Request $request)
+    {
+
+      $user = User::findOrFail($request->user_id);
+      $user->status = $request->status;
+      $user->save();
+
+    return response()->json(['message' => 'User status updated successfully.']);
+    }
+
     public function edit($id)
     {
 

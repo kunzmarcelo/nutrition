@@ -48,7 +48,7 @@ class ReproductionController extends Controller
 
       $all = $request->all();
 
-        dd($all);
+        //dd($all);
 
       $insert = $this->reproduction->create($all);
 

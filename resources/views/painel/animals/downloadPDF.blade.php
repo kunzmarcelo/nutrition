@@ -64,7 +64,7 @@
                                           <th>Sexo</th>
                                           <th>Mãe</th>
                                           <th>Pai</th>
-                                          <th>Ativo</th>                                        
+                                          <th>Ativo</th>
                                           <th>Dis.</th>
                                           <th>Lote</th>
                                           <th>Ativo</th>
@@ -79,8 +79,20 @@
                                               <td>{{$result->name }}</td>
                                               <td>{{$result->record }}</td>
                                               <td>{{$result->sex }}</td>
-                                              <td>{{$result->mother_on_the_property }}</td>
-                                              <td>{{$result->father_on_the_property }}</td>
+                                              <td>
+                                                @if($result->mother_on_the_property == 'Desconhecido')
+                                                {{'Desc.'}}
+                                              @else
+                                                {{$result->mother_on_the_property }}
+                                              @endif
+                                              </td>
+                                              <td>
+                                                @if($result->father_on_the_property == 'Desconhecido')
+                                                {{'Desc.'}}
+                                              @else
+                                                {{$result->father_on_the_property }}
+                                              @endif
+                                              </td>                                              
                                               <td>{{$result->active }}</td>
                                               <td>
                                                   @if($result->to_discard == 'Não')
