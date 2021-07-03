@@ -15,7 +15,8 @@ class Production extends Model
       'total_milking',
       'user_id',
       ];
+    
       public function animal(){
-        return $this->belongsTo(Animal::class);
+        return $this->belongsTo(Animal::class); //retorn para o m
       }
 }

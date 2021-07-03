@@ -83,10 +83,8 @@
                                         </td>
 
                                         <td class="project-actions text-right">
-                                            <a class="btn btn-info btn-sm" href="{{route('users.show',$result->id)}}">
-                                                <i class="fas fa-pencil-alt">
-                                                </i>
-                                                Perfil
+                                            <a class="btn btn-info" href="{{route('users.show',$result->id)}}">
+                                                <i class="fas fa-eye"></i>
                                             </a>
 
 

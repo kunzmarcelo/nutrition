@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Animal;
@@ -40,8 +41,9 @@ class HomeController extends Controller
             $animalsTotal = Animal::count();
             $productionTotal = Delivery::whereMonth('collection_date', '=', $now)->sum('total_liters_produced');
             $mediaDel = Reproduction::avg('del');
-
-            return view('home',compact('results','animalsActive','animalsTotal','productionTotal','mediaDel'));
+            $production = Animal::with('productions')->where('user_id','=',auth()->user()->id)
+                       ->whereHas('Productions')->get();
+            return view('home',compact('results','animalsActive','animalsTotal','productionTotal','mediaDel','production'));
 
 
         }else{
@@ -49,14 +51,33 @@ class HomeController extends Controller
             $now = Carbon::now()->format('m');
 
             // /$results = $this->delivery->whereMonth('collection_date', '=', $now)->get();
-            $results = Delivery::whereMonth('collection_date', '=', $now)->where('user_id','=',auth()->user()->id)->get();
+            $results = Delivery::where('user_id','=',auth()->user()->id)->orderBy('collection_date','ASC')->get();
+            //$results = Delivery::whereMonth('collection_date', '=', $now)->where('user_id','=',auth()->user()->id)->get();
 
             $animalsActive = Animal::where('active','=','sim')->where('user_id','=',auth()->user()->id)->count();
             $animalsTotal = Animal::where('user_id','=',auth()->user()->id)->count();
             $productionTotal = Delivery::whereMonth('collection_date', '=', $now)->where('user_id','=',auth()->user()->id)->sum('total_liters_produced');
             $mediaDel = Reproduction::where('user_id','=',auth()->user()->id)->avg('del');
 
-              return view('home',compact('results','animalsActive','animalsTotal','productionTotal','mediaDel'));
+          $production = Production::where('user_id','=',auth()->user()->id)->orderBy('date_milking','ASC')->get();
+
+
+
+
+
+          // $animal = Animal::all();
+          //     foreach ($animal as $value) {
+          //         $teste = Production::where('animal_id', $value->id)->get();
+          //     }
+          //     dd($teste);
+         $production = Animal::with('productions')->where('user_id','=',auth()->user()->id)
+                    ->whereHas('Productions')->get();
+                    // response()->json(compact('production'));
+//return response()->json($production);
+
+return response(view('home',compact('results','animalsActive','animalsTotal','productionTotal','mediaDel','production'),array('production'=>$production)),200);
+
+              // return view('home',compact('results','animalsActive','animalsTotal','productionTotal','mediaDel','production'));
           }
           else{
             abort(401, 'Something went wrong');

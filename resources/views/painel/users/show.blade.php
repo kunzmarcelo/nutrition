@@ -53,10 +53,17 @@
                                 <b>Media DEL</b> <a class="float-right">{{$mediaDel}}</a>
                             </li>
                             <li class="list-group-item">
-                                <b>Leite Produzido mês</b> <a class="float-right">{{$productionTotal}}</a>
+                                <b>Produção mês atual</b> <a class="float-right">{{$production_current_month}} lts</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Produção último mês</b> <a class="float-right">{{$production_last_month}} lts</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Produção ultimo 3 mêses</b> <a class="float-right">{{$production_last_3_months}} lts</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Ativo no Sistema</b>
+
                                 <input type="checkbox" name="status" data-id="{{ $iterable->id }}" data-toggle="toggle" data-on="Sim" data-off="Não" data-onstyle="outline-success" data-offstyle="outline-danger" data-size="sm" class="js-switch" {{ $iterable->status == 'sim' ? 'checked' : '' }}>
 
                                 {{-- <input type="checkbox" data-id="{{ $iterable->id }}" name="status" class="js-switch float-right" {{ $iterable->status == 'sim' ? 'checked' : '' }}> --}}

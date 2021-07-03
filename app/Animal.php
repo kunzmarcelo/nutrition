@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Lot;
 use App\User;
 use App\Medicine;
+use App\Production;
 use App\Reproduction;
 use App\AnimalMedicine;
 
@@ -45,6 +46,10 @@ class Animal extends Model
       }
     public function reproductions(){
         return $this->hasOne(Reproduction::class);
+
+      }
+    public function productions(){
+        return $this->hasMany(Production::class);
 
       }
 }

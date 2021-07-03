@@ -51,11 +51,20 @@ class UserController extends Controller
     public function show($id)
     {
       $now = Carbon::now()->format('m');
+      $last_3_months = ($now - 3);
+      $last_month = ($now - 1);
       $iterable = $this->user->find($id);
       $animalsTotal = Animal::where('user_id',$id)->count();
       $mediaDel = Reproduction::where('user_id',$id)->avg('del');
-      $productionTotal = Delivery::where('user_id',$id)->whereMonth('collection_date', '=', $now)->sum('total_liters_produced');
-        return view('painel.users.show',compact('iterable','animalsTotal','mediaDel','productionTotal'));
+
+      $production_last_3_months = Delivery::where('user_id',$id)->whereMonth('collection_date', '=', $last_3_months )->sum('total_liters_produced'); //Produção ultimo 3 mêses
+      $production_last_month = Delivery::where('user_id',$id)->whereMonth('collection_date', '=', $last_month )->sum('total_liters_produced'); //Produção último mês
+      $production_current_month = Delivery::where('user_id',$id)->whereMonth('collection_date', '=', $now)->sum('total_liters_produced'); //Produção mês atual
+
+
+
+
+        return view('painel.users.show',compact('iterable','animalsTotal','mediaDel','production_last_3_months','production_last_month','production_current_month'));
     }
 
     public function changeStatus(Request $request)
