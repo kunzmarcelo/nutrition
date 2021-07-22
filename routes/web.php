@@ -34,6 +34,8 @@ Route::group(['prefix'=>'painel','middleware' => 'auth'], function() {
   Route::resource('reproducao', 'Painel\ReproductionController');
   Route::resource('desafio', 'Painel\ChallengeController');
   Route::resource('estoque', 'Painel\StockController');
+  Route::resource('reproducao/inseminacao', 'Painel\InseminationController');
+  Route::resource('reproducao/semem', 'Painel\SemenController');
 
   Route::resource('medicamento', 'Painel\MedicineController');
 

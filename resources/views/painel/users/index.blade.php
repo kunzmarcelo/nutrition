@@ -18,99 +18,81 @@
         </div>
     </div><!-- /.container-fluid -->
 </section>
-{{-- <section class="content-header">
-      <div class="container-fluid">
-          <div class="row mb-2">
-
-              <div class="col-sm-12">
-                  <div class="form-group row">
-                      <div class="col-md-8"></div>
-
-                      <div class="col-md-4">
-                        <a href="{{url('painel/lote/create')}}" class="btn btn-outline-info btn-block btn-lg" disabled><b>Cadastrar</b></a>
-
-</div>
-
-
-</div>
-</div>
-</div>
-</div><!-- /.container-fluid -->
-</section> --}}
 <section class="content">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
 
-                    <!-- /.card-header -->
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table table-hover data-table" id="dataTable" width="100%" cellspacing="0">
-                                <thead>
-                                    <tr>
-                                        <th>Nome</th>
-                                        <th>E-mail</th>
-                                        <th>Level</th>
-                                        <th>Status</th>
-                                        <th class="project-actions text-right">Ações</th>
-                                        {{-- <th class="project-actions text-right">Ver regras</th> --}}
-                                    </tr>
-                                </thead>
+    <!-- Default box -->
+    <div class="card card-solid">
+        <div class="card-body pb-0">
+            <div class="row">
+                @foreach($results as $result)
+                @can('admin', $result)
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                    <div class="card bg-light d-flex flex-fill">
+                        <div class="card-header text-muted border-bottom-0">
+                          
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead"><b>{{$result->name}}</b></h2>
+                                    <p class="text-muted text-sm"><b>Sobre: </b> {{$result->about}} </p>
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span>Endereço: {{$result->address}}</li>
+                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Contato: {{$result->phone}}</li>
+                                    </ul>
+                                </div>
 
-                                <tbody>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-left">
+                                <button class="btn btn-sm bg-teal">
+                                    @if($result->level == 'admin')
+                                        {{-- <i class="fas fa-comments"></i> --}}
+                                      {{$result->level}}
+                                        @else
+                                        {{-- <i class="fas fa-inbox"></i> --}}
+                                      {{$result->level}}
 
+                                        @endif
+                                </button>
 
-                                    @foreach($results as $result)
-                                    @can('admin', $result)
-                                    <tr>
+                            </div>
+                            <div class="text-right">
 
-                                        <td>{{$result->name}}</td>
-                                        <td>{{$result->email}}</td>
-                                        <td>
-                                            @if($result->level == 'admin')
-                                                <span class="badge bg-success">{{$result->level}}</span>
-                                              @else
-                                                <span class="badge bg-info">{{$result->level}}</span>
-                                              @endif
-                                        </td>
-                                        <td>
-                                            @if($result->status == 'sim')
-                                                <span class="badge bg-primary">{{$result->status}}</span>
-                                              @else
-                                                <span class="badge bg-danger">{{$result->status}}</span>
-                                              @endif
-                                        </td>
-
-                                        <td class="project-actions text-right">
-                                            <a class="btn btn-info" href="{{route('users.show',$result->id)}}">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-
-
-                                            {{-- <a class="btn btn-primary btn-sm" href="{{url("/painel/user/$result->id/roles")}}">
-                                                <i class="fas fa-folder">
-                                                </i>
-                                                Regras
-                                            </a> --}}
-
-                                        </td>
-
-                                        @endcan
-                                        @endforeach
-
-                                </tbody>
-                            </table>
+                                <a href="{{route('users.show',$result->id)}}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user"></i> Ver informações
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                @endcan
+                @endforeach
             </div>
         </div>
         <!-- /.card-body -->
+        {{-- <div class="card-footer">
+            <nav aria-label="Contacts Page Navigation">
+                <ul class="pagination justify-content-center m-0">
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                    <li class="page-item"><a class="page-link" href="#">4</a></li>
+                    <li class="page-item"><a class="page-link" href="#">5</a></li>
+                    <li class="page-item"><a class="page-link" href="#">6</a></li>
+                    <li class="page-item"><a class="page-link" href="#">7</a></li>
+                    <li class="page-item"><a class="page-link" href="#">8</a></li>
+                </ul>
+            </nav>
+        </div> --}}
+        <!-- /.card-footer -->
     </div>
     <!-- /.card -->
-    <!-- /.container-fluid -->
+
 </section>
+
 
 
 @section('js')

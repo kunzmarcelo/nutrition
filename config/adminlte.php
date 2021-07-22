@@ -239,62 +239,207 @@ return [
         // Sidebar items:
 
 
-        ['header' => 'Cadastros'],
+
+          ['header' => 'MENUS'],
+
         [
-            'text' => 'Lotes',
-            'url'  => 'painel/lote',
-            'icon'    => 'fas fa-object-ungroup',
+          'text' => 'Lotes',
+          'icon'    => 'fas fa-object-ungroup',
+
+          'submenu' => [
+            [
+              'text'    => 'Cadastro',
+              'url'  => 'painel/lote/create',
+            ],
+              [
+                'text'    => 'Listagem',
+                'url'  => 'painel/lote',
+              ],
+
+            ],
         ],
         [
-          'text'    => 'Medicamentos',
-          'url'     => 'painel/medicamento',
-          'icon'    => 'fas fa-syringe',
+          'text' => 'Medicamentos',
+          'icon'    => 'fas fa-clinic-medical',
+
+          'submenu' => [
+            [
+              'text'    => 'Cadastro',
+              'url'  => 'painel/medicamento/create',
+            ],
+              [
+                'text'    => 'Listagem',
+                'url'  => 'painel/medicamento',
+              ],
+
+            ],
         ],
         [
-          'text'    => 'Animais',
-          'url'     => 'painel/animais',
+          'text' => 'Animais',
           'icon'    => 'fas fa-horse-head',
+
+          'submenu' => [
+            [
+              'text'    => 'Cadastro',
+              'url'  => 'painel/animais/create',
+            ],
+              [
+                'text'    => 'Listagem',
+                'url'  => 'painel/animais',
+              ],
+
+            ],
         ],
         [
-          'text'    => 'Orenha/Produção',
-          'url'     => 'painel/producao',
+          'text'    => 'Ordenha/Produção',
           'icon'    => 'fas fa-folder-plus',
+
+          'submenu' => [
+            [
+              'text'    => 'Cadastro',
+              'url'  => 'painel/producao/create',
+            ],
+              [
+                'text'    => 'Listagem',
+                'url'  => 'painel/producao',
+              ],
+
+            ],
         ],
         [
           'text'    => 'Entrega do Leite',
-          'url'     => 'painel/entrega',
           'icon'    => 'fas fa-truck',
+
+          'submenu' => [
+            [
+              'text'    => 'Cadastro',
+              'url'  => 'painel/entrega/create',
+            ],
+              [
+                'text'    => 'Listagem',
+                'url'  => 'painel/entrega',
+              ],
+
+            ],
         ],
         [
           'text'    => 'Aplicação de Medi.',
-          'url'     => 'painel/aplicacoes',
           'icon'    => 'fas fa-syringe',
+
+          'submenu' => [
+            [
+              'text'    => 'Cadastro',
+              'url'  => 'painel/aplicacoes/create',
+            ],
+              [
+                'text'    => 'Listagem',
+                'url'  => 'painel/aplicacoes',
+              ],
+
+            ],
         ],
+
+
         [
-          'text'    => 'Reprodução',
-          'url'     => 'painel/reproducao',
-          'icon'    => 'fas fa-syringe',
+            'text'    => 'Prenhez',
+            'icon'    => 'fab fa-algolia',
+            'submenu' => [
+                [
+                    'text'    => 'Reprodução',
+                    'icon'    => 'fas fa-vector-square',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                          'text'    => 'Cadastro',
+                          'url'     => 'painel/reproducao/create',
+                        ],
+                        [
+                          'text'    => 'Listagem',
+                          'url'     => 'painel/reproducao',
+                        ],
+
+                    ],
+                ],
+
+                [
+                    'text'    => 'Inseminação/Cobertura',
+                    'icon'    =>'fab fa-usb',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                          'text'    => 'Cadastro',
+                          'url'     => 'painel/reproducao/inseminacao/create',
+                        ],
+                        [
+                          'text'    => 'Listagem',
+                          'url'     => 'painel/reproducao/inseminacao',
+                        ],
+
+                    ],
+                ],
+                [
+                    'text'    => 'Sêmen',
+                    'icon'    =>'fas fa-code-branch',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                          'text'    => 'Cadastro',
+                          'url'     => 'painel/reproducao/semem/create',
+                        ],
+                        [
+                          'text'    => 'Listagem',
+                          'url'     => 'painel/reproducao/semem',
+                        ],
+
+                    ],
+                ],
+            ],
         ],
+
+
         [
           'text'    => 'Desafio de Prod',
-          'url'     => 'painel/desafio',
-          'icon'    => 'fas fa-syringe',
+          'icon'    => 'fas fa-lightbulb',
+
+          'submenu' => [
+            [
+              'text'    => 'Cadastro',
+              'url'  => 'painel/desafio/create',
+            ],
+              [
+                'text'    => 'Listagem',
+                'url'  => 'painel/desafio',
+              ],
+
+            ],
         ],
         [
           'text'    => 'Estoque',
-          'url'     => 'painel/estoque',
-          'icon'    => 'fas fa-syringe',
+          'icon'    => 'fas fa-layer-group',
+
+          'submenu' => [
+            [
+              'text'    => 'Cadastro',
+              'url'  => 'painel/estoque/create',
+            ],
+              [
+                'text'    => 'Listagem',
+                'url'  => 'painel/estoque',
+              ],
+
+            ],
         ],
+
         ['header' => 'RELATÓRIOS'],
         [
           'text'    => 'Reprodução',
           'url'     => 'painel/fechamento_dia',
-          'icon'    => 'fas fa-syringe',
+          'icon'    => 'fas fa-file-pdf',
         ],
         [
           'text'    => 'Animais',
           'url'     => 'painel/fechamento_animais',
-          'icon'    => 'fas fa-syringe',
+          'icon'    => 'fas fa-file-pdf',
         ],
 
         [
@@ -319,8 +464,6 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'can' => 'admin',
         ],
-
-
     ],
 
     /*
