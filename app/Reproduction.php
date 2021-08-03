@@ -18,6 +18,7 @@ class Reproduction extends Model
         'dry_date',
         'pre_delivery_date',
         'del',
+        'del_total',
         'situation',
         'observation1',
         'observation2',

@@ -58,10 +58,10 @@
                             <table class="table table-hover data-table" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                      <th>Animal</th>
                                         <th>Inicio</th>
                                         <th>Fim</th>
                                         <th>dias</th>
-                                        <th>Animal</th>
                                         <th>Coeficiente</th>
                                         <th>Resultado</th>
                                         <th>Estimativa</th>
@@ -77,11 +77,12 @@
                                     @foreach($results as $result)
 
                                     <tr>
+                                      <td>{{$result->animal->earring.' / '. $result->animal->name }}</td>
+
                                         <td>{{Carbon::parse($result->start_date)->format('d/m/Y')}}</td>
                                         <td>{{Carbon::parse($result->analysis_time)->format('d/m/Y')}}</td>
                                         <td>{{ Carbon::parse( $result->analysis_time )->diffInDays(Carbon::now()) .' dias'}}</td>
 
-                                      <td>{{$result->animal->earring.' / '. $result->animal->name }}</td>
                                         <td>{{$result->coefficient }}</td>
                                         <td>{{$result->result .' kg/dia'}}</td>
                                         <td>{{$result->production_projection .' %'}}</td>

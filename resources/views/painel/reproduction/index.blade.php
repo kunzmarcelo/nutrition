@@ -60,12 +60,13 @@
                                     <tr>
                                         <th>Data</th>
                                         <th>Animal</th>
-                                        <th>Data do Parto</th>
-                                        <th>Prev. Cobertura</th>
-                                        <th>Prev. de Parto</th>
-                                        <th>Prev. Secar</th>
-                                        <th>Prev. pré parto</th>
+                                        <th>Último parto</th>
+                                        <th>Cobertura</th>
+                                        <th>Prox. Parto</th>
+                                        <th>Secar</th>
+                                        <th>Pré parto</th>
                                         <th>DEL</th>
+                                        <th>DEL Total</th>
                                         <th>Situação</th>
                                         <th>1° Observação</th>
                                         <th>2° Observação</th>
@@ -108,6 +109,22 @@
                                             @endempty
                                         </td>
                                         <td>{{$result->del }}</td>
+                                        <td>
+                                          @if($result->del_total)
+                                              {{$result->del_total}}
+                                          @else
+                                            @empty (!$result->delivery_date)
+                                              <?php
+                                                $date1 = Carbon::parse($result->dry_date);
+                                                $date2 = Carbon::parse($result->delivery_date);
+
+                                                $difference = $date1->diff($date2)->days;
+                                              ?>
+                                              {{$difference}}
+                                            @endempty
+                                        @endif
+
+                                        </td>
                                         <td>{{$result->situation }}</td>
                                         <td>{{$result->observation1 }}</td>
                                         <td>{{$result->observation2 }}</td>

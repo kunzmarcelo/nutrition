@@ -62,14 +62,14 @@
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label>Data do Parto</label>
-                                        <input class="{{ $errors->has('delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('delivery_date')}}" name="delivery_date" id="delivery_date" type="date" placeholder="Data do Parto">
+                                        <label>Último Parto</label>
+                                        <input class="{{ $errors->has('delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('delivery_date')}}" name="delivery_date" id="delivery_date" type="date" placeholder="Último Parto">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label>Previsão de Cobertura</label>
+                                        <label>Data de Cobertura</label>
                                         <input class="{{ $errors->has('coverage_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('coverage_date')}}" name="coverage_date" id="coverage_date" type="date"
                                           placeholder="Previsão de Cobertura">
                                     </div>
@@ -78,20 +78,20 @@
                             <div class="row">
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label>Data Previsão de Parto</label>
+                                        <label>Próximo Parto</label>
                                         <input class="{{ $errors->has('expected_delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('expected_delivery_date')}}" name="expected_delivery_date" id="expected_delivery_date"
                                           type="date" readonly placeholder="Data Previsão de Parto">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label>Data Previsão de Secar</label>
+                                        <label>Data de Secar</label>
                                         <input class="{{ $errors->has('dry_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('dry_date')}}" name="dry_date" id="dry_date" type="date" placeholder="Data Previsão de Secar" readonly>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
-                                        <label>Data previsão de pré parto</label>
+                                        <label>Data de pré parto</label>
                                         <input class="{{ $errors->has('pre_delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('pre_delivery_date')}}" name="pre_delivery_date" id="pre_delivery_date" type="date"
                                           placeholder="Data previsão de pré parto" readonly>
                                     </div>
@@ -102,25 +102,32 @@
                                         <input class="{{ $errors->has('del') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('del')}}" name="del" id="del" type="text" placeholder="Dias em Lactação (DEL)" readonly>
                                     </div>
                                 </div>
+
                             </div>
                             <div class="row">
 
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Situação</label>
                                         <input class="{{ $errors->has('situation') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('situation')}}" name="situation" id="situation" type="text" placeholder="Situação">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>1° observação</label>
                                         <input class="{{ $errors->has('observation1') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('observation1')}}" name="observation1" id="observation1" type="text" placeholder="1° observação">
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>2° observação</label>
                                         <input class="{{ $errors->has('observation2') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('observation2')}}" name="observation2" id="observation2" type="text" placeholder="2° observação">
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label for="del_total">Dias em Lactação Total (DEL)</label>
+                                        <input class="{{ $errors->has('del_total') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('del_total')}}" name="del_total" id="del_total" type="text" placeholder="Dias em Lactação Total (DEL)" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -237,21 +244,33 @@
 
 
     $(document).ready(function() {
-
-
         $("#delivery_date").on("change", function() {
+          const delivery_date = moment(new Date($("#delivery_date").val()));
+          const dry_date = moment(new Date());
+          const duration = moment.duration(dry_date.diff(delivery_date));
+          // Mostra a diferença em dias
+          const days = duration.asDays();
 
-            if ($('#delivery_date[document_type]').val() != '') {
-                data1 = new Date($("#delivery_date").val());
-                data2 = new Date();
-                var resultado = (data2 - data1) / (1000 * 3600 * 24);
-                document.getElementById('del').value = eval(resultado.toFixed(0));
-            }
-
-
+          document.getElementById('del').value = eval(days.toFixed(0));
 
         });
     });
+
+    $(document).ready(function() {
+        $("#coverage_date").on("change", function() {
+                const delivery_date = moment(new Date($("#delivery_date").val())); // Data de hoje
+                const dry_date = moment($("#dry_date").val()); // Outra data no passado
+                const duration = moment.duration(dry_date.diff(delivery_date));
+                // Mostra a diferença em dias
+                const days = duration.asDays();
+
+                document.getElementById('del_total').value = eval(days.toFixed(0));
+            //}
+        });
+    });
+
+
+    //del total = data de secagem - ultimo parto
 </script>
 
 @stop

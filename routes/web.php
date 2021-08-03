@@ -34,14 +34,21 @@ Route::group(['prefix'=>'painel','middleware' => 'auth'], function() {
   Route::resource('reproducao', 'Painel\ReproductionController');
   Route::resource('desafio', 'Painel\ChallengeController');
   Route::resource('estoque', 'Painel\StockController');
-  Route::resource('reproducao/inseminacao', 'Painel\InseminationController');
-  Route::resource('reproducao/semem', 'Painel\SemenController');
+  Route::resource('inseminacao', 'Painel\InseminationController');
+  Route::resource('semem', 'Painel\SemenController');
 
   Route::resource('medicamento', 'Painel\MedicineController');
+  Route::resource('cobertura', 'Painel\CoverageController');
+
+  Route::get('fechamento_desafio', 'Painel\ChallengeController@closeDay');
+  Route::get('fechamento_desafio/{date?}', 'Painel\ChallengeController@show');
+  Route::get('fechamento_desafio/pdf/{date}', 'Painel\ChallengeController@downloadPDF');
 
   Route::get('fechamento_dia', 'Painel\ReproductionController@closeDay');
   Route::get('fechamento_dia/{date?}', 'Painel\ReproductionController@show');
   Route::get('fechamento_dia/pdf/{date}', 'Painel\ReproductionController@downloadPDF');
+
+
   Route::get('fechamento_animais', 'Painel\AnimalController@downloadPDF');
 
 
@@ -55,7 +62,11 @@ Route::group(['prefix'=>'painel','middleware' => 'auth'], function() {
   Route::resource('users', 'Painel\UserController');
   Route::get('user/{id}/roles', 'Painel\UserController@roles');
 
+  Route::get('changeDiagnostic', 'Painel\CoverageController@changeDiagnostic');
 
 Route::get('changeStatus', 'Painel\UserController@changeStatus');
+
+
+
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 });

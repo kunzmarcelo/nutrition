@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Animal;
 use App\Delivery;
+use App\Coverage;
 use App\Production;
 use App\Reproduction;
 use LaravelDaily\LaravelCharts\Classes\LaravelChart;
@@ -59,23 +60,48 @@ class HomeController extends Controller
             $productionTotal = Delivery::whereMonth('collection_date', '=', $now)->where('user_id','=',auth()->user()->id)->sum('total_liters_produced');
             $mediaDel = Reproduction::where('user_id','=',auth()->user()->id)->avg('del');
 
-          $production = Production::where('user_id','=',auth()->user()->id)->orderBy('date_milking','ASC')->get();
+            $production = Production::where('user_id','=',auth()->user()->id)->orderBy('date_milking','ASC')->get();
+
+            $coverageDiagnosisP = Coverage::where('diagnosis','=','Prenha')->where('user_id','=',auth()->user()->id)->count();
+            $coverageDiagnosisF = Coverage::where('diagnosis','=','Falha')->where('user_id','=',auth()->user()->id)->count();
+            $coverageDiagnosisN = Coverage::where('diagnosis','=','Não Diagnosticado')->where('user_id','=',auth()->user()->id)->count();
+
+            $concepcao = Coverage::where('diagnosis','!=','Falha')->where('user_id','=',auth()->user()->id)->count();
+            $vacas_inseminadas = Coverage::all()->where('user_id','=',auth()->user()->id)->count();
 
 
+            $servico = number_format(($vacas_inseminadas * 100) / $animalsActive, 2);
+              if($servico != 0){
+                  $concepcao = number_format(($coverageDiagnosisP * 100) / $servico, 2);
+                  $prenhez = number_format($coverageDiagnosisP / $animalsActive, 2);
+          }else{
+            $servico = '';
+            $concepcao = '';
+            $prenhez = '';
+          }
 
+            // dd($concepcao);
 
-
-          // $animal = Animal::all();
-          //     foreach ($animal as $value) {
-          //         $teste = Production::where('animal_id', $value->id)->get();
-          //     }
-          //     dd($teste);
          $production = Animal::with('productions')->where('user_id','=',auth()->user()->id)
                     ->whereHas('Productions')->get();
-                    // response()->json(compact('production'));
-//return response()->json($production);
 
-return response(view('home',compact('results','animalsActive','animalsTotal','productionTotal','mediaDel','production'),array('production'=>$production)),200);
+
+        return response(view('home',compact(
+                                            'results',
+                                            'animalsActive',
+                                            'animalsTotal',
+                                            'productionTotal',
+                                            'mediaDel',
+                                            'production',
+                                            'coverageDiagnosisP',
+                                            'coverageDiagnosisF',
+                                            'coverageDiagnosisN',
+                                            'concepcao',
+                                            'servico',
+                                            'vacas_inseminadas',
+                                            'concepcao',
+                                            'prenhez'
+                                          ),array('production'=>$production)),200);
 
               // return view('home',compact('results','animalsActive','animalsTotal','productionTotal','mediaDel','production'));
           }

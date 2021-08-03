@@ -345,6 +345,22 @@ return [
             'icon'    => 'fab fa-algolia',
             'submenu' => [
                 [
+                    'text'    => 'Cobertura',
+                    'icon'    => 'fas fa-vector-square',
+                    'url'     => '#',
+                    'submenu' => [
+                        [
+                          'text'    => 'Cadastro',
+                          'url'     => 'painel/cobertura/create',
+                        ],
+                        [
+                          'text'    => 'Listagem',
+                          'url'     => 'painel/cobertura',
+                        ],
+
+                    ],
+                ],
+                [
                     'text'    => 'Reprodução',
                     'icon'    => 'fas fa-vector-square',
                     'url'     => '#',
@@ -368,11 +384,11 @@ return [
                     'submenu' => [
                         [
                           'text'    => 'Cadastro',
-                          'url'     => 'painel/reproducao/inseminacao/create',
+                          'url'     => 'painel/inseminacao/create',
                         ],
                         [
                           'text'    => 'Listagem',
-                          'url'     => 'painel/reproducao/inseminacao',
+                          'url'     => 'painel/inseminacao',
                         ],
 
                     ],
@@ -384,11 +400,11 @@ return [
                     'submenu' => [
                         [
                           'text'    => 'Cadastro',
-                          'url'     => 'painel/reproducao/semem/create',
+                          'url'     => 'painel/semem/create',
                         ],
                         [
                           'text'    => 'Listagem',
-                          'url'     => 'painel/reproducao/semem',
+                          'url'     => 'painel/semem',
                         ],
 
                     ],
@@ -434,6 +450,11 @@ return [
         [
           'text'    => 'Reprodução',
           'url'     => 'painel/fechamento_dia',
+          'icon'    => 'fas fa-file-pdf',
+        ],
+        [
+          'text'    => 'Desafios',
+          'url'     => 'painel/fechamento_desafio',
           'icon'    => 'fas fa-file-pdf',
         ],
         [
@@ -579,7 +600,11 @@ return [
                     'asset' => false,
                     'location' => '//cdn.jsdelivr.net/gh/gitbrent/bootstrap4-toggle@3.6.1/css/bootstrap4-toggle.min.css',
                 ],
-
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => '/vendor/adminlte/dist/js/moment-with-locales.min.js',
+                ],
                 [
                     'type' => 'js',
                     'asset' => false,

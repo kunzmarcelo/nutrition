@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{url('painel/home')}}">Home</a></li>
-                    <li class="breadcrumb-item active">Relatório Reprodução</li>
+                    <li class="breadcrumb-item active">Relatório Desafio</li>
                 </ol>
             </div>
         </div>
@@ -83,84 +83,51 @@
                                 <thead>
                                     <tr>
                                       <th>Animal</th>
-                                      <th>Último Parto</th>
-                                      <th>Cobertura</th>
-                                      <th>Prox. Parto</th>
-                                      <th>Secar</th>
-                                      <th>Pré parto</th>
-                                      <th>DEL</th>
-                                      <th>DEL Total</th>
-                                      <th>Situação</th>
-                                      <th>1° Observação</th>
-                                      <th>2° Observação</th>
+                                      <th>Litros</th>
+                                      <th>Resultado</th>
+                                      <th>Projeção</th>
+                                      
+                                      <th>Estimativa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    
                                     @foreach ($iterable as $result)
-                                    <tr>
-                                        <td>{{$result->animals->earring.' / '.$result->animals->name }}</td>
 
-                                        <td>
-                                          @empty (!$result->delivery_date)
-                                          {{Carbon::parse($result->delivery_date)->format('d/m/Y') }}
-                                          @endempty
-                                        </td>
+                                  <tr>
+                                    <td>{{$result->animal->earring.' / '. $result->animal->name }}</td>
+                                        <td>{{$result->total_production .'lts'}}</td>
+                                      <td>{{$result->result .' kg/dia'}}</td>
+                                      <td>{{$result->production_projection .' %'}}</td>
+                                      
+                                      <td>{{($result->production_projection * $result->total_production) / 100 + $result->total_production.'lts'}} <i class="fas fa-chart-line"></i> </td>
 
-                                        <td>
-                                            @empty (!$result->coverage_date)
-                                            {{Carbon::parse($result->coverage_date)->format('d/m/Y') }}
-                                            @endempty
-                                        </td>
+                                    
+                                  </tr>
 
-                                        <td>
-                                            @empty (!$result->expected_delivery_date)
-                                            {{Carbon::parse($result->expected_delivery_date)->format('d/m/Y') }}
-                                            @endempty
-                                        </td>
 
-                                        <td>
-                                            @empty (!$result->dry_date)
-                                            {{Carbon::parse($result->dry_date)->format('d/m/Y') }}
-                                            @endempty
-                                        </td>
-
-                                        <td>
-                                            @empty (!$result->pre_delivery_date)
-                                            {{Carbon::parse($result->pre_delivery_date)->format('d/m/Y')}}
-                                            @endempty
-                                        </td>
-
-                                        <td>{{$result->del }}</td>
-                                        <td>
-                                          @if($result->del_total)
-                                              {{$result->del_total}}
-                                          @else
-                                            @empty (!$result->delivery_date)
-                                              <?php
-                                                $date1 = Carbon::parse($result->dry_date);
-                                                $date2 = Carbon::parse($result->delivery_date);
-
-                                                $difference = $date1->diff($date2)->days;
-                                              ?>
-                                              {{$difference}}
-                                            @endempty
-                                        @endif
-
-                                        </td>
-                                        <td>{{$result->situation }}</td>
-
-                                        <td>{{$result->observation1 }}</td>
-
-                                        <td>{{$result->observation2 }}</td>
-                                    </tr>
-
-                                    @endforeach
+                                  @endforeach
 
                                 </tbody>
                             </table>
+                            
                         </div>
                         <!-- /.col -->
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <p>Quantidade de leite: <strong>{{$total_production }} lts/dia</strong></p>
+                             <p>Total de animais lactantes: <strong>{{$total_animals }} animais</strong></p>
+                            
+                            <p>Média atual: <strong>{{number_format($total_production / $total_animals,2,',','') }} lts/dia</strong></p>
+                            <p>Estimativa de aumento em: <strong>{{$total_production - $production_projection }} Litros dia</strong></p>
+                            <hr>
+                             <p>Total de ração dia: <strong>{{$total_ration }} Kg/dia</strong></p>
+                            <p>Total de ração mês: <strong>{{$total_ration * 30 }} Kg/dia</strong></p>
+                           
+                            {{--<p>Média estimada: <strong>{{$total_production / $total_animals }} lts/dia</strong></p>--}}
+                            
+                        </div> 
                     </div>
                     <!-- /.row -->
 
@@ -174,7 +141,7 @@
                                 Payment
                             </button> --}}
 
-                            <a href="{{url('painel/fechamento_dia/pdf',$date)}}" rel="noopener" target="_blank" class="btn btn-primary float-right">
+                            <a href="{{url('painel/fechamento_desafio/pdf',$date)}}" rel="noopener" target="_blank" class="btn btn-primary float-right">
                               <i class="fas fa-download"></i>
                               Gerar PDF
                             </a>

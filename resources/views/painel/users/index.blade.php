@@ -29,7 +29,7 @@
                 <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
                     <div class="card bg-light d-flex flex-fill">
                         <div class="card-header text-muted border-bottom-0">
-                          
+
                         </div>
                         <div class="card-body pt-0">
                             <div class="row">
@@ -46,16 +46,42 @@
                         </div>
                         <div class="card-footer">
                             <div class="text-left">
-                                <button class="btn btn-sm bg-teal">
-                                    @if($result->level == 'admin')
-                                        {{-- <i class="fas fa-comments"></i> --}}
-                                      {{$result->level}}
-                                        @else
-                                        {{-- <i class="fas fa-inbox"></i> --}}
-                                      {{$result->level}}
 
+                                @if($result->level == 'admin')
+                                    <button class="btn btn-sm bg-teal">
+                                        {{-- <i class="fas fa-comments"></i> --}}
+                                        {{$result->level}}
+                                    </button>
+                                    @endif
+                                    @if($result->level == 'produtor')
+                                        <button class="btn btn-sm bg-gradient-success">
+                                            {{-- <i class="fas fa-comments"></i> --}}
+                                            {{$result->level}}
+                                        </button>
                                         @endif
-                                </button>
+                                        @if($result->level == 'manager')
+                                            <button class="btn btn-sm bg-gradient-warning">
+                                                {{-- <i class="fas fa-comments"></i> --}}
+                                                {{$result->level}}
+                                            </button>
+                                            @endif
+                                            @if($result->level == 'seller')
+                                                <button class="btn btn-sm  bg-gradient-info">
+                                                    {{-- <i class="fas fa-comments"></i> --}}
+                                                    {{$result->level}}
+                                                </button>
+                                                @endif
+                                                @if($result->level == 'owner')
+                                                    <button class="btn btn-sm  bg-gradient-danger">
+                                                        {{-- <i class="fas fa-comments"></i> --}}
+                                                        {{$result->level}}
+                                                    </button>
+                                                    @endif
+
+
+
+
+
 
                             </div>
                             <div class="text-right">

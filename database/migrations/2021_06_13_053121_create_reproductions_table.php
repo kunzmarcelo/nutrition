@@ -26,6 +26,7 @@ class CreateReproductionsTable extends Migration
             $table->date('dry_date')->nullable(); //data para secar
             $table->date('pre_delivery_date')->nullable(); //data pré parto
             $table->string('del',5)->nullable(); //del
+            $table->string('del_total',5)->nullable(); //del total
             $table->string('situation')->nullable(); //situação
             $table->string('observation1')->nullable(); //observação1
             $table->string('observation2')->nullable(); //observação2

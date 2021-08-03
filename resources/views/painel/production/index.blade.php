@@ -58,8 +58,8 @@
                             <table class="table table-hover data-table" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
+                                      <th>Data da ordenha</th>
                                         <th>Animal</th>
-                                        <th>Data da ordenha</th>
                                         <th>1° Ordenha</th>
                                         <th>2° Ordenha</th>
                                         <th>3° Ordenha</th>
@@ -74,17 +74,12 @@
                                     @foreach($results as $result)
 
                                     <tr>
-
+                                      <td>{{Carbon::parse($result->date_milking)->format('d/m/Y')}}</td>
                                         <td>{{$result->animal->name }}</td>
-                                        <td>{{Carbon::parse($result->date_milking)->format('d/m/Y')}}</td>
-
                                         <td>{{$result->first_milking }}</td>
                                         <td>{{$result->second_milking }}</td>
                                         <td>{{$result->third_milking }}</td>
                                         <td>{{$result->total_milking }}</td>
-
-
-
                                         <td>
                                             <button class="btn btn-danger btn-sm" data-id="{{ $result->id }}" data-action="{{ route('producao.destroy',$result->id) }}" onclick="deleteConfirmation({{$result->id}})"><i class="fas fa-trash"></i></button>
                                         </td>

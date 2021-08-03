@@ -7,6 +7,7 @@ use App\Stock;
 use App\Animal;
 use App\Challenge;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ChallengeController extends Controller
 {
@@ -55,15 +56,79 @@ class ChallengeController extends Controller
              return back();
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function closeDay()
     {
-        //
+      $results = $this->challenge->where('user_id','=',auth()->user()->id)
+              ->orderBy('start_date')
+              ->get()
+              ->groupBy(function ($val) {
+                  return Carbon::parse($val->start_date)->format('d-m-Y');
+              });
+
+
+        return view('painel.challenge.indexgroup', compact('results'));
+    }
+
+    public function show($date)
+    {
+// dd($date);
+$date = $date;
+   $total_animals = Animal::where('active','sim')
+                         ->where('user_id','=',auth()->user()->id)
+                         ->count();
+
+   $total_ration = $this->challenge
+                         ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                         ->where('user_id','=',auth()->user()->id)
+                         ->sum('result');
+
+     $total_production = $this->challenge
+                         ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                         ->where('user_id','=',auth()->user()->id)
+                         ->sum('total_production');
+
+     $production_projection = $this->challenge
+                         ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                         ->where('user_id','=',auth()->user()->id)
+                         ->sum('production_projection');
+
+   $iterable = $this->challenge
+                       ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                       ->where('user_id','=',auth()->user()->id)->get();
+// dd($iterable);
+     return view('painel.challenge.closeday', compact('iterable','date','total_ration','total_production','production_projection','total_animals'));
+    }
+
+    public function downloadPDF($date){
+      $date = $date;
+      $total_animals = Animal::where('active','sim')
+                            ->where('user_id','=',auth()->user()->id)
+                            ->count();
+      $total_ration = $this->challenge
+                            ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                            ->where('user_id','=',auth()->user()->id)
+                            ->sum('result');
+        $total_production = $this->challenge
+                            ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                            ->where('user_id','=',auth()->user()->id)
+                            ->sum('total_production');
+        $production_projection = $this->challenge
+                            ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                            ->where('user_id','=',auth()->user()->id)
+                            ->sum('production_projection');
+      $iterable = $this->challenge
+                          ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                          ->where('user_id','=',auth()->user()->id)->get();
+
+
+//dd($iterable);
+                                //  $pdf = \PDF::loadView('painel.challenge.downloadPDF', compact('iterable'));
+                                //   return $pdf->download("relatorio.pdf");
+           return \PDF::loadView('painel.challenge.downloadPDF', compact('iterable','date','total_ration','total_production','production_projection','total_animals'))
+                      //->setPaper('a4', 'landscape')
+                      ->setPaper('a4', 'portrait')
+                       ->download("desafio.pdf");
+
     }
 
     /**

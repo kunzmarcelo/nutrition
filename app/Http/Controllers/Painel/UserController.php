@@ -27,6 +27,11 @@ class UserController extends Controller
 
   public function index() {
 
+
+    // $level = auth()->user()->level;
+    // dd($level);
+    //
+    //   $results = $this->user->where()->get();
       $results = $this->user->all();
       //dd($results);
 

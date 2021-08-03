@@ -77,7 +77,9 @@
                                         <td>{{$result->id }}</td>
                                         <td>{{$result->animals->earring.' / '. $result->animals->name }}</td>
                                         <td>{{$result->medicines->description }}</td>
-                                        @if($result->application_date <= Carbon::now()) <td>{{Carbon::parse($result->application_date)->format('d/m/Y')}}
+                                        @if($result->application_date <= Carbon::now())
+                                          <td>
+                                            {{Carbon::parse($result->application_date)->format('d/m/Y')}}
                                                 </td>
                                                 @endif
                                                 <td>
@@ -127,7 +129,7 @@
 @section('js')
 
 <script type="text/javascript">
-    
+
 
     function deleteConfirmation(id) {
         swal({

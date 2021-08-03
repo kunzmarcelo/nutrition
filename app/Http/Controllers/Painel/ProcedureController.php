@@ -3,19 +3,20 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
-use App\Insemination;
+use App\procedure;
 use Illuminate\Http\Request;
 use App\Semen;
-class InseminationController extends Controller
+class ProcedureController extends Controller
 {
-  private $insemination;
-  public function __construct(Insemination $insemination){
-    $this->insemination = $insemination;
+  private $procedure;
+  public function __construct(Procedure $procedure){
+    $this->procedure = $procedure;
       $this->middleware('auth');
   }
     public function index()
     {
-        //
+      $results = $this->procedure->all();
+        return view('painel.procedure.index',compact('results'));
     }
 
     /**
@@ -26,7 +27,7 @@ class InseminationController extends Controller
     public function create()
     {
       $semens = Semen::all();
-      return view('painel.insemination.create',compact('semens'));
+      return view('painel.procedure.create',compact('semens'));
     }
 
     /**
@@ -41,7 +42,7 @@ class InseminationController extends Controller
 
         //dd($all);
 
-      $insert = $this->insemination->create($all);
+      $insert = $this->procedure->create($all);
       if ($insert) {
           alert()->success('Registro inserido!','Sucesso')->persistent('Fechar')->autoclose(1500);
                  return redirect()->back();

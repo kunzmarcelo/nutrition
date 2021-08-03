@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{url('painel/home')}}">Home</a></li>
-                    <li class="breadcrumb-item active">Estoque</li>
+                    <li class="breadcrumb-item active">Sêmen</li>
                 </ol>
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <div class="col-md-8"></div>
 
                     <div class="col-md-4">
-                      <a href="{{url('painel/estoque/create')}}" class="btn btn-outline-info btn-block btn-lg"><b>Cadastrar</b></a>
+                      <a href="{{url('painel/semem/create')}}" class="btn btn-outline-info btn-block btn-lg"><b>Cadastrar</b></a>
 
                     </div>
 

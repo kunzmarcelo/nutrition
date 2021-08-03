@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class InseminationsTable extends Migration
+class ProceduresTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,20 +13,19 @@ class InseminationsTable extends Migration
      */
     public function up()
     {
-        Schema::create('inseminations', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('procedures', function (Blueprint $table) {
+            $table->increments('id');
             $table->string('type')->nullable();
             $table->date('date')->nullable();
-            $table->string('insinuating')->nullable();
             $table->string('note')->nullable();
             $table->string('pre_delivery')->nullable();
             $table->bigInteger('semen_id')->unsigned()->index(); // this is working
-          $table->foreign('semen_id')
+            $table->foreign('semen_id')
                             ->references('id')
                             ->on('semens')
                             ->onDelete('cascade');
             $table->bigInteger('user_id')->unsigned()->index(); // this is working
-          $table->foreign('user_id')
+            $table->foreign('user_id')
                             ->references('id')
                             ->on('users')
                             ->onDelete('cascade');
@@ -41,6 +40,6 @@ class InseminationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('inseminations');
+        Schema::dropIfExists('procedures');
     }
 }

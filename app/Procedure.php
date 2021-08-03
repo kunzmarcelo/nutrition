@@ -3,17 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Animal;
 
-class Insemination extends Model
+class Procedure extends Model
 {
     protected $fillable =
     [
       'type',
-      'date',      
-      'insinuating',
+      'date',
       'note',
-      'pre_delivery',
       'semen_id',
       'user_id',
       ];
+
+      public function animal(){
+        return $this->belongsTo(Animal::class); //retorn para o m
+      }
 }

@@ -26,7 +26,7 @@
                     <div class="col-md-8"></div>
 
                     <div class="col-md-4">
-                        <a href="{{url('painel/reproducao/create')}}" class="btn btn-outline-info btn-block btn-lg"><b>Cadastrar</b></a>
+                        <a href="{{url('painel/desafio/create')}}" class="btn btn-outline-info btn-block btn-lg"><b>Cadastrar</b></a>
 
                     </div>
 
@@ -64,14 +64,14 @@
                                     <tr>
                                         <td>{{Carbon::parse($key)->format('d/m/Y')}}</td>
                                         <td>
-                                            <a class="btn btn-info" href="{{url('painel/fechamento_dia',$key)}}">
+                                            <a class="btn btn-info" href="{{url('painel/fechamento_desafio',$key)}}">
                                                 <i class="fas fa-folder">
                                                 </i>
                                                 Visualizar
                                             </a>
                                         </td>
                                         <td>
-                                            <a class="btn btn-primary" href="{{url('painel/fechamento_dia/pdf',$key)}}">
+                                            <a class="btn btn-primary" href="{{url('painel/fechamento_desafio/pdf',$key)}}">
                                                 <i class="far fa-file-pdf"></i>
                                                 Imprimir
                                             </a>
