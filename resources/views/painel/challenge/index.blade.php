@@ -87,7 +87,7 @@
                                         <td>{{$result->result .' kg/dia'}}</td>
                                         <td>{{$result->production_projection .' %'}}</td>
                                         <td>{{$result->total_production .'lts'}}</td>
-                                        <td>{{($result->production_projection * $result->total_production) / 100 + $result->total_production.'lts'}} <i class="fas fa-chart-line"></i> </td>
+                                        <td>{{$result->projected_production .'lts'}} <i class="fas fa-chart-line"></i> </td>
 
                                         <td>
                                             <button class="btn btn-danger btn-sm" data-id="{{ $result->id }}" data-action="{{ route('desafio.destroy',$result->id) }}" onclick="deleteConfirmation({{$result->id}})"><i

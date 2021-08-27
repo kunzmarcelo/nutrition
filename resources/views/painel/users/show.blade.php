@@ -8,6 +8,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.2.0/sweetalert2.all.min.js"></script>
 
 
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
 @stop
 @include('sweet::alert')
 @section('content')
@@ -47,7 +52,10 @@
 
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
-                                <b>Animais</b> <a class="float-right">{{$animalsTotal}}</a>
+                                <b>Animais Cadastrados</b> <a class="float-right">{{$animalsTotal}}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Animais Produzindo</b> <a class="float-right">{{$animalsTotalActive}}</a>
                             </li>
                             <li class="list-group-item">
                                 <b>Media DEL</b> <a class="float-right">{{$mediaDel}}</a>
@@ -100,7 +108,7 @@
                 <!-- /.card -->
 
 
-                <div class="card card-primary">
+                {{-- <div class="card card-primary">
                     <div class="card-header">
                         <h3 class="card-title">Sobre</h3>
                     </div>
@@ -137,76 +145,86 @@
                         <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
                     </div>
                     <!-- /.card-body -->
-                </div>
+                </div> --}}
                 <!-- About Me Box -->
 
                 <!-- /.card -->
             </div>
             <!-- /.col -->
             <div class="col-md-9">
-                <div class="card">
-                    <div class="card-header p-2">
-                        <ul class="nav nav-pills">
+                  <div class="row">
+                      <div class="col-lg-4 col-6">
+                          <!-- small box -->
+                          <div class="small-box bg-success">
+                              <div class="inner">
+                                  <h3>{{$coverageDiagnosisP ?? ''}}</h3>
 
-                            <li class="nav-item"><a class="nav-link active" href="#settings" data-toggle="tab">Settings</a></li>
-                        </ul>
-                    </div><!-- /.card-header -->
-                    <div class="card-body">
-                        <div class="tab-content">
+                                  <p>Prenhas</p>
+                              </div>
+                              <div class="icon">
+                                  <i class="far fa-chart-bar"></i>
+                              </div>
+                              {{-- <a href="{{url('/painel/cobertura/prenha')}}" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a> --}}
+                          </div>
+                      </div>
+                      <!-- ./col -->
+                      <div class="col-lg-4 col-6">
+                          <!-- small box -->
+                          <div class="small-box bg-warning">
+                              <div class="inner">
+                                  <h3>{{$coverageDiagnosisN ?? ''}}</h3>
+
+                                  <p>Não Diagnosticado</p>
+                              </div>
+                              <div class="icon">
+                                <i class="far fa-chart-bar"></i>
+                              </div>
+                              {{-- <a href="{{url('/painel/cobertura/nao-diagnosticado')}}" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a> --}}
+                          </div>
+                      </div>
+                      <!-- ./col -->
+                      <div class="col-lg-4 col-6">
+                          <!-- small box -->
+                          <div class="small-box bg-danger">
+                              <div class="inner">
+                                  <h3>{{$coverageDiagnosisF ?? ''}}</h3>
+
+                                  <p>Falhas</p>
+                              </div>
+                              <div class="icon">
+                                  <i class="far fa-chart-bar"></i>
+                              </div>
+                              {{-- <a href="{{url('/painel/cobertura/falha')}}" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a> --}}
+                          </div>
+                      </div>
+                      <!-- ./col -->
+                </div>
+                <div class="row">
+
+                    <div class="col-lg-4">
+
+                        <figure>
+                            <div id="service"></div>
+
+                        </figure>
+                    </div>
+                    <div class="col-lg-4">
+
+                        <figure>
+                            <div id="conception"></div>
+
+                        </figure>
+                    </div>
+                    <div class="col-lg-4">
+
+                        <figure>
+                            <div id="prenhez"></div>
+
+                        </figure>
+                    </div>
 
 
-                            <div class="active tab-pane" id="settings">
-                                <form class="form-horizontal">
-                                    <div class="form-group row">
-                                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputName" placeholder="Name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-                                        <div class="col-sm-10">
-                                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputName2" placeholder="Name">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-                                        <div class="col-sm-10">
-                                            <textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="offset-sm-2 col-sm-10">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> I agree to the <a href="#">terms and conditions</a>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                        <div class="offset-sm-2 col-sm-10">
-                                            <button type="submit" class="btn btn-danger">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                            <!-- /.tab-pane -->
-                        </div>
-                        <!-- /.tab-content -->
-                    </div><!-- /.card-body -->
+
                 </div>
                 <!-- /.card -->
             </div>
@@ -263,5 +281,178 @@
     });
 </script>
 
+
+  <script>
+
+
+
+      Highcharts.chart('service', {
+          chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: 0,
+              plotShadow: false
+          },
+          title: {
+              text: 'Taxa Serviço <br><b> {{ $servico.'%' ?? ''}}</b>',
+              align: 'center',
+              verticalAlign: 'middle',
+              y: 60
+          },
+          // tooltip: {
+          //     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          // },
+          accessibility: {
+              point: {
+                  valueSuffix: '%'
+              }
+          },
+          plotOptions: {
+              pie: {
+                  dataLabels: {
+                      enabled: true,
+                      distance: -50,
+                      style: {
+                          fontWeight: 'bold',
+                          color: 'white'
+                      }
+                  },
+                  startAngle: -90,
+                  endAngle: 90,
+                  center: ['50%', '75%'],
+                  size: '110%'
+              }
+          },
+          series: [{
+              type: 'pie',
+              name: 'Taxa de Serviço',
+              innerSize: '60%',
+              data: [
+                {
+                name: 'Taxa',
+                y: {{$servico ?? 0}},
+                color: '#17a2b8'
+              },
+                {
+                name: '',
+                y: 100,
+                color: 'white'
+              },]
+          }]
+      });
+      Highcharts.chart('conception', {
+          chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: 0,
+              plotShadow: false
+          },
+          title: {
+              text: 'Taxa Concepção <br><b> {{$concepcao.'%' ?? '' }}</b>',
+              align: 'center',
+              verticalAlign: 'middle',
+              y: 60
+          },
+          // tooltip: {
+          //     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          // },
+          accessibility: {
+              point: {
+                  valueSuffix: '%'
+              }
+          },
+          plotOptions: {
+              pie: {
+                  dataLabels: {
+                      enabled: true,
+                      distance: -50,
+                      style: {
+                          fontWeight: 'bold',
+                          color: 'white'
+                      }
+                  },
+                  startAngle: -90,
+                  endAngle: 90,
+                  center: ['50%', '75%'],
+                  size: '110%'
+              }
+          },
+          series: [{
+              type: 'pie',
+              name: 'Taxa Concepção',
+              innerSize: '60%',
+              data: [
+                {
+                name: 'Taxa',
+                y: {{$concepcao ?? 0}},
+                color: 'rgb(136, 14, 79)'
+              },
+                {
+                name: '',
+                y: 100,
+                color: 'white'
+              },
+
+              ]
+          }]
+      });
+
+      Highcharts.chart('prenhez', {
+          chart: {
+              plotBackgroundColor: null,
+              plotBorderWidth: 0,
+              plotShadow: false
+          },
+          title: {
+              text: 'Taxa Prenhez <br><b>{{$prenhez.'%' ?? ''}}</b>',
+              align: 'center',
+              verticalAlign: 'middle',
+              y: 60
+          },
+          // tooltip: {
+          //     pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+          // },
+          accessibility: {
+              point: {
+                  valueSuffix: '%'
+              }
+          },
+          plotOptions: {
+              pie: {
+                  dataLabels: {
+                      enabled: true,
+                      distance: -50,
+                      style: {
+                          fontWeight: 'bold',
+                          color: 'white'
+                      }
+                  },
+                  startAngle: -90,
+                  endAngle: 90,
+                  center: ['50%', '75%'],
+                  size: '110%'
+              }
+          },
+          series: [{
+              type: 'pie',
+              name: 'Taxa de Prenhez',
+              innerSize: '60%',
+              data: [
+                {
+                name: 'Taxa',
+                y: {{$prenhez ?? 0}},
+                color: 'green'
+              },
+                {
+                name: '',
+                y: 100,
+                color: 'white'
+              },
+
+              ]
+          }]
+      });
+  </script>
+
+
+{{-- <script src="{{asset('vendor/jquery/jquery.js')}}"></script> --}}
 @stop
 @endsection

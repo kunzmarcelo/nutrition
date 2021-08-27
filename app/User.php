@@ -23,10 +23,10 @@ class User extends Authenticatable
         'password',
         'level',
         'status',
-        'phone',
         'address',
-        'about',
-        'seller_id',
+        'phone',
+        'cpf',
+        'seller',
     ];
     /**
      * The attributes that should be hidden for arrays.

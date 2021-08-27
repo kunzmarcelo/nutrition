@@ -120,62 +120,7 @@
 
 
                             </div>
-                            <div class="row" style="display:none;">
-                                <div class="col-sm-3" style="display:none;">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="date_next_heat">Data do proximo cio*</label>
-                                        <input class="{{ $errors->has('date_next_heat') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('date_next_heat')}}" name="date_next_heat" id="date_next_heat" type="date">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3" style="display:none;">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="date_touch">data do proximo toque</label>
-                                        <input class="{{ $errors->has('date_touch') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('date_touch')}}" name="date_touch" id="date_touch" type="date">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3" style="display:none;">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="dry_date">data de secar</label>
-                                        <input class="{{ $errors->has('dry_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('dry_date')}}" name="dry_date" id="dry_date" type="date">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="transition_date">data de transicao</label>
-                                        <input class="{{ $errors->has('transition_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('transition_date')}}" name="transition_date" id="transition_date" type="date">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="delivery_date">previsão de data do parto</label>
-                                        <input class="{{ $errors->has('delivery_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('delivery_date')}}" name="delivery_date" id="delivery_date" type="date">
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-3">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="iep">IEP</label>
-                                        <input class="{{ $errors->has('iep') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('iep')}}" name="iep" id="iep" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <!-- text input -->
-                                    <div class="form-group">
-                                        <label for="del">Del</label>
-                                        <input class="{{ $errors->has('del') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('del')}}" name="del" id="del" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-
-
-                            </div>
+                            
                             <div class="card-footer ">
                                 <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
                                 <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Limpar</button>
@@ -191,7 +136,7 @@
     </div>
 </section>
 @include('sweet::alert')
-@section('js')
+@section('jsas')
 
 <script>
     // <----- calculo del está OK Aqui------->
@@ -224,11 +169,11 @@
 
                 // console.log(date_para_secar.setDate(date_para_secar.getDate() + (282 - 60)));
 
-                date_cio.setDate(date_cio.getDate() + 21); // data do proximo cio
-                date_toque.setDate(date_toque.getDate() + 35); // data para o proximo toque
-                date_previsao_parto.setDate(date_previsao_parto.getDate() + 282); // data de previsao de parto
-                date_para_secar.setDate(date_para_secar.getDate() + 222); //data para secar
-                date_pre_parto.setDate(date_pre_parto.getDate() + 261); //data para pré parto
+                date_cio.setDate(date_cio.getDate() + {{$setting->pregnancy_confirmation}}); // data do proximo cio
+                date_toque.setDate(date_toque.getDate() + {{$setting->released_for_ultrasound}}); // data para o proximo toque
+                date_previsao_parto.setDate(date_previsao_parto.getDate() + {{$setting->animal_birth}}); // data de previsao de parto
+                date_para_secar.setDate(date_para_secar.getDate() + {{$setting->dry_animal}}); //data para secar
+                date_pre_parto.setDate(date_pre_parto.getDate() + {{$setting->pre_delivery}}); //data para pré parto
 
 
                 $('#date_next_heat')[0].valueAsDate = date_cio;
@@ -243,6 +188,8 @@
                 const duration = moment.duration(dated_teste.diff(last_birth));
                 // Mostra a diferença em dias
                 const days = duration.asDays();
+                // const days = duration.asDays() / {{$setting->average_day_of_the_month}};
+
                 document.getElementById('iep').value = eval(days.toFixed(0));
 
             } else {
@@ -265,26 +212,7 @@
             return yyyy + "-" + (mm[1] ? mm : "0" + mm[0]) + "-" + (dd[1] ? dd : "0" + dd[0]);
         };
     });
-    // $('#diagnosis').change(function(event) {
-    //     var diagnosis = event.currentTarget.value;
-    //     if (diagnosis === 'Não Diagnosticado') {
-    //         alert(diagnosis);
-    //
-    //     }
-    //     if (diagnosis === 'Prenha') {
-    //         alert(diagnosis);
-    //
-    //     }
-    //     if (diagnosis === 'Falha') {
-    //         alert(diagnosis);
-    //
-    //     }
-    //     //
-    //     // )
-    // });
 
-
-    // <----- calculo proximo cio ate aqui------->
 </script>
 
 @stop

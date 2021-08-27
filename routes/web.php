@@ -36,9 +36,12 @@ Route::group(['prefix'=>'painel','middleware' => 'auth'], function() {
   Route::resource('estoque', 'Painel\StockController');
   Route::resource('inseminacao', 'Painel\InseminationController');
   Route::resource('semem', 'Painel\SemenController');
+  Route::resource('configuracao', 'Painel\SettingController');
 
   Route::resource('medicamento', 'Painel\MedicineController');
   Route::resource('cobertura', 'Painel\CoverageController');
+  Route::get('cobertura/{status?}', 'Painel\CoverageController@show');
+
 
   Route::get('fechamento_desafio', 'Painel\ChallengeController@closeDay');
   Route::get('fechamento_desafio/{date?}', 'Painel\ChallengeController@show');
@@ -66,7 +69,8 @@ Route::group(['prefix'=>'painel','middleware' => 'auth'], function() {
 
 Route::get('changeStatus', 'Painel\UserController@changeStatus');
 
-
+Route::get('desafio_get/{id}', 'Painel\ChallengeController@getProducao'); // busca a producao do animal para o novo desafio
+Route::get('stocks_get/{id}', 'Painel\ChallengeController@getStock'); // busca o resultado do insumo
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 });

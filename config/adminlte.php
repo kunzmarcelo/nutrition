@@ -194,7 +194,7 @@ return [
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => 'painel/configuracao',
 
     /*
     |--------------------------------------------------------------------------
@@ -231,65 +231,130 @@ return [
             'text'         => 'search',
             'topnav_right' => false,
         ],
+
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
-        // Sidebar items:
 
 
+          ['header' => 'CADASTROS'],
 
-          ['header' => 'MENUS'],
 
-        [
-          'text' => 'Lotes',
-          'icon'    => 'fas fa-object-ungroup',
-
-          'submenu' => [
-            [
-              'text'    => 'Cadastro',
-              'url'  => 'painel/lote/create',
-            ],
+          [
+            'text' =>'Cadastros',
+            'icon' =>'fas fa-address-card',
+            'submenu'=>[
               [
-                'text'    => 'Listagem',
-                'url'  => 'painel/lote',
-              ],
-
-            ],
-        ],
-        [
-          'text' => 'Medicamentos',
-          'icon'    => 'fas fa-clinic-medical',
-
-          'submenu' => [
-            [
-              'text'    => 'Cadastro',
-              'url'  => 'painel/medicamento/create',
-            ],
-              [
-                'text'    => 'Listagem',
-                'url'  => 'painel/medicamento',
-              ],
-
-            ],
-        ],
-        [
-          'text' => 'Animais',
-          'icon'    => 'fas fa-horse-head',
-
-          'submenu' => [
-            [
-              'text'    => 'Cadastro',
-              'url'  => 'painel/animais/create',
-            ],
-              [
-                'text'    => 'Listagem',
+                'text'    => 'Animais',
+                'icon'    => 'fas fa-horse-head',
                 'url'  => 'painel/animais',
               ],
-
+              [
+                'text'    => 'Lotes',
+                'icon'    => 'fas fa-object-ungroup',
+                'url'  => 'painel/lote',
+              ],
+              [
+                'text'    => 'Medicamentos',
+                'icon'    => 'fas fa-clinic-medical',
+                'url'  => 'painel/medicamento',
+              ],
+              [
+                'text'    => 'Estoque',
+                'icon'    => 'fas fa-layer-group',
+                'url'  => 'painel/estoque',
+              ],
+              [
+                  'text'    => 'Sêmen',
+                  'icon'    =>'fas fa-code-branch',
+                  'url'     => 'painel/semem',
+              ],
             ],
-        ],
+          ],
+
+          ['header' => 'REPRODUÇÃO'],
+          [
+              'text'    => 'Reprodução',
+              'icon'    => 'fab fa-algolia',
+              'submenu' => [
+                  [
+                      'text'    => 'Cobertura',
+                      'icon'    => 'fas fa-vector-square',
+                      'url'     => '#',
+                      'submenu' => [
+                          [
+                            'text'    => 'Cadastro',
+                            'url'     => 'painel/cobertura/create',
+                          ],
+                          [
+                            'text'    => 'Listagem',
+                            'url'     => 'painel/cobertura',
+                          ],
+
+                      ],
+                  ],
+                  [
+                      'text'    => 'Ultrassom',
+                      'icon'    => 'fas fa-vector-square',
+                      'url'     => '#',
+                      'submenu' => [
+                          [
+                            'text'    => 'Cadastro',
+                            'url'     => 'painel/reproducao/create',
+                          ],
+                          [
+                            'text'    => 'Listagem',
+                            'url'     => 'painel/reproducao',
+                          ],
+
+                      ],
+                  ],
+
+
+              ],
+          ],
+
+          [
+              'text'    => 'Prenhez',
+              'icon'    => 'fab fa-algolia',
+              'submenu' => [
+                  [
+                      'text'    => 'Cobertura',
+                      'icon'    => 'fas fa-vector-square',
+                      'url'     => '#',
+                      'submenu' => [
+                          [
+                            'text'    => 'Cadastro',
+                            'url'     => 'painel/cobertura/create',
+                          ],
+                          [
+                            'text'    => 'Listagem',
+                            'url'     => 'painel/cobertura',
+                          ],
+
+                      ],
+                  ],
+                  [
+                      'text'    => 'Reprodução',
+                      'icon'    => 'fas fa-vector-square',
+                      'url'     => '#',
+                      'submenu' => [
+                          [
+                            'text'    => 'Cadastro',
+                            'url'     => 'painel/reproducao/create',
+                          ],
+                          [
+                            'text'    => 'Listagem',
+                            'url'     => 'painel/reproducao',
+                          ],
+
+                      ],
+                  ],
+
+        ['header' => 'PRODUÇÃO'],
+
         [
           'text'    => 'Ordenha/Produção',
           'icon'    => 'fas fa-folder-plus',
@@ -322,6 +387,7 @@ return [
 
             ],
         ],
+        ['header' => 'CLINICA'],
         [
           'text'    => 'Aplicação de Medi.',
           'icon'    => 'fas fa-syringe',
@@ -340,78 +406,27 @@ return [
         ],
 
 
-        [
-            'text'    => 'Prenhez',
-            'icon'    => 'fab fa-algolia',
-            'submenu' => [
-                [
-                    'text'    => 'Cobertura',
-                    'icon'    => 'fas fa-vector-square',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                          'text'    => 'Cadastro',
-                          'url'     => 'painel/cobertura/create',
-                        ],
-                        [
-                          'text'    => 'Listagem',
-                          'url'     => 'painel/cobertura',
-                        ],
 
-                    ],
-                ],
-                [
-                    'text'    => 'Reprodução',
-                    'icon'    => 'fas fa-vector-square',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                          'text'    => 'Cadastro',
-                          'url'     => 'painel/reproducao/create',
-                        ],
-                        [
-                          'text'    => 'Listagem',
-                          'url'     => 'painel/reproducao',
-                        ],
+                // [
+                //     'text'    => 'Inseminação/Cobertura',
+                //     'icon'    =>'fab fa-usb',
+                //     'url'     => '#',
+                //     'submenu' => [
+                //         [
+                //           'text'    => 'Cadastro',
+                //           'url'     => 'painel/inseminacao/create',
+                //         ],
+                //         [
+                //           'text'    => 'Listagem',
+                //           'url'     => 'painel/inseminacao',
+                //         ],
+                //
+                //     ],
+                // ],
 
-                    ],
-                ],
-
-                [
-                    'text'    => 'Inseminação/Cobertura',
-                    'icon'    =>'fab fa-usb',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                          'text'    => 'Cadastro',
-                          'url'     => 'painel/inseminacao/create',
-                        ],
-                        [
-                          'text'    => 'Listagem',
-                          'url'     => 'painel/inseminacao',
-                        ],
-
-                    ],
-                ],
-                [
-                    'text'    => 'Sêmen',
-                    'icon'    =>'fas fa-code-branch',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                          'text'    => 'Cadastro',
-                          'url'     => 'painel/semem/create',
-                        ],
-                        [
-                          'text'    => 'Listagem',
-                          'url'     => 'painel/semem',
-                        ],
-
-                    ],
-                ],
             ],
         ],
-
+        ['header' => 'DIETA'],
 
         [
           'text'    => 'Desafio de Prod',
@@ -429,22 +444,7 @@ return [
 
             ],
         ],
-        [
-          'text'    => 'Estoque',
-          'icon'    => 'fas fa-layer-group',
 
-          'submenu' => [
-            [
-              'text'    => 'Cadastro',
-              'url'  => 'painel/estoque/create',
-            ],
-              [
-                'text'    => 'Listagem',
-                'url'  => 'painel/estoque',
-              ],
-
-            ],
-        ],
 
         ['header' => 'RELATÓRIOS'],
         [

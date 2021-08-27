@@ -41,39 +41,59 @@
                                         <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Contato: {{$result->phone}}</li>
                                     </ul>
                                 </div>
+                                {{-- <div class="col-5 text-center">
+                                  <img src="{{asset('vendor/adminlte/dist/img/cow_udder.svg')}}" alt="" class="img-circle img-fluid">
+                                </div> --}}
 
                             </div>
                         </div>
                         <div class="card-footer">
+                            <div class="text-right">
+                                @if($result->level == 'admin')
+                                  <a href="#" class="btn btn-sm bg-teal">
+                                      <i class="fas fa-user"></i> {{$result->level}}
+                                  </a>
+                                @endif
+                                @if($result->level == 'produtor')
+                                  <a href="#" class="btn btn-sm bg-maroon">
+                                      <i class="fas fa-user"></i> {{$result->level}}
+                                  </a>
+                                @endif
+                              <a href="{{route('users.show',$result->id)}}" class="btn btn-sm btn-primary">
+                                  <i class="fas fa-user"></i> Ver informações
+                              </a>
+                            </div>
+                          </div>
+                        {{-- <div class="card-footer">
                             <div class="text-left">
 
                                 @if($result->level == 'admin')
                                     <button class="btn btn-sm bg-teal">
-                                        {{-- <i class="fas fa-comments"></i> --}}
+
                                         {{$result->level}}
                                     </button>
                                     @endif
                                     @if($result->level == 'produtor')
                                         <button class="btn btn-sm bg-gradient-success">
-                                            {{-- <i class="fas fa-comments"></i> --}}
+
                                             {{$result->level}}
                                         </button>
                                         @endif
                                         @if($result->level == 'manager')
                                             <button class="btn btn-sm bg-gradient-warning">
-                                                {{-- <i class="fas fa-comments"></i> --}}
+
                                                 {{$result->level}}
                                             </button>
                                             @endif
                                             @if($result->level == 'seller')
                                                 <button class="btn btn-sm  bg-gradient-info">
-                                                    {{-- <i class="fas fa-comments"></i> --}}
+
                                                     {{$result->level}}
                                                 </button>
                                                 @endif
                                                 @if($result->level == 'owner')
                                                     <button class="btn btn-sm  bg-gradient-danger">
-                                                        {{-- <i class="fas fa-comments"></i> --}}
+
                                                         {{$result->level}}
                                                     </button>
                                                     @endif
@@ -90,7 +110,7 @@
                                     <i class="fas fa-user"></i> Ver informações
                                 </a>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
 

@@ -35,6 +35,7 @@ class CreateChallengesTable extends Migration
             $table->string('total_amount')->nullable(); //quantidade total
             $table->string('cost_price')->nullable(); //preço de custo
             $table->string('subtotal')->nullable(); //subtotal
+            $table->string('projected_production')->nullable(); //produção projetada
             $table->string('active')->nullable(); //ativo
 
             $table->foreign('user_id')

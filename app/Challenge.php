@@ -27,6 +27,7 @@ class Challenge extends Model
       'total_amount',
       'cost_price',
       'subtotal',
+      'projected_production',
       'active',
 
 

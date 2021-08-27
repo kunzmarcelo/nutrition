@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
+use App\Production;
 use App\Stock;
 use App\Animal;
 use App\Challenge;
@@ -72,59 +73,86 @@ class ChallengeController extends Controller
     public function show($date)
     {
 // dd($date);
-$date = $date;
-   $total_animals = Animal::where('active','sim')
+        $date = $date;
+        $total_animals = Animal::where('active','sim')
                          ->where('user_id','=',auth()->user()->id)
                          ->count();
 
-   $total_ration = $this->challenge
+        $total_ration = $this->challenge
                          ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
                          ->where('user_id','=',auth()->user()->id)
                          ->sum('result');
 
-     $total_production = $this->challenge
+        $total_production = $this->challenge
                          ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
                          ->where('user_id','=',auth()->user()->id)
                          ->sum('total_production');
 
-     $production_projection = $this->challenge
+        $projected_production = $this->challenge
                          ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
                          ->where('user_id','=',auth()->user()->id)
-                         ->sum('production_projection');
+                         ->sum('projected_production');
 
-   $iterable = $this->challenge
+        $iterable = $this->challenge
                        ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
                        ->where('user_id','=',auth()->user()->id)->get();
+
+
+        $current_average =  number_format($total_production / $total_animals,2,',','');      // media atual;
+        $estimative = $projected_production - $total_production;
+        $total_ration_month = $total_ration * 30;
 // dd($iterable);
-     return view('painel.challenge.closeday', compact('iterable','date','total_ration','total_production','production_projection','total_animals'));
+     return view('painel.challenge.closeday', compact(
+                                                    'iterable',
+                                                    'date',
+                                                    'total_ration',
+                                                    'total_production',
+                                                    'projected_production',
+                                                    'total_animals',
+                                                    'total_ration_month',
+                                                    'estimative',
+                                                    'current_average')
+                                                  );
     }
 
     public function downloadPDF($date){
       $date = $date;
       $total_animals = Animal::where('active','sim')
-                            ->where('user_id','=',auth()->user()->id)
-                            ->count();
+                       ->where('user_id','=',auth()->user()->id)
+                       ->count();
+
       $total_ration = $this->challenge
-                            ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
-                            ->where('user_id','=',auth()->user()->id)
-                            ->sum('result');
-        $total_production = $this->challenge
-                            ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
-                            ->where('user_id','=',auth()->user()->id)
-                            ->sum('total_production');
-        $production_projection = $this->challenge
-                            ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
-                            ->where('user_id','=',auth()->user()->id)
-                            ->sum('production_projection');
+                       ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                       ->where('user_id','=',auth()->user()->id)
+                       ->sum('result');
+
+      $total_production = $this->challenge
+                       ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                       ->where('user_id','=',auth()->user()->id)
+                       ->sum('total_production');
+
+      $projected_production = $this->challenge
+                       ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                       ->where('user_id','=',auth()->user()->id)
+                       ->sum('projected_production');
+
       $iterable = $this->challenge
-                          ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
-                          ->where('user_id','=',auth()->user()->id)->get();
+                     ->where('start_date','=',Carbon::parse($date)->format('Y-m-d'))
+                     ->where('user_id','=',auth()->user()->id)->get();
 
 
-//dd($iterable);
-                                //  $pdf = \PDF::loadView('painel.challenge.downloadPDF', compact('iterable'));
-                                //   return $pdf->download("relatorio.pdf");
-           return \PDF::loadView('painel.challenge.downloadPDF', compact('iterable','date','total_ration','total_production','production_projection','total_animals'))
+      $current_average =  number_format($total_production / $total_animals,2,',','');      // media atual;
+      $estimative = $projected_production - $total_production;
+      $total_ration_month = $total_ration * 30;
+           return \PDF::loadView('painel.challenge.downloadPDF', compact('iterable',
+                                                               'date',
+                                                               'total_ration',
+                                                               'total_production',
+                                                               'projected_production',
+                                                               'total_animals',
+                                                               'total_ration_month',
+                                                               'estimative',
+                                                               'current_average'))
                       //->setPaper('a4', 'landscape')
                       ->setPaper('a4', 'portrait')
                        ->download("desafio.pdf");
@@ -176,6 +204,27 @@ $date = $date;
                     'success' => 'Ocorreu um erro por favor tente novamente mais tarde!'
                 ]);
           }
+    }
+
+    public function getProducao($id){
+      $producao = Production::where('animal_id',$id)
+                              ->where('user_id','=',auth()->user()->id)
+                              ->pluck('total_milking');
+
+                              //dd($producao);
+
+      return json_encode($producao);
+    }
+
+    public function getStock($id){
+      $stock = Stock::where('id',$id)
+                              ->where('user_id','=',auth()->user()->id)
+                              ->pluck('price');
+
+
+                              //dd($producao);
+
+      return json_encode($stock);
     }
 
 }

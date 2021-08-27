@@ -109,71 +109,83 @@
 
 
         <div class="row">
-          <div class="col-12 col-sm-6 col-md-3">
-            
-              <figure>
-                  <div id="service"></div>
-              </figure>
-          </div>
-          <div class="col-12 col-sm-6 col-md-3">
 
-              <figure>
-                  <div id="conception"></div>
-              </figure>
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h3>{{$coverageDiagnosisP ?? ''}}</h3>
 
-          </div>
-          <div class="col-12 col-sm-6 col-md-3">
-              <figure>
-                  <div id="prenhez"></div>
-              </figure>
-
-          </div>
-
-
-            <div class="col-md-3">
-                <!-- Info Boxes Style 2 -->
-
-                <div class="info-box mb-3 bg-success">
-                    <span class="info-box-icon"><i class="fas fa-thumbs-up"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Prenhas</span>
-                        <span class="info-box-number">{{$coverageDiagnosisP ?? ''}}</span>
+                        <p>Prenhas</p>
                     </div>
-                    <!-- /.info-box-content -->
-                </div>
-                <!-- /.info-box -->
-                <div class="info-box mb-3 bg-warning">
-                    <span class="info-box-icon"><i class="fas fa-spinner"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Não Diagnosticado</span>
-                        <span class="info-box-number">{{$coverageDiagnosisN ?? ''}}</span>
+                    <div class="icon">
+                        <i class="fas fa-thumbs-up"></i>
                     </div>
-                    <!-- /.info-box-content -->
+                    <a href="{{url('/painel/cobertura/prenha')}}" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
                 </div>
-                <!-- /.info-box -->
-                <div class="info-box mb-3 bg-danger">
-                    <span class="info-box-icon"><i class="fas fa-thumbs-down"></i></span>
-
-                    <div class="info-box-content">
-                        <span class="info-box-text">Falhas</span>
-                        <span class="info-box-number">{{$coverageDiagnosisF ?? ''}}</span>
-                    </div>
-                    <!-- /.info-box-content -->
-                </div>
-
-
             </div>
-            <!-- /.col -->
+            <!-- ./col -->
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h3>{{$coverageDiagnosisN ?? ''}}</h3>
+
+                        <p>Não Diagnosticado</p>
+                    </div>
+                    <div class="icon">
+                      <i class="fas fa-spinner"></i>
+                    </div>
+                    <a href="{{url('/painel/cobertura/nao-diagnosticado')}}" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h3>{{$coverageDiagnosisF ?? ''}}</h3>
+
+                        <p>Falhas</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fas fa-thumbs-down"></i>
+                    </div>
+                    <a href="{{url('/painel/cobertura/falha')}}" class="small-box-footer">Saiba mais <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
         </div>
 
 
 
+        <div class="row">
+
+            <div class="col-lg-4">
+
+                <figure>
+                    <div id="service"></div>
+
+                </figure>
+            </div>
+            <div class="col-lg-4">
+
+                <figure>
+                    <div id="conception"></div>
+
+                </figure>
+            </div>
+            <div class="col-lg-4">
+
+                <figure>
+                    <div id="prenhez"></div>
+
+                </figure>
+            </div>
 
 
 
-
+        </div>
 
 
 

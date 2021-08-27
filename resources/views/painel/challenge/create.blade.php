@@ -45,7 +45,6 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Tempo de duração do desafio</label>
-
                                         <input class="{{ $errors->has('analysis_time') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('analysis_time')}}" name="analysis_time" id="analysis_time" type="date"
                                           placeholder="Tempo de duração do desafio">
                                     </div>
@@ -64,24 +63,6 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
-                                    <div class="form-group">
-                                        <label>Selecione o Insumo</label>
-                                        <select name="stock_id" id="stock_id" class=" {{ $errors->has('stock_id') ? 'form-control is-invalid' : 'form-control' }}">
-                                            <option value="">Selecione o Insumo</option>
-                                            @foreach ($stocks as $value)
-                                            {{-- @can('view', $value) --}}
-                                            <option value="{{$value->id}}" {{old('type') == '{$value}' ? 'selected' : '' }}>{{$value->description}}</option>
-                                            {{-- @endcan --}}
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-
-                            </div>
-
-
-                            <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Produção total do dia</label>
@@ -89,19 +70,23 @@
                                           placeholder="Produção total do dia">
                                     </div>
                                 </div>
+
+                            </div>
+
+                            <div class="row">
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Coeficiente</label>
-
                                         <select class="{{ $errors->has('coefficient') ? 'form-control is-invalid' : 'form-control' }}" name="coefficient" id="coefficient">
                                             <option value="">Selecione</option>
-                                            <option value="1.0">1,0</option>
+                                            {{-- <option value="1.0">1,0</option>
                                             <option value="1.2">1,2</option>
                                             <option value="1.3">1,3</option>
                                             <option value="1.4">1,4</option>
                                             <option value="1.5">1,5</option>
                                             <option value="1.6">1,6</option>
-                                            <option value="1.7">1,7</option>
+                                            <option value="1.7">1,7</option> --}}
                                             <option value="1.8">1,8</option>
                                             <option value="1.9">1,9</option>
                                             <option value="2.0">2,0</option>
@@ -146,6 +131,7 @@
                                           placeholder="Resultado em kg de ração">
                                     </div>
                                 </div>
+
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label>Projeção de produção em %</label>
@@ -153,101 +139,172 @@
                                           type="number" min="0" max="60" placeholder="Projeção de produção em %">
                                     </div>
                                 </div>
+                                <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <label>Selecione o Insumo</label>
+                                        <select name="stock_id" id="stock_id" class=" {{ $errors->has('stock_id') ? 'form-control is-invalid' : 'form-control' }}">
+                                            <option value="">Selecione o Insumo</option>
+                                            @foreach ($stocks as $value)
+                                            {{-- @can('view', $value) --}}
+                                            <option value="{{$value->id}}" {{old('type') == '{$value}' ? 'selected' : '' }}>{{$value->description}}</option>
+                                            {{-- @endcan --}}
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="row">
+                            {{-- <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="description">Descrição</label>
                                         <input class="{{ $errors->has('description') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('description')}}" name="description" id="description" type="text" placeholder="Descrição">
 
 
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="amount_of_meals">Quantidade de refeições</label>
-                                        <select class="{{ $errors->has('amount_of_meals') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('amount_of_meals')}}" name="amount_of_meals" id="amount_of_meals">
-                                            @for ($i=1; $i < 6; $i++)
-                                              <option value="{{$i}}">{{$i}}</option>
-                                            @endfor
-                                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="amount_of_meals">Quantidade de refeições</label>
+                        <select class="{{ $errors->has('amount_of_meals') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('amount_of_meals')}}" name="amount_of_meals" id="amount_of_meals">
+                            @for ($i=1; $i < 6; $i++) <option value="{{$i}}">{{$i}}</option>
+                                @endfor
+                        </select>
 
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="application">Aplicação por Animal ou lote</label>
-                                        <select class="{{ $errors->has('application') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('application')}}" name="application" id="application">
-                                            <option value="Animal">Animal</option>
-                                            <option value="Lote">Lote</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="number_of_animals">Número de animais</label>
-                                        <input class="{{ $errors->has('number_of_animals') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('number_of_animals')}}" name="number_of_animals" id="number_of_animals" type="text"
-                                          placeholder="Número de animais">
-
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="total_amount">Quantidade por animal/lote kg</label>
-
-                                        <input class="{{ $errors->has('total_amount') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('total_amount')}}" name="total_amount" id="total_amount" type="text" placeholder="Quantidade por animal/lote kg">
-
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="cost_price">Preço de custo</label>
-                                        <input class="{{ $errors->has('cost_price') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('cost_price')}}" name="cost_price" id="cost_price" type="text" placeholder="Preço de custo">
-
-
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="subtotal">Sub Total</label>
-                                        <input class="{{ $errors->has('subtotal') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('subtotal')}}" name="subtotal" id="subtotal" type="text" placeholder="Sub Total" readonly>
-
-
-                                    </div>
-                                </div>
-                                <div class="col-md-3">
-                                    <div class="form-group">
-                                        <label for="active">Ativo</label>
-                                        <select class="{{ $errors->has('active') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('active')}}" name="active" id="active">
-                                            <option value="Sim">Sim</option>
-                                            <option value="Não">Não</option>
-                                        </select>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="card-footer ">
-                                <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
-                                <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Voltar</button>
-
-                            </div>
-                        </form>
-
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="application">Aplicação por Animal ou lote</label>
+                        <select class="{{ $errors->has('application') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('application')}}" name="application" id="application">
+                            <option value="Animal">Animal</option>
+                            <option value="Lote">Lote</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="number_of_animals">Número de animais</label>
+                        <input class="{{ $errors->has('number_of_animals') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('number_of_animals')}}" name="number_of_animals" id="number_of_animals" type="text"
+                          placeholder="Número de animais">
 
 
                     </div>
                 </div>
+            </div> --}}
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="total_amount">Quantidade por animal/lote kg</label>
+
+                        <input class="{{ $errors->has('total_amount') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('total_amount')}}" name="total_amount" id="total_amount" type="text" placeholder="Quantidade por animal/lote kg"
+                          readonly>
+
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="cost_price">Preço de custo</label>
+                        <input class="{{ $errors->has('cost_price') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('cost_price')}}" name="cost_price" id="cost_price" type="text" placeholder="Preço de custo">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="subtotal">Sub Total</label>
+                        <input class="{{ $errors->has('subtotal') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('subtotal')}}" name="subtotal" id="subtotal" type="text" placeholder="Sub Total" readonly>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="active">Ativo</label>
+                        <select class="{{ $errors->has('active') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('active')}}" name="active" id="active">
+                            <option value="Sim">Sim</option>
+                            <option value="Não">Não</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="col-md-3" style="display:none">
+                    <div class="form-group">
+                        <label for="projected_production">produção projetada</label>
+                        <input class="{{ $errors->has('projected_production') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('projected_production')}}" name="projected_production" id="projected_production" type="text" placeholder="Sub Total" readonly>
+                    </div>
+                </div>
             </div>
+
+            <div class="card-footer ">
+                <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
+                <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Voltar</button>
+
+            </div>
+            </form>
+
+
+
         </div>
+    </div>
+    </div>
+    </div>
 
 
     </div><!-- /.container-fluid -->
 </section>
 @section('js')
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('select[name="animal_id"]').on('change', function() {
+            var animal_id = $(this).val();
+            if (animal_id) {
+                $.ajax({
+                    url: '/painel/desafio_get/' + animal_id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        $("#total_production").val(data);
+
+                    }
+                });
+            } else {
+                $('select[name="city_id"]').empty();
+                $('select[name="city_id"]').append('<option value=""> Selecione um Estado </option>');
+            }
+        });
+    });
+    $(document).ready(function() {
+        $('select[name="stock_id"]').on('change', function() {
+            var stock_id = $(this).val();
+            if (stock_id) {
+                $.ajax({
+                    url: '/painel/stocks_get/' + stock_id,
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        //console.log(data);
+                        $("#cost_price").val(data);
+
+                        var total_production = document.getElementById("total_production").value; //total de leite
+                        var resultado = document.getElementById("resultado").value; //quantidade de raçao
+                        var cost_price = document.getElementById("cost_price").value; //valor unitario da raçao
+                        var production_projection = document.getElementById("production_projection").value; //producao projetada
+                        var cost_price1 = parseFloat(cost_price.replace(',', '.'));
+                        var calc = (resultado * cost_price).toFixed(2);
+
+                        var production_projection1 = (((total_production * production_projection) / 100) +  total_production);
+
+
+                        $("#projected_production").val(production_projection1);
+                        $("#subtotal").val(calc);
+                    }
+                });
+            } else {
+                $('select[name="city_id"]').empty();
+                $('select[name="city_id"]').append('<option value=""> Selecione um Estado </option>');
+            }
+        });
+    });
+</script>
+
+
 
 <script>
     $('#coefficient').change(function() {
@@ -259,33 +316,36 @@
         var total_production1 = parseFloat(total_production.replace(',', '.'));
         var coefficient1 = parseFloat(coefficient.replace(',', '.'));
 
-        var calc = (total_production1 / coefficient1).toFixed(2);
+        var calc = (total_production1 / coefficient1).toFixed(1);
 
-        document.getElementById('resultado').value = eval(calc);
-        document.getElementById('total_amount').value = eval(calc);
+        var x = Math.round(calc);
 
-    });
-
-    $('#cost_price').change(function() {
-        var amount_of_meals = document.getElementById("amount_of_meals").value; // quantidade de refeições
-        var number_of_animals = document.getElementById("number_of_animals").value; //numero de animais
-        var total_amount = document.getElementById("total_amount").value; //Quantidade por animal/lote kg
-        var cost_price = document.getElementById("cost_price").value; //valor unitario da raçao
-
-        //  console.log(total_production + '/' + coefficient);
-
-        var amount_of_meals1 = parseFloat(amount_of_meals.replace(',', '.'));
-        var total_amount1 = parseFloat(total_amount.replace(',', '.'));
-        var number_of_animals1 = parseFloat(number_of_animals.replace(',', '.'));
-        var cost_price1 = parseFloat(cost_price.replace(',', '.'));
-
-        var calc = (amount_of_meals1 * number_of_animals * total_amount * cost_price).toFixed(2);
-
-        document.getElementById('subtotal').value = eval(calc);
+        document.getElementById('resultado').value = eval(x);
+        document.getElementById('total_amount').value = eval(x);
 
     });
 
-
+    // $(document).ready(function() {
+    //     $('select[name="stock_id"]').on('change', function() {
+    //
+    //
+    //         var resultado = document.getElementById("resultado").value; //valor unitario da raçao
+    //         var cost_price = document.getElementById("cost_price").value; //valor unitario da raçao
+    //
+    //         //console.log(resultado);
+    //         console.log(cost_price);
+    //         var cost_price1 = parseFloat(cost_price.replace(',', '.'));
+    //
+    //         //var calc = (amount_of_meals1 * number_of_animals * total_amount * cost_price).toFixed(2);
+    //         var calc = (resultado * cost_price).toFixed(2);
+    //
+    //         //console.log(resultado)
+    //
+    //         document.getElementById('subtotal').value = eval(calc);
+    //
+    //
+    //     });
+    // });
 </script>
 @stop
 @include('sweet::alert')

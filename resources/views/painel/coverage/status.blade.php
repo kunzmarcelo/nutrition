@@ -69,8 +69,6 @@
                                         <th>Secagem</th>
                                         <th>Pré parto</th>
                                         <th>Previsão de parto</th>
-                                        <th>Del</th>
-                                        <th>IEP</th>
                                         <th>Diagnostico</th>
                                         {{-- <th>Ações</th> --}}
                                     </tr>
@@ -107,12 +105,6 @@
                                           <td>-</td>
                                           <td>-</td>
                                       @endif
-                                      <td>{{$result->del }}</td>
-                                        <td>
-                                          @if($result->iep > '0.00')
-                                            {{ $result->iep }}
-                                          @endif
-                                        </td>
                                       <td>
                                           @if($result->diagnosis == 'Não Diagnosticado')
 
@@ -139,7 +131,6 @@
                                                           @endif
                                               </div>
                                       </td>
-
                                         {{-- <td>
                                             <button class="btn btn-danger btn-sm" data-id="{{ $result->id }}" data-action="{{ route('cobertura.destroy',$result->id) }}" onclick="deleteConfirmation({{$result->id}})"><i class="fas fa-trash"></i></button>
                                         </td> --}}

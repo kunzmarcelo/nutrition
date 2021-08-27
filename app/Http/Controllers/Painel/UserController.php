@@ -11,6 +11,7 @@ use App\Animal;
 use App\User;
 use App\Role;
 use App\Permission;
+use App\Coverage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Carbon\Carbon;
@@ -60,16 +61,53 @@ class UserController extends Controller
       $last_month = ($now - 1);
       $iterable = $this->user->find($id);
       $animalsTotal = Animal::where('user_id',$id)->count();
+      $animalsTotalActive = Animal::where('active','sim')->where('user_id',$id)->count();
       $mediaDel = Reproduction::where('user_id',$id)->avg('del');
 
       $production_last_3_months = Delivery::where('user_id',$id)->whereMonth('collection_date', '=', $last_3_months )->sum('total_liters_produced'); //Produção ultimo 3 mêses
       $production_last_month = Delivery::where('user_id',$id)->whereMonth('collection_date', '=', $last_month )->sum('total_liters_produced'); //Produção último mês
       $production_current_month = Delivery::where('user_id',$id)->whereMonth('collection_date', '=', $now)->sum('total_liters_produced'); //Produção mês atual
 
+      $coverageDiagnosisP = Coverage::where('diagnosis','=','Prenha')->where('user_id',$id)->count();
+      $coverageDiagnosisF = Coverage::where('diagnosis','=','Falha')->where('user_id',$id)->count();
+      $coverageDiagnosisN = Coverage::where('diagnosis','=','Não Diagnosticado')->where('user_id',$id)->count();
 
+      $animalsActive = Animal::where('active','=','sim')->where('user_id',$id)->count();
+      $concepcao = Coverage::where('diagnosis','!=','Falha')->where('user_id',$id)->count();
+      $vacas_inseminadas = Coverage::all()->where('user_id',$id)->count();
 
+      if($animalsActive != 0){
+          $servico = number_format(($vacas_inseminadas * 100) / $animalsActive, 2);
+      }else {
+        $servico = '';
+      }
+      if($servico != 0){
+            $concepcao = number_format(($coverageDiagnosisP * 100) / $servico, 2);
+            $prenhez = number_format($coverageDiagnosisP / $animalsActive, 2)*100;
+      }else{
+          $servico = '';
+          $concepcao = '';
+          $prenhez = '';
+      }
 
-        return view('painel.users.show',compact('iterable','animalsTotal','mediaDel','production_last_3_months','production_last_month','production_current_month'));
+        return view('painel.users.show',compact(
+                                              'iterable',
+                                              'animalsTotal',
+                                              'mediaDel',
+                                              'production_last_3_months',
+                                              'production_last_month',
+                                              'production_current_month',
+                                              'animalsTotalActive',
+                                              'coverageDiagnosisP',
+                                              'coverageDiagnosisF',
+                                              'coverageDiagnosisN',
+                                              'concepcao',
+                                              'servico',
+                                              'vacas_inseminadas',
+                                              'concepcao',
+                                              'prenhez'
+          )
+        );
     }
 
     public function changeStatus(Request $request)

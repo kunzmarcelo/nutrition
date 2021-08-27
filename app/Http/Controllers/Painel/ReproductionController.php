@@ -8,6 +8,7 @@ use App\Animal;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use PDF;
+use App\Setting;
 
 class ReproductionController extends Controller
 {
@@ -32,8 +33,8 @@ class ReproductionController extends Controller
     public function create()
     {
       $animals = Animal::where('user_id','=',auth()->user()->id)->get();
-             // alert()->error('Ocorreu um erro por favor tente novamente mais tarde!','Woops')->persistent('Fechar')->autoclose(1800);
-        return view('painel.reproduction.create', compact('animals'));
+      $setting = Setting::where('user_id','=',auth()->user()->id)->first();
+        return view('painel.reproduction.create', compact('animals','setting'));
     }
 
     /**

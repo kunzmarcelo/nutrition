@@ -19,7 +19,7 @@ class CoveragesTable extends Migration
             $table->date('last_birth')->nullable(); // último parto
             $table->string('type',55)->nullable(); // tipo de cobertura (Inseminação, Monta Natural, Embrião)
             $table->date('insemination_date')->nullable(); //data da inseminação
-            $table->string('diagnosis',15)->nullable(); // diagnostico (Não Diagnosticado, Falha, Prenha)
+            $table->string('diagnosis',25)->nullable(); // diagnostico (Não Diagnosticado, Falha, Prenha)
 
             $table->date('date_next_heat')->nullable(); // data do proximo cio
             $table->date('date_touch')->nullable(); // data do proximo toque

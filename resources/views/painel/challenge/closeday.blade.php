@@ -86,12 +86,12 @@
                                       <th>Litros</th>
                                       <th>Resultado</th>
                                       <th>Projeção</th>
-                                      
+
                                       <th>Estimativa</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    
+
                                     @foreach ($iterable as $result)
 
                                   <tr>
@@ -99,10 +99,10 @@
                                         <td>{{$result->total_production .'lts'}}</td>
                                       <td>{{$result->result .' kg/dia'}}</td>
                                       <td>{{$result->production_projection .' %'}}</td>
-                                      
+
                                       <td>{{($result->production_projection * $result->total_production) / 100 + $result->total_production.'lts'}} <i class="fas fa-chart-line"></i> </td>
 
-                                    
+
                                   </tr>
 
 
@@ -110,7 +110,7 @@
 
                                 </tbody>
                             </table>
-                            
+
                         </div>
                         <!-- /.col -->
                     </div>
@@ -118,16 +118,16 @@
                         <div class="col-12">
                             <p>Quantidade de leite: <strong>{{$total_production }} lts/dia</strong></p>
                              <p>Total de animais lactantes: <strong>{{$total_animals }} animais</strong></p>
-                            
-                            <p>Média atual: <strong>{{number_format($total_production / $total_animals,2,',','') }} lts/dia</strong></p>
-                            <p>Estimativa de aumento em: <strong>{{$total_production - $production_projection }} Litros dia</strong></p>
+
+                            <p>Média atual: <strong>{{$current_average }} lts/dia</strong></p>
+                            <p>Estimativa de aumento em: <strong>{{ $estimative }} Litros dia</strong></p>
                             <hr>
                              <p>Total de ração dia: <strong>{{$total_ration }} Kg/dia</strong></p>
-                            <p>Total de ração mês: <strong>{{$total_ration * 30 }} Kg/dia</strong></p>
-                           
+                            <p>Total de ração mês: <strong>{{$total_ration_month }} Kg/dia</strong></p>
+
                             {{--<p>Média estimada: <strong>{{$total_production / $total_animals }} lts/dia</strong></p>--}}
-                            
-                        </div> 
+
+                        </div>
                     </div>
                     <!-- /.row -->
 

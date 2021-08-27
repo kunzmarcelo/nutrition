@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Animal;
 use App\Delivery;
+use App\Setting;
 use App\Coverage;
 use App\Production;
 use App\Reproduction;
@@ -51,16 +52,21 @@ class HomeController extends Controller
           if( Auth::user()->level  == 'produtor' && Auth::user()->status == 'sim') {
             $now = Carbon::now()->format('m');
 
-            // /$results = $this->delivery->whereMonth('collection_date', '=', $now)->get();
-            $results = Delivery::where('user_id','=',auth()->user()->id)->orderBy('collection_date','ASC')->get();
-            //$results = Delivery::whereMonth('collection_date', '=', $now)->where('user_id','=',auth()->user()->id)->get();
+
+            $results = Delivery::totalMonthDelivery();
+            $productionTotal = Delivery::productionTotalMonth();
+            $checksetting = Setting::checkSetting();
+            // if ($checksetting < 1){
+            //   alert()->warning('Para um bom funcionamento defina essas configurações!','Configurações pendentes')->persistent('Fechar');
+            //    //return back();
+            // }
 
             $animalsActive = Animal::where('active','=','sim')->where('user_id','=',auth()->user()->id)->count();
             $animalsTotal = Animal::where('user_id','=',auth()->user()->id)->count();
-            $productionTotal = Delivery::whereMonth('collection_date', '=', $now)->where('user_id','=',auth()->user()->id)->sum('total_liters_produced');
+
             $mediaDel = Reproduction::where('user_id','=',auth()->user()->id)->avg('del');
 
-            $production = Production::where('user_id','=',auth()->user()->id)->orderBy('date_milking','ASC')->get();
+            // $production = Production::where('user_id','=',auth()->user()->id)->orderBy('date_milking','ASC')->get();
 
             $coverageDiagnosisP = Coverage::where('diagnosis','=','Prenha')->where('user_id','=',auth()->user()->id)->count();
             $coverageDiagnosisF = Coverage::where('diagnosis','=','Falha')->where('user_id','=',auth()->user()->id)->count();
@@ -70,17 +76,21 @@ class HomeController extends Controller
             $vacas_inseminadas = Coverage::all()->where('user_id','=',auth()->user()->id)->count();
 
 
-            $servico = number_format(($vacas_inseminadas * 100) / $animalsActive, 2);
-              if($servico != 0){
+            if($animalsActive != 0){
+                $servico = number_format(($vacas_inseminadas * 100) / $animalsActive, 2);
+            }else {
+              $servico = '';
+            }
+            if($servico != 0){
                   $concepcao = number_format(($coverageDiagnosisP * 100) / $servico, 2);
-                  $prenhez = number_format($coverageDiagnosisP / $animalsActive, 2);
-          }else{
-            $servico = '';
-            $concepcao = '';
-            $prenhez = '';
-          }
+                  $prenhez = number_format($coverageDiagnosisP / $animalsActive, 2)*100;
+            }else{
+                $servico = 0;
+                $concepcao = 0;
+                $prenhez = 0;
+            }
 
-            // dd($concepcao);
+             // dd($prenhez);
 
          $production = Animal::with('productions')->where('user_id','=',auth()->user()->id)
                     ->whereHas('Productions')->get();
@@ -100,7 +110,8 @@ class HomeController extends Controller
                                             'servico',
                                             'vacas_inseminadas',
                                             'concepcao',
-                                            'prenhez'
+                                            'prenhez',
+                                            'checksetting'
                                           ),array('production'=>$production)),200);
 
               // return view('home',compact('results','animalsActive','animalsTotal','productionTotal','mediaDel','production'));

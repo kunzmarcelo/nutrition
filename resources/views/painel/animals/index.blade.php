@@ -54,9 +54,10 @@
                                         <th>#</th>
                                         <th>Brinco</th>
                                         <th>Nome</th>
-                                        <th>Sexo</th>
+                                        <th>Ultimo Parto</th>
                                         <th>Lote</th>
                                         <th>Ativo</th>
+                                        {{-- <th>#</th> --}}
 
                                     </tr>
                                 </thead>
@@ -71,7 +72,7 @@
                                         <td>{{$result->id}}</td>
                                         <td>{{$result->earring}}</td>
                                         <td>{{$result->name }}</td>
-                                        <td>{{$result->sex }}</td>
+                                        <td>{{$result->birth_date }}</td>
                                         <td>{{$result->lot->name }}</td>
                                         <td>
                                             @if($result->active == 'Sim')
@@ -80,6 +81,11 @@
                                                 <span class="badge bg-danger">{{$result->active }}</span>
                                                 @endif
                                         </td>
+                                        {{-- <td>
+                                          <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
+                                              Launch Default Modal
+                                          </button>
+                                        </td> --}}
 
                                         {{-- <td>
                                             <a href='{{route('works.show',$result->id)}}' align="right" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i> View</a>
@@ -111,10 +117,31 @@
         </div>
         <!-- /.card-body -->
     </div>
+
     <!-- /.card -->
     <!-- /.container-fluid -->
 </section>
-
+<div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Default Modal</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>One fine body…</p>
+            </div>
+            <div class="modal-footer justify-content-between">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
 
 @section('js')
 
