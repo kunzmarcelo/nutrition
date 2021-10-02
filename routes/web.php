@@ -71,6 +71,8 @@ Route::get('changeStatus', 'Painel\UserController@changeStatus');
 
 Route::get('desafio_get/{id}', 'Painel\ChallengeController@getProducao'); // busca a producao do animal para o novo desafio
 Route::get('stocks_get/{id}', 'Painel\ChallengeController@getStock'); // busca o resultado do insumo
+Route::get('cobertura_get/{id}', 'Painel\CoverageController@getLastDelivery'); // busca da data do ultimo parto se existir
+Route::get('cobertura_apto_get/{id}', 'Painel\CoverageController@getLastCoverage'); // busca se o animal está apto a receber o procedimento
 
 Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
 });

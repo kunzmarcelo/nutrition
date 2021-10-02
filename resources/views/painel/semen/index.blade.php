@@ -11,7 +11,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{url('painel/home')}}">Home</a></li>
-                    <li class="breadcrumb-item active">Estoque</li>
+                    <li class="breadcrumb-item active">Semem</li>
                 </ol>
             </div>
         </div>
@@ -26,7 +26,7 @@
                     <div class="col-md-8"></div>
 
                     <div class="col-md-4">
-                      <a href="{{url('painel/estoque/create')}}" class="btn btn-outline-info btn-block btn-lg"><b>Cadastrar</b></a>
+                      <a href="{{url('painel/semem/create')}}" class="btn btn-outline-info btn-block btn-lg"><b>Cadastrar</b></a>
 
                     </div>
 
@@ -52,13 +52,12 @@
                                 <thead>
                                     <tr>
                                         <th>Cod</th>
-                                        <th>Descrição</th>
-                                        <th>Data de Entrada</th>
-                                        <th>Valor</th>
-                                        <th>Quantidade</th>
-                                        <th>Unidade</th>
-                                        <th>Fornecedor</th>
-                                        <th>Situação</th>
+                                        <th>Registro</th>
+                                        <th>Nome</th>
+                                        <th>Empresa</th>
+                                        <th>Sexado</th>
+                                        <th>Raça</th>
+                                        <th>Grau de Sangue</th>
                                     </tr>
                                 </thead>
 
@@ -69,13 +68,13 @@
 
                                     <tr>
                                         <td>{{$result->id}}</td>
-                                        <td>{{$result->description }}</td>
-                                        <td>{{$result->registration_date }}</td>
-                                        <td>{{$result->price }}</td>
-                                        <td>{{$result->the_amount }}</td>
-                                        <td>{{$result->unity }}</td>
-                                        <td>{{$result->provider }}</td>
-                                        <td>{{$result->active }}</td>
+                                        <td>{{$result->record }}</td>
+                                        <td>{{$result->name }}</td>
+                                        <td>{{$result->supplier_company }}</td>
+                                        <td>{{$result->sexed }}</td>
+                                        <td>{{$result->breed->name }}</td>
+                                        <td>{{$result->blood->name }}</td>
+                                        {{-- <td>{{$result->active }}</td> --}}
 
                                         {{-- <td>
                                             <a href='{{route('works.show',$result->id)}}' align="right" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i> View</a>

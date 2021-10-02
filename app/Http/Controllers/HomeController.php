@@ -60,8 +60,25 @@ class HomeController extends Controller
             //   alert()->warning('Para um bom funcionamento defina essas configurações!','Configurações pendentes')->persistent('Fechar');
             //    //return back();
             // }
+            $setting = Setting::where('user_id','=',auth()->user()->id)->first();
+            //dd($setting);
+            if($setting == null){
+              $dataHoje = Carbon::now()->format('Y-m-d');
+              $data_hoje = date('Y-m-d', strtotime("$dataHoje"));
+            }else{
+              $dataHoje = Carbon::now()->format('Y-m-d');
+              $data_hoje = date('Y-m-d', strtotime("- $setting->voluntary_waiting_period days", strtotime("$dataHoje")));
 
-            $animalsActive = Animal::where('active','=','sim')->where('user_id','=',auth()->user()->id)->count();
+            }
+            //$animalsActive = Animal::where('date_of_last_delivery', '<=', $data_hoje )->where('user_id','=',auth()->user()->id)->count(); // verificar se o animal passou do Periodo voluntario de espera PEV;
+            $animals_able_to_get_pregnant = Animal::where([
+              ['active','=','Sim'],
+              ['to_discard','=','Não'],
+              ['date_of_last_delivery', '<=', $data_hoje],
+              ['user_id','=',auth()->user()->id],
+            ])->count(); // verificar se o animal passou do Periodo voluntario de espera PEV;
+
+            $animals_producing = Animal::where('active','Sim')->where('user_id','=',auth()->user()->id)->count(); // verificar se o animal passou do Periodo voluntario de espera PEV;
             $animalsTotal = Animal::where('user_id','=',auth()->user()->id)->count();
 
             $mediaDel = Reproduction::where('user_id','=',auth()->user()->id)->avg('del');
@@ -75,15 +92,16 @@ class HomeController extends Controller
             $concepcao = Coverage::where('diagnosis','!=','Falha')->where('user_id','=',auth()->user()->id)->count();
             $vacas_inseminadas = Coverage::all()->where('user_id','=',auth()->user()->id)->count();
 
-
-            if($animalsActive != 0){
-                $servico = number_format(($vacas_inseminadas * 100) / $animalsActive, 2);
+//dd($concepcao);
+            if($animals_able_to_get_pregnant != 0){
+                $servico = number_format(($vacas_inseminadas / $animals_able_to_get_pregnant) *100,1); //TS (%) =  Número Vacas Inseminadas / Número Vacas Aptas
+                //$servico =  number_format(($vacas_inseminadas * 100) / $animals_able_to_get_pregnant, 2); //TS (%) =  Número Vacas Inseminadas / Número Vacas Aptas
             }else {
               $servico = '';
             }
             if($servico != 0){
-                  $concepcao = number_format(($coverageDiagnosisP * 100) / $servico, 2);
-                  $prenhez = number_format($coverageDiagnosisP / $animalsActive, 2)*100;
+                $concepcao = number_format(($coverageDiagnosisP / ($vacas_inseminadas)*100),1); // TAXA DE CONCEPÇÃO = Número de prenhes confirmado / Número de animais inseminados
+                  $prenhez = number_format(($coverageDiagnosisP * $animals_able_to_get_pregnant ),1); //Taxa de prenhez = Nº de animais prenhes / Nº de animais aptos
             }else{
                 $servico = 0;
                 $concepcao = 0;
@@ -98,7 +116,8 @@ class HomeController extends Controller
 
         return response(view('home',compact(
                                             'results',
-                                            'animalsActive',
+                                            'animals_able_to_get_pregnant',
+                                            'animals_producing',
                                             'animalsTotal',
                                             'productionTotal',
                                             'mediaDel',

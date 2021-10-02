@@ -87,7 +87,7 @@
                                     <div class="form-group">
                                         <label for="diagnosis">Selecione o Diagnostico</label>
                                         <select class=" {{ $errors->has('diagnosis') ? 'form-control is-invalid' : 'form-control' }}" name="diagnosis" id="diagnosis">
-                                            <option value="">Selecione....</option>
+                                            {{-- <option value="">Selecione....</option> --}}
                                             <option value="Não Diagnosticado">Não Diagnosticado</option>
                                             <option value="Prenha">Prenha</option>
                                             <option value="Falha">Falha</option>
@@ -120,7 +120,7 @@
 
 
                             </div>
-                            
+
                             <div class="card-footer ">
                                 <button type="submit" name="button" class="btn btn-outline-info btn-lg  float-right">Enviar</button>
                                 <button type="reset" name="button" class="btn btn-outline-danger btn-lg" onClick="history.go(-1)">Limpar</button>
@@ -136,6 +136,50 @@
     </div>
 </section>
 @include('sweet::alert')
+@section('js')
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('select[name="animal_id"]').on('change', function() {
+              var animal_id = $(this).val();
+              if (animal_id) {
+                  $.ajax({
+                      url: '/painel/cobertura_get/' + animal_id,
+                      type: 'GET',
+                      dataType: 'json',
+                      success: function(data) {
+                          $("#last_birth").val(data);
+
+                      }
+                  });
+              } else {
+
+              }
+          });
+      });
+  </script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('select[name="animal_id"]').on('change', function() {
+              var animal_id = $(this).val();
+              if (animal_id) {
+                  $.ajax({
+                      url: '/painel/cobertura_apto_get/' + animal_id,
+                      type: 'GET',
+                      dataType: 'json',
+                      success: function(data) {
+                        console.log(data);
+                          //$("#last_birth").val(data);
+
+                      }
+                  });
+              } else {
+
+              }
+          });
+      });
+  </script>
+@stop
+
 @section('jsas')
 
 <script>

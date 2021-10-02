@@ -41,7 +41,7 @@
                                     <div class="form-group row">
                                         <label for="dry_animal" class="col-sm-4 col-form-label">Secar animal<small> (em dias)</small> </label>
                                         <div class="col-sm-2">
-                                            <input class="{{ $errors->has('dry_animal') ? 'form-control is-invalid' : 'form-control' }} " value="60" name="dry_animal" id="dry_animal" type="number" placeholder="Secar animal" min="0">
+                                            <input class="{{ $errors->has('dry_animal') ? 'form-control is-invalid' : 'form-control' }} " value="222" name="dry_animal" id="dry_animal" type="number" placeholder="Secar animal" min="0">
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                     <div class="form-group row">
                                         <label for="pre_delivery" class="col-sm-4 col-form-label">Pré parto<small> (em dias)</small> </label>
                                         <div class="col-sm-2">
-                                            <input class="{{ $errors->has('pre_delivery') ? 'form-control is-invalid' : 'form-control' }} " value="21" name="pre_delivery" id="pre_delivery" type="number" placeholder="Pré parto" min="0">
+                                            <input class="{{ $errors->has('pre_delivery') ? 'form-control is-invalid' : 'form-control' }} " value="261" name="pre_delivery" id="pre_delivery" type="number" placeholder="Pré parto" min="0">
                                         </div>
                                     </div>
                                 </div>

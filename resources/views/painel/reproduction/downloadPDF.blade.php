@@ -23,11 +23,11 @@
                         <!-- title row -->
                         <div class="row">
                             <div class="col-12">
-                                <h4>
-                                    <img src="{{url('vendor/adminlte/dist/img/farms_nutrition.png')}}" style="height:70px; width: 70px">
-                                    Farms Nutrition
-                                    <small class="float-right">Realizado em: {{Carbon::parse($date)->format('d/m/Y')}}</small>
-                                </h4>
+                                 <h4>
+                                <img src="{{url('vendor/adminlte/dist/img/gpr_site.png')}}" style="height:70px; width: 70px">
+                                Nutrição Animal
+                                <small class="float-right">Realizado em: {{Carbon::parse($date)->format('d/m/Y')}}</small>
+                            </h4>
                             </div>
                             <!-- /.col -->
                         </div>
@@ -45,7 +45,7 @@
                         </div>
 
                         <div class="row">
-                            <div class="col-12 table-responsive">
+                            
                                 <table class="table table-striped table-sm">
                                     <thead>
                                         <tr>
@@ -56,7 +56,6 @@
                                           <th>Secar</th>
                                           <th>Pré parto</th>
                                           <th>DEL</th>
-                                          <th>DEL Total</th>
                                           <th>Situação</th>
                                           <th>1° Observação</th>
                                           <th>2° Observação</th>
@@ -99,22 +98,7 @@
                                             </td>
 
                                             <td>{{$result->del }}</td>
-                                            <td>
-                                              @if($result->del_total)
-                                                  {{$result->del_total}}
-                                              @else
-                                                @empty (!$result->delivery_date)
-                                                  <?php
-                                                    $date1 = Carbon::parse($result->dry_date);
-                                                    $date2 = Carbon::parse($result->delivery_date);
-
-                                                    $difference = $date1->diff($date2)->days;
-                                                  ?>
-                                                  {{$difference}}
-                                                @endempty
-                                            @endif
-
-                                            </td>
+                                           
 
                                             <td>{{$result->situation }}</td>
 
@@ -127,7 +111,7 @@
 
                                     </tbody>
                                 </table>
-                            </div>
+                            
                             <!-- /.col -->
                         </div>
 

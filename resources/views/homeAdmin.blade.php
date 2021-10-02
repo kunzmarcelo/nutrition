@@ -22,7 +22,7 @@
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{url('painel/home')}}">Home</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
+                    <li class="breadcrumb-item active">Dashboard Admin</li>
                 </ol>
             </div>
         </div>
@@ -179,13 +179,6 @@
 
 
 
-
-
-
-
-
-
-
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
@@ -271,7 +264,7 @@
 
 @stop
 
-@section('js')
+@section('jss')
 
   <script>
   Highcharts.chart('container', {

@@ -3,6 +3,8 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Breed;
+use App\Blood;
 
 class Semen extends Model
 {
@@ -15,4 +17,11 @@ class Semen extends Model
       'sexed',
       'user_id',
     ];
+
+    public function breed(){
+      return $this->belongsTo(Breed::class);
+    }
+    public function blood(){
+      return $this->belongsTo(Blood::class);
+    }
 }

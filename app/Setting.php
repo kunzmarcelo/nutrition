@@ -15,6 +15,7 @@ class Setting extends Model
       'released_for_ultrasound',
       'days_to_weaning',
       'voluntary_waiting_period',
+      'average_day_of_the_month',
       'user_id',
     ];
 

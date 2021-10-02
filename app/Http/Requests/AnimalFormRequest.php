@@ -26,6 +26,7 @@ class AnimalFormRequest extends FormRequest
       return [
         'name'=>'required',
         'earring'=>'required',
+        'date_of_last_delivery'=>'required',
 
       ];
     }
@@ -35,6 +36,7 @@ class AnimalFormRequest extends FormRequest
 
           'name.required'=>'O nome do animal é obrigatório',
           'earring.required'=>'O número do brinco é obrigatório',
+          'date_of_last_delivery.required'=>'Data do Ultimo parto é obrigatório',
         ];
     }
 }

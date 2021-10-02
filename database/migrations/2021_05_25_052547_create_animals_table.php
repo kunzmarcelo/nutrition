@@ -26,6 +26,7 @@ class CreateAnimalsTable extends Migration
             $table->string('sex')->nullable(); // sexo
             $table->string('origin')->nullable(); // origem
             $table->date('date_of_last_delivery')->nullable(); // data do ultimo parto
+            $table->date('able_to_get_pregnant')->nullable(); // data apto a emprenhar 
             $table->string('value',20)->nullable(); // valor
             $table->date('weaning_date')->nullable(); // data do desmame
             $table->string('mother_on_the_property')->nullable(); // mãe na propriedade

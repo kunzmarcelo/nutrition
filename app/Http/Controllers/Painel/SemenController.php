@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\SemenFormRequest;
 use Illuminate\Http\Request;
 use App\Blood;
 use App\Breed;
@@ -17,7 +18,8 @@ class SemenController extends Controller
   }
     public function index()
     {
-        //
+      $results = $this->semen->all();
+        return view('painel.semen.index', compact('results'));
     }
 
     /**
@@ -38,7 +40,7 @@ class SemenController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SemenFormRequest $request)
     {
       $all = $request->all();
 

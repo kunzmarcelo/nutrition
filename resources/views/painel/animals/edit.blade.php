@@ -30,15 +30,18 @@
             <div class="col-md-12">
                 <div class="card card-info">
                     <div class="card-body">
-                        <form class="forms-sample" action="{{route('animais.store')}}" method="POST" enctype="multipart/form-data">
-                            {{csrf_field()}}
+                      <form class="forms-sample" action="{{route('animais.update',$iterable->id)}}" method="POST" enctype="multipart/form-data">
+
+                          {!!csrf_field()!!}
+                          {!! method_field('PATCH')!!}
+
                             <input name="user_id" type="hidden" value="{{Auth::user()->id}}">
                             <div class="row">
                                 <div class="col-sm-3">
                                     <!-- text input -->
                                     <div class="form-group">
                                         <label>Número do Brinco*</label>
-                                        <input class="{{ $errors->has('earring') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('earring')}}" name="earring" id="earring" type="text" placeholder="Número do Brinco*">
+                                        <input class="{{ $errors->has('earring') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->earring}}" name="earring" id="earring" type="text" placeholder="Número do Brinco*">
                                     </div>
                                 </div>
 
@@ -46,20 +49,20 @@
                                     <!-- text input -->
                                     <div class="form-group">
                                         <label>Nome do Animal*</label>
-                                        <input class="{{ $errors->has('name') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('name')}}" name="name" id="name" type="text" placeholder="Nome do Animal*">
+                                        <input class="{{ $errors->has('name') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->name}}" name="name" id="name" type="text" placeholder="Nome do Animal*">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <!-- text input -->
                                     <div class="form-group">
                                         <label>Número do registro</label>
-                                        <input class="{{ $errors->has('record') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('record')}}" name="record" id="record" type="text" placeholder="Número de registro">
+                                        <input class="{{ $errors->has('record') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->record}}" name="record" id="record" type="text" placeholder="Número de registro">
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Data do Ultimo parto</label>
-                                        <input class="{{ $errors->has('date_of_last_delivery') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('date_of_last_delivery')}}" name="date_of_last_delivery" id="date_of_last_delivery"
+                                        <input class="{{ $errors->has('date_of_last_delivery') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->date_of_last_delivery}}" name="date_of_last_delivery" id="date_of_last_delivery"
                                           type="date" placeholder="Data do Ultimo parto">
                                     </div>
                                 </div>
@@ -67,10 +70,11 @@
                             </div>
 
                             <div class="row">
+
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Data de Nascimento</label>
-                                        <input class="{{ $errors->has('birth_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('birth_date')}}" name="birth_date" id="birth_date" type="date" placeholder="data nascimento">
+                                        <input class="{{ $errors->has('birth_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->birth_date}}" name="birth_date" id="birth_date" type="date" placeholder="data nascimento">
                                     </div>
                                 </div>
 
@@ -79,18 +83,17 @@
                                         <label>Raça</label>
                                         <select class="{{ $errors->has('breed') ? 'form-control is-invalid' : 'form-control' }} " name="breed" id="breed">
                                             <option value="Desconhecido">Desconhecido</option>
-                                            <option value="Holandês preto e branco" label="Holandês preto e branco">Holandês preto e branco</option>
-                                            <option value="Jersey" label="Jersey">Jersey</option>
-                                            <option value="Ayrshire" label="Ayrshire">Ayrshire</option>
-                                            <option value="Gir leiteiro" label="Gir leiteiro">Gir leiteiro</option>
-                                            <option value="Girolando" label="Girolando">Girolando</option>
-                                            <option value="Guernsey" label="Guernsey">Guernsey</option>
-                                            {{-- <option value="Não informada" label="Não informada">Não informada</option> --}}
-                                            <option value="Normando" label="Normando">Normando</option>
-                                            <option value="Pardo suíça" label="Pardo suíça">Pardo suíça</option>
-                                            <option value="Pitangueiras" label="Pitangueiras">Pitangueiras</option>
+                                            <option value="Holandês preto e branco" @if ($iterable->breed == 'Holandês preto e branco') {{ 'selected' }} @endif>Holandês preto e branco</option>
+                                            <option value="Jersey" @if ($iterable->breed == 'Jersey') {{ 'selected' }} @endif>Jersey</option>
+                                            <option value="Ayrshire" @if ($iterable->breed == 'Ayrshire') {{ 'selected' }} @endif>Ayrshire</option>
+                                            <option value="Gir leiteiro" @if ($iterable->breed == 'Gir leiteiro') {{ 'selected' }} @endif>Gir leiteiro</option>
+                                            <option value="Girolando" @if ($iterable->breed == 'Girolando') {{ 'selected' }} @endif>Girolando</option>
+                                            <option value="Guernsey" @if ($iterable->breed == 'Guernsey') {{ 'selected' }} @endif>Guernsey</option>
+                                            {{-- <option value="Não informada" @if ($iterable->breed == 'Não informada') {{ 'selected' }} @endif>Não informada</option> --}}
+                                            <option value="Normando" @if ($iterable->breed == 'Normando') {{ 'selected' }} @endif>Normando</option>
+                                            <option value="Pardo suíça" @if ($iterable->breed == 'Pardo suíça') {{ 'selected' }} @endif>Pardo suíça</option>
+                                            <option value="Pitangueiras" @if ($iterable->breed == 'Pitangueiras') {{ 'selected' }} @endif>Pitangueiras</option>
                                         </select>
-
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
@@ -152,11 +155,12 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
+
                                     <div class="form-group">
                                         <label>Sexo</label>
                                         <select class="{{ $errors->has('sex') ? 'form-control is-invalid' : 'form-control' }} " name="sex">
-                                            <option value="Femea">Femea</option>
-                                            <option value="Macho">Macho</option>
+                                            <option value="Femea" @if ($iterable->sex == 'Femea') {{ 'selected' }} @endif>Femea</option>
+                                            <option value="Macho" @if ($iterable->sex == 'Macho') {{ 'selected' }} @endif>Macho</option>
                                         </select>
 
                                     </div>
@@ -168,6 +172,7 @@
                                   <div class="form-group">
                                       <label>Lote do Animal*</label>
                                       <select name="lot_id" id="lot_id" class=" {{ $errors->has('lot_id') ? 'form-control is-invalid' : 'form-control' }}">
+
                                           @foreach ($lots as $value)
                                           <option value="{{$value->id}}" {{old('type') == '{$value}' ? 'selected' : '' }}>{{$value->name}}</option>
                                           @endforeach
@@ -178,9 +183,9 @@
                                     <div class="form-group">
                                         <label>Origem</label>
                                         <select class="{{ $errors->has('origin') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('origin')}}" name="origin" id="origin">
-                                            <option value="Desconhecido">Desconhecido</option>
-                                            <option value="Nascimento">Nascimento</option>
-                                            <option value="Compra">Compra</option>
+                                            <option value="Desconhecido" @if ($iterable->origin == 'Desconhecido') {{ 'selected' }} @endif >Desconhecido</option>
+                                            <option value="Nascimento" @if ($iterable->origin == 'Nascimento') {{ 'selected' }} @endif >Nascimento</option>
+                                            <option value="Compra" @if ($iterable->origin == 'Compra') {{ 'selected' }} @endif >Compra</option>
                                         </select>
 
                                     </div>
@@ -189,14 +194,14 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Valor</label>
-                                        <input class="{{ $errors->has('value') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('value')}}" name="value" id="value" type="text" placeholder="Valor" onkeyup="formatarMoeda(this);">
+                                        <input class="{{ $errors->has('value') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->value}}" name="value" id="value" type="text" placeholder="Valor" onkeyup="formatarMoeda(this);">
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Data do desmame</label>
-                                        <input class="{{ $errors->has('weaning_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('weaning_date')}}" name="weaning_date" id="weaning_date" type="date" placeholder="data do demame">
+                                        <input class="{{ $errors->has('weaning_date') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->weaning_date}}" name="weaning_date" id="weaning_date" type="date" placeholder="data do demame">
                                     </div>
                                 </div>
                             </div> {{-- row--}}
@@ -205,22 +210,22 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Mãe da propriedade</label>
-                                        <select class="{{ $errors->has('mother_on_the_property') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('mother_on_the_property')}}" name="mother_on_the_property" id="mother_on_the_property">
-                                            <option value="Desconhecido">Desconhecido</option>
+                                        <select class="{{ $errors->has('mother_on_the_property') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->mother_on_the_property}}" name="mother_on_the_property" id="mother_on_the_property">
+                                            <option value="Desconhecido"  @if ($iterable->mother_on_the_property == 'Desconhecido') {{ 'selected' }} @endif>Desconhecido</option>
 
-                                            <option value="Sim">Sim</option>
-                                            <option value="Não">Não</option>
+                                            <option value="Sim"  @if ($iterable->mother_on_the_property == 'Sim') {{ 'selected' }} @endif>Sim</option>
+                                            <option value="Não"  @if ($iterable->mother_on_the_property == 'Não') {{ 'selected' }} @endif>Não</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Pai da propriedade</label>
-                                        <select class="{{ $errors->has('father_on_the_property') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('father_on_the_property')}}" name="father_on_the_property" id="father_on_the_property">
+                                        <select class="{{ $errors->has('father_on_the_property') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->father_on_the_property}}" name="father_on_the_property" id="father_on_the_property">
                                             <option value="Desconhecido">Desconhecido</option>
 
-                                            <option value="Sim">Sim</option>
-                                            <option value="Não">Não</option>
+                                            <option value="Sim"  @if ($iterable->father_on_the_property == 'Sim') {{ 'selected' }} @endif>Sim</option>
+                                            <option value="Não"  @if ($iterable->father_on_the_property == 'Não') {{ 'selected' }} @endif>Não</option>
                                         </select>
 
                                     </div>
@@ -235,9 +240,9 @@
                                 <div class="col-sm-3">
                                     <div class="form-group">
                                         <label>Ativo</label>
-                                        <select class="{{ $errors->has('active') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('active')}}" name="active" id="active">
-                                            <option value="Sim">Sim</option>
-                                            <option value="Não">Não</option>
+                                        <select class="{{ $errors->has('active') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->active}}" name="active" id="active">
+                                          <option value="Sim"  @if ($iterable->active == 'Sim') {{ 'selected' }} @endif>Sim</option>
+                                          <option value="Não"  @if ($iterable->active == 'Não') {{ 'selected' }} @endif>Não</option>
                                         </select>
 
                                     </div>
@@ -247,8 +252,8 @@
                                 <div class="col-sm-8">
                                     <div class="form-group">
                                         <label>Observações</label>
-                                        <textarea placeholder="Observações" class="{{ $errors->has('comments') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('comments')}}" name="comments" id="comments" rows="4"
-                                          cols="80">{{old('comments')}}</textarea>
+                                        <textarea placeholder="Observações" class="{{ $errors->has('comments') ? 'form-control is-invalid' : 'form-control' }} " value="{{$iterable->comments}}" name="comments" id="comments" rows="4"
+                                          cols="80">{{$iterable->comments}}</textarea>
 
                                     </div>
                                 </div>
@@ -256,8 +261,8 @@
                                     <div class="form-group">
                                         <label>Para descarte?</label>
                                         <select class="{{ $errors->has('to_discard') ? 'form-control is-invalid' : 'form-control' }} " value="{{old('to_discard')}}" name="to_discard" id="to_discard">
-                                            <option value="Não">Não</option>
-                                            <option value="Sim">Sim</option>
+                                          <option value="Sim"  @if ($iterable->to_discard == 'Sim') {{ 'selected' }} @endif>Sim</option>
+                                          <option value="Não"  @if ($iterable->to_discard == 'Não') {{ 'selected' }} @endif>Não</option>
                                         </select>
 
                                     </div>
@@ -288,10 +293,7 @@
         v = v.replace(/(\d)(\d{3}),/g, "$1.$2,");
         i.value = v;
     }
-
-
 </script>
-
 @stop
 @include('sweet::alert')
 @endsection

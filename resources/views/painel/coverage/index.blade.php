@@ -32,7 +32,10 @@
 
             <div class="col-sm-12">
                 <div class="form-group row">
-                    <div class="col-md-8"></div>
+                    <div class="col-md-2">  <a href="{{url('/painel/cobertura/prenha')}}" class="btn btn-outline-success btn-lg">Prenhas</a></div>
+                    <div class="col-md-2">  <a href="{{url('/painel/cobertura/falha')}}" class="btn btn-outline-danger btn-lg">Falhas</a></div>
+                    <div class="col-md-3">  <a href="{{url('/painel/cobertura/nao-diagnosticado')}}" class="btn btn-outline-warning btn-lg">Não Diagnosticado</a></div>
+                    <div class="col-md-1">  </div>
 
                     <div class="col-md-4">
                         <a href="{{url('painel/cobertura/create')}}" class="btn btn-outline-info btn-block btn-lg"><b>Cadastrar</b></a>

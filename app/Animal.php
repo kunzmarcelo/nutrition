@@ -23,6 +23,7 @@ class Animal extends Model
       'sex',
       'origin',
       'date_of_last_delivery',
+      'able_to_get_pregnant',
       'value',
       'weaning_date',
       'mother_on_the_property',

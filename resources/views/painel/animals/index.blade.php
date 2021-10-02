@@ -51,13 +51,14 @@
                             <table class="table table-hover data-table" id="dataTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
-                                        <th>Brinco</th>
-                                        <th>Nome</th>
+                                        {{-- <th>#</th> --}}
+                                        <th>Brinco/Nome</th>
                                         <th>Ultimo Parto</th>
+                                        <th>Apto a prenhar</th>
+                                        <th>Raça</th>
                                         <th>Lote</th>
                                         <th>Ativo</th>
-                                        {{-- <th>#</th> --}}
+                                        <th>#</th>
 
                                     </tr>
                                 </thead>
@@ -69,10 +70,23 @@
                                     {{-- @can('view', $result) --}}
 
                                     <tr>
-                                        <td>{{$result->id}}</td>
-                                        <td>{{$result->earring}}</td>
-                                        <td>{{$result->name }}</td>
-                                        <td>{{$result->birth_date }}</td>
+                                        {{-- <td>{{$result->id}}</td> --}}
+                                        <td>{{$result->earring.'/'.$result->name}}</td>
+                                        <td>
+                                            @empty (!$result->date_of_last_delivery)
+                                            {{Carbon::parse($result->date_of_last_delivery)->format('d/m/Y') }}
+                                            @endempty
+
+
+                                        </td>
+                                        <td>
+                                            @empty (!$result->able_to_get_pregnant)
+                                            {{Carbon::parse($result->able_to_get_pregnant)->format('d/m/Y') }}
+                                            @endempty
+
+                                        </td>
+                                        {{-- <td>{{ }}</td> --}}
+                                        <td>{{$result->breed }}</td>
                                         <td>{{$result->lot->name }}</td>
                                         <td>
                                             @if($result->active == 'Sim')
@@ -80,6 +94,9 @@
                                                 @else
                                                 <span class="badge bg-danger">{{$result->active }}</span>
                                                 @endif
+                                        </td>
+                                        <td>
+                                            <a href='{{route('animais.edit',$result->id)}}' align="right" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Editar</a>
                                         </td>
                                         {{-- <td>
                                           <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
@@ -90,9 +107,7 @@
                                         {{-- <td>
                                             <a href='{{route('works.show',$result->id)}}' align="right" class="btn btn-primary btn-sm"><i class="fas fa-folder"></i> View</a>
                                         </td>
-                                        <td>
-                                            <a href='{{route('works.edit',$result->id)}}' align="right" class="btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i> Edit</a>
-                                        </td>
+
                                         <td>
                                             <form action="{{route('works.destroy', $result->id)}}" method="post">
                                                 {{ csrf_field() }}

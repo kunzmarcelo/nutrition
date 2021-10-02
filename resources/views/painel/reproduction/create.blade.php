@@ -187,7 +187,7 @@
                 days = parseInt($("#days").val(), 10);
 
             if (!isNaN(date.getTime())) {
-                date.setDate((date.getDate() + {{$setting->animal_birth}}) - {{$setting->dry_animal}});
+                date.setDate((date.getDate() + {{$setting->dry_animal}}));
                 //2012-12-17
                 $('#dry_date')[0].valueAsDate = date;
                 //$("#expected_delivery_date").val(date.toInputFormat());
@@ -217,7 +217,7 @@
                 days = parseInt($("#days").val(), 10);
 
             if (!isNaN(date.getTime())) {
-                date.setDate((date.getDate() + {{$setting->animal_birth}}) - {{$setting->pregnancy_confirmation}});
+                date.setDate((date.getDate() + {{$setting->pre_delivery}}));
                 //2012-12-17
                 $('#pre_delivery_date')[0].valueAsDate = date;
                 //$("#expected_delivery_date").val(date.toInputFormat());

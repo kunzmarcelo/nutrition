@@ -45,8 +45,9 @@ return [
     |
     */
 
-    'logo' => '<b>Farms</b> Nutrition',
-    'logo_img' => 'vendor/adminlte/dist/img/farms_nutrition.png',
+    'logo' => '<b>GPR</b> Nutrição',
+    //'logo_img' => 'vendor/adminlte/dist/img/farms_nutrition.png',
+    'logo_img' => 'vendor/adminlte/dist/img/gpr_site.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -282,76 +283,40 @@ return [
                   [
                       'text'    => 'Cobertura',
                       'icon'    => 'fas fa-vector-square',
-                      'url'     => '#',
-                      'submenu' => [
-                          [
-                            'text'    => 'Cadastro',
-                            'url'     => 'painel/cobertura/create',
-                          ],
-                          [
-                            'text'    => 'Listagem',
-                            'url'     => 'painel/cobertura',
-                          ],
-
-                      ],
+                      'url'     => 'painel/cobertura',
+                      // 'submenu' => [
+                      //     [
+                      //       'text'    => 'Cadastro',
+                      //       'url'     => 'painel/cobertura/create',
+                      //     ],
+                      //     [
+                      //       'text'    => 'Listagem',
+                      //       'url'     => 'painel/cobertura',
+                      //     ],
+                      //
+                      // ],
                   ],
                   [
                       'text'    => 'Ultrassom',
-                      'icon'    => 'fas fa-vector-square',
-                      'url'     => '#',
-                      'submenu' => [
-                          [
-                            'text'    => 'Cadastro',
-                            'url'     => 'painel/reproducao/create',
-                          ],
-                          [
-                            'text'    => 'Listagem',
-                            'url'     => 'painel/reproducao',
-                          ],
-
-                      ],
+                      'icon'    => 'fas fa-stethoscope',
+                        'url'     => 'painel/reproducao',
+                      // 'submenu' => [
+                      //     [
+                      //       'text'    => 'Cadastro',
+                      //       'url'     => 'painel/reproducao/create',
+                      //     ],
+                      //     [
+                      //       'text'    => 'Listagem',
+                      //       'url'     => 'painel/reproducao',
+                      //     ],
+                      //
+                      // ],
                   ],
 
 
               ],
           ],
 
-          [
-              'text'    => 'Prenhez',
-              'icon'    => 'fab fa-algolia',
-              'submenu' => [
-                  [
-                      'text'    => 'Cobertura',
-                      'icon'    => 'fas fa-vector-square',
-                      'url'     => '#',
-                      'submenu' => [
-                          [
-                            'text'    => 'Cadastro',
-                            'url'     => 'painel/cobertura/create',
-                          ],
-                          [
-                            'text'    => 'Listagem',
-                            'url'     => 'painel/cobertura',
-                          ],
-
-                      ],
-                  ],
-                  [
-                      'text'    => 'Reprodução',
-                      'icon'    => 'fas fa-vector-square',
-                      'url'     => '#',
-                      'submenu' => [
-                          [
-                            'text'    => 'Cadastro',
-                            'url'     => 'painel/reproducao/create',
-                          ],
-                          [
-                            'text'    => 'Listagem',
-                            'url'     => 'painel/reproducao',
-                          ],
-
-                      ],
-                  ],
 
         ['header' => 'PRODUÇÃO'],
 
@@ -401,28 +366,6 @@ return [
                 'text'    => 'Listagem',
                 'url'  => 'painel/aplicacoes',
               ],
-
-            ],
-        ],
-
-
-
-                // [
-                //     'text'    => 'Inseminação/Cobertura',
-                //     'icon'    =>'fab fa-usb',
-                //     'url'     => '#',
-                //     'submenu' => [
-                //         [
-                //           'text'    => 'Cadastro',
-                //           'url'     => 'painel/inseminacao/create',
-                //         ],
-                //         [
-                //           'text'    => 'Listagem',
-                //           'url'     => 'painel/inseminacao',
-                //         ],
-                //
-                //     ],
-                // ],
 
             ],
         ],

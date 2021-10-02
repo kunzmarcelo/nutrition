@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Painel;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CoverageFormRequest;
 use App\Setting;
 use App\Procedure;
 use App\Animal;
 use App\Coverage;
 use App\Employee;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class CoverageController extends Controller
@@ -20,6 +22,13 @@ class CoverageController extends Controller
   }
     public function index()
     {
+      $setting = Setting::where('user_id','=',auth()->user()->id)->first();
+
+      $animalsCoverage = $this->coverage->where('diagnosis', '=','falha')
+                                ->where('user_id','=',auth()->user()->id);
+
+//dd($animalsCoverage);
+
       $results = $this->coverage->where('user_id','=',auth()->user()->id)->get();
       //dd($results);
       return view('painel.coverage.index', compact('results'));
@@ -38,11 +47,28 @@ class CoverageController extends Controller
      }
     public function create()
     {
-      $animals = Animal::where('user_id','=',auth()->user()->id)->get();
-      $procedures = Procedure::where('user_id','=',auth()->user()->id)->get();
+      $setting = Setting::where('user_id','=',auth()->user()->id)->first();
+
+      $dataHoje = Carbon::now()->format('Y-m-d');
+      $data_hoje = date('Y-m-d', strtotime("- $setting->voluntary_waiting_period days", strtotime("$dataHoje")));
+
+
+      //$animals = DB::select('SELECT * FROM animals WHERE ');
+
+      //$animals = Animal::whereBetween($data_hoje , 'date_of_last_delivery' )->where('user_id','=',auth()->user()->id)->get(); // verificar se o animal passou do Periodo voluntario de espera PEV
+      $animals = Animal::where([
+          ['active','=','Sim'],
+          ['to_discard','=','Não'],
+          ['date_of_last_delivery', '<=', $data_hoje],
+          ['user_id','=',auth()->user()->id],
+        ])->get(); // verificar se o animal passou do Periodo voluntario de espera PEV
+      //$animals = Animal::where('user_id','=',auth()->user()->id)->get();
+
+
+
       $employees = Employee::where('user_id','=',auth()->user()->id)->get();
       $setting = Setting::where('user_id','=',auth()->user()->id)->first();
-        return view('painel.coverage.create',compact('animals','procedures','employees','setting'));
+        return view('painel.coverage.create',compact('animals','employees','setting'));
     }
 
     /**
@@ -51,7 +77,7 @@ class CoverageController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CoverageFormRequest $request)
     {
       $all = $request->all();
 // dd($all);
@@ -76,8 +102,22 @@ class CoverageController extends Controller
        $iep = number_format(($value / $setting->average_day_of_the_month),2);
       //dd($iep);
       //dd(Carbon::parse($request->input('delivery_date'));
-       $del = Carbon::now()->diffInDays($delivery_date);
-// dd($del);
+
+      //strtotime($data_final) - strtotime($data_inicial);
+      $diferenca = strtotime(Carbon::now()) - strtotime($request->input('last_birth'));
+      $del = floor($diferenca / (60 * 60 * 24));
+
+      // $del = Carbon::now()->diffInDays($delivery_date);
+ //dd($del);
+
+// testar se essse animal já esta cadastrado ou prenha
+
+
+        // $consulta = $this->coverage->where('diagnosis',$request->input('diagnosis'))->where('user_id','=',auth()->user()->id);
+        //
+        // dd($consulta);
+
+
 
 
       $insert = $this->coverage->create([
@@ -98,13 +138,21 @@ class CoverageController extends Controller
               "user_id" => auth()->user()->id,
       ]);
 
+        $last_birth = $request->input('last_birth');
+        $value = Carbon::parse( $last_birth)->addDays($setting->voluntary_waiting_period);
+        $dados =  Animal::find($request->input('animal_id'));
+        $dados->date_of_last_delivery = $request->input('last_birth');
+        $dados->able_to_get_pregnant = $value;
+        $dados->save();
+      //$update =
+
       if ($insert) {
         alert()->success('Registro inserido!','Sucesso')->persistent('Fechar')->autoclose(1800);
                  return redirect()->back();
              }
              alert()->error('Ocorreu um erro por favor tente novamente mais tarde!','Woops')->persistent('Fechar')->autoclose(1800);
              return back();
-     
+
 
     }
 
@@ -131,6 +179,8 @@ class CoverageController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+
     public function edit($id)
     {
         //
@@ -170,5 +220,48 @@ class CoverageController extends Controller
                     'success' => 'Ocorreu um erro por favor tente novamente mais tarde!'
                 ]);
           }
+    }
+
+    public function getLastDelivery($id){
+      $date_of_last_delivery = Animal::where('id',$id)
+                              ->where('user_id','=',auth()->user()->id)
+                               ->pluck('date_of_last_delivery');
+
+                              //dd($producao);
+
+      return json_encode($date_of_last_delivery);
+    }
+
+
+    public function getLastCoverage($id){
+      $setting = Setting::where('user_id','=',auth()->user()->id)->first();
+
+      $dataHoje = Carbon::now()->format('Y-m-d');
+      $data_hoje = date('Y-m-d', strtotime("- $setting->pregnancy_confirmation days", strtotime("$dataHoje")));
+
+
+      // $not_fit = DB::select("SELECT * FROM coverages WHERE coverages.user_id = 6 AND diagnosis != 'Prenha' AND insemination_date <= $data_hoje")->get();
+
+
+    $not_fit = $this->coverage
+    ->where('user_id','=',auth()->user()->id)
+        ->where('animal_id','=',$id)
+        ->where('diagnosis','!=','Prenha')
+        ->where('insemination_date','<=',$data_hoje)->count();
+
+         // ->toSql();
+
+         if ($not_fit >= 0){
+
+           return response()->json([
+             'warning' => "esse animal não pode . $not_fit"
+               ]);
+             }else{
+               return response()->json([
+                 'warning' => "esse pode . $not_fit"
+                   ]);
+             }
+
+      //return json_encode($not_fit);
     }
 }

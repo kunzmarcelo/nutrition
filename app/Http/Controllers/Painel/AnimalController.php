@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\AnimalFormRequest;
+use App\Setting;
 use App\Animal;
 use App\Lot;
+use Carbon\Carbon;
 
 class AnimalController extends Controller
 {
@@ -46,8 +48,12 @@ class AnimalController extends Controller
 
       //dd($request->all());
       $nameFile = null;
+      $setting = Setting::where('user_id','=',auth()->user()->id)->first();
+      $date_of_last_delivery = $request->input('date_of_last_delivery');
 
+      $able_to_get_pregnant = Carbon::parse($date_of_last_delivery)->addDays($setting->voluntary_waiting_period);
 
+//dd($able_to_get_pregnant);
       $file = $request->file('image');
       if (!empty($file)) {
 
@@ -72,6 +78,7 @@ class AnimalController extends Controller
             'sex' => $request->input('sex'),
             'origin' => $request->input('origin'),
             'date_of_last_delivery' => $request->input('date_of_last_delivery'),
+            'able_to_get_pregnant' => $able_to_get_pregnant,
             'value' => $request->input('value'),
             'weaning_date' => $request->input('weaning_date'),
             'mother_on_the_property' => $request->input('mother_on_the_property'),
@@ -85,7 +92,28 @@ class AnimalController extends Controller
           Storage::disk('uploads')->put($nameFile, file_get_contents($file));
         }
       else{
-         $insert = $this->animal->create($request->all());
+         $insert = $this->animal->create([
+             'earring' => $request->input('earring'),
+             'record' => $request->input('record'),
+             'name' => $request->input('name'),
+             'lot_id' => $request->input('lot_id'),
+             'birth_date' => $request->input('birth_date'),
+             'breed' => $request->input('breed'),
+             'blood_grade' => $request->input('blood_grade'),
+             'sex' => $request->input('sex'),
+             'origin' => $request->input('origin'),
+             'date_of_last_delivery' => $request->input('date_of_last_delivery'),
+             'able_to_get_pregnant' => $able_to_get_pregnant,
+             'value' => $request->input('value'),
+             'weaning_date' => $request->input('weaning_date'),
+             'mother_on_the_property' => $request->input('mother_on_the_property'),
+             'father_on_the_property' => $request->input('father_on_the_property'),
+             'active' => $request->input('active'),
+             'comments' => $request->input('comments'),
+             'to_discard' => $request->input('to_discard'),
+             'user_id' => $request->input('user_id'),
+           ]
+         );
        }
 
 
@@ -116,7 +144,10 @@ class AnimalController extends Controller
      */
     public function edit($id)
     {
-        //
+      $lots = Lot::where('user_id','=',auth()->user()->id)->get();
+      $iterable = $this->animal->find($id);
+
+      return view('painel.animals.edit',compact('iterable','lots'));
     }
 
     /**
@@ -128,7 +159,42 @@ class AnimalController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $dados =  $this->animal->find($id);
+
+      $setting = Setting::where('user_id','=',auth()->user()->id)->first();
+      $date_of_last_delivery = $request->date_of_last_delivery;
+
+
+      $able_to_get_pregnant = Carbon::parse($date_of_last_delivery)->addDays($setting->voluntary_waiting_period);
+
+
+
+      $dados->earring = $request->earring;
+      $dados->record = $request->record;
+      $dados->name = $request->name;
+      $dados->lot_id = $request->lot_id;
+      $dados->birth_date = $request->birth_date;
+      $dados->breed = $request->breed;
+      $dados->blood_grade = $request->blood_grade;
+      $dados->sex = $request->sex;
+      $dados->origin = $request->origin;
+      $dados->date_of_last_delivery = $request->date_of_last_delivery;
+      $dados->able_to_get_pregnant = $able_to_get_pregnant;
+      $dados->value = $request->value;
+      $dados->weaning_date = $request->weaning_date;
+      $dados->mother_on_the_property = $request->mother_on_the_property;
+      $dados->father_on_the_property = $request->father_on_the_property;
+      $dados->active = $request->active;
+      $dados->comments = $request->comments;
+      $dados->to_discard = $request->to_discard;
+
+      $insert = $dados->save();
+      if ($insert) {
+        alert()->success('Registro alterado!','Sucesso')->persistent('Fechar')->autoclose(1500);
+                 return redirect()->back();
+             }
+             alert()->error('Ocorreu um erro por favor tente novamente mais tarde!','Woops')->persistent('Fechar')->autoclose(1500);
+             return back();
     }
 
     /**
